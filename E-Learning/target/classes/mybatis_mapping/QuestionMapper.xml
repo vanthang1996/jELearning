@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.QuestionMapper">
+	<resultMap type="com.spring.mapper.entities.Question"
+		id="questionResult">
+		<id column="MACH" property="questionId" />
+		<result column="NOIDUNG" property="content" />
+		<result column="MACHUONG" property="chapterId" />
+		<result column="MAMON" property="subjectId" />
+		<result column="MADOKHO" property="levelId" />
+		<result column="MAGV" property="teacherCreateId" />
+		<result column="TRANGTHAI" property="status" />
+		<collection column="MACH"
+			select="com.spring.mapper.AnswerMapper.getAnswerByQuestionId"
+			property="answers" />
+	</resultMap>
+
+	<select id="getAllRecord" resultMap="questionResult"
+		resultType="java.util.List">
+		select k.* from CAU_HOI k
+	</select>
+
+	<select id="getQuestionByChapterId" resultType="java.util.List"
+		parameterType="long" resultMap="questionResult">
+		select * from CAU_HOI where MACHUONG
+		=#{chapterId}
+	</select>
+	<select id="getQuestionBySubjectId" resultType="java.util.List"
+		parameterType="long" resultMap="questionResult">
+		select * from CAU_HOI where MAMON
+		=#{subjectId}
+	</select>
+
+
+
+</mapper>
