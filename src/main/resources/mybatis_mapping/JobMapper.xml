@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.JobMapper">
+	<resultMap type="com.spring.mapper.entities.Job"
+		id="jobResult">
+		<id column="MACV" property="jobId" />
+		<result column="MAMON" property="subjectId" />
+		<result column="MAGV" property="teacherId" />
+		<result column="MALOAICV" property="jobTypeId" />
+		<result column="TGBATDAU" property="startTime" />
+		<result column="TGKETTHUC" property="endTime" />
+		<result column="NOIDUNGCV" property="jobContent" />
+		<result column="TRANGTHAI" property="status" />
+	</resultMap>
+
+	<select id="getAllRecord" resultMap="jobResult"
+		resultType="java.util.List">
+		select k.* from CONG_VIEC k
+	</select>
+
+	<select id="getJobByTeacherId" resultMap="jobResult"
+		resultType="java.util.List" parameterType="long">
+		select * from CONG_VIEC
+		where MAGV = #{teacherId}
+	</select>
+
+
+</mapper>
