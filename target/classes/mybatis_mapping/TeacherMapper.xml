@@ -28,6 +28,10 @@
 		select * from GIANG_VIEN
 		where MABOMON = #{departmentId}
 	</select>
+	<select id="getRoleOfUserByEmail" resultType="java.lang.String"
+	statementType="CALLABLE" parameterType="java.lang.String" >
+	select * from RoleOfUser(#{email})
+	</select>
 
 
 </mapper>

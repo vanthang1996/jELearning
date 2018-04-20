@@ -18,5 +18,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-co
 		<mapper resource="./mybatis_mapping/StructureTestMapper.xml" />
 		<mapper resource="./mybatis_mapping/SubjectMapper.xml" />
 		<mapper resource="./mybatis_mapping/TeacherMapper.xml" />
+		<!-- get role user -->
+		<mapper resource="./mybatis_mapping/UserRoleMapper.xml" />
 	</mappers>
 </configuration>

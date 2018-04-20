@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.UserRoleMapper">
+	<resultMap type="com.spring.mapper.entities.UserRole"
+		id="userRoleResult">
+
+		<result column="EMAIL" property="email" />
+		<result column="MATKHAU" property="pwd" />
+		<result column="TRANGTHAI" property="status" />
+		<collection column="EMAIL" select="getRoleOfUserByEmail"
+			property="roles" />
+	</resultMap>
+
+	<select id="getAllRecord" resultMap="userRoleResult"
+		resultType="java.util.List">
+		select email, matkhau, trangthai from GIANG_VIEN 
+	</select>
+	<select id="getRoleOfUserByEmail" resultType="java.lang.String"
+		statementType="CALLABLE" parameterType="java.lang.String">
+		select * from
+		RoleOfUser(#{email})
+	</select>
+
+
+</mapper>
