@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.FacultyMapper">
+	<resultMap type="com.spring.mapper.entities.Faculty"
+		id="facultyResult">
+		<id column="MAKHOA" property="facultyId" />
+		<result column="TENKHOA" property="facultyName" />
+		<result column="MAGV" property="teacherManagementId" />
+		<collection column="MAKHOA"
+			select="com.spring.mapper.DepartmentMapper.getDepartmentsByFacultyId"
+			property="departments" />
+	</resultMap>
+
+	<select id="getAllRecord" resultMap="facultyResult"
+		resultType="java.util.List">
+		select k.* from KHOA k
+	</select>
+
+
+</mapper>
