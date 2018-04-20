@@ -10,27 +10,24 @@
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
 		<b:constructor-arg name="strength" value="12"></b:constructor-arg>
 	</b:bean>
+	<b:bean id="entryPoint"
+		class="com.spring.security.JwtAuthenticationEntryPoint"></b:bean>
 
-
-
-	<!-- <b:bean id="authenticationTokenFilterBean" -->
-	<!-- class="com.spring.security.JwtAuthenticationTokenFilter"></b:bean> -->
-
-	<!-- <b:bean id="corsFilter" -->
-	<!-- class="org.springframework.web.cors.UrlBasedCorsConfigurationSource"></b:bean> -->
-
-	<!-- <b:bean id="unauthorizedHandler" -->
-	<!-- class="com.spring.security.JwtAuthenticationEntryPoint"></b:bean> -->
-
-	<http auto-config="true" create-session="stateless">
-
+	<!-- Auto-config không cho phép tự động chuyển sang trang login khi đường 
+		dẫn không có quyền truy cập -->
+	<!-- entry-point-ref : chỉ đến bean định nghĩa sẽ làm gì khi đường dẫn không 
+		có quyền truy cập -->
+	<http auto-config="true" create-session="stateless"
+		pattern="/ws/auth/login" security="none"></http>
+	<http auto-config="false" create-session="stateless"
+		entry-point-ref="entryPoint">
 		<csrf disabled="true" />
-		<intercept-url pattern="/*"
-			access="hasRole('GV')" />
-
+		<intercept-url pattern="/ws/**" access="hasRole('GV')" />
 		<!-- <form-login login-page="/login" login-processing-url="/do-login" username-parameter="userName" 
 			password-parameter="pwd" authentication-success-forward-url="/home" authentication-failure-forward-url="/login-failed" 
-			/> <logout logout-url="/do-logout" logout-success-url="/logout-success" /> -->
+			/> -->
+		<logout logout-url="/do-logout"
+			logout-success-url="/logout-success" />
 		<custom-filter ref="filterBefore"
 			before="BASIC_AUTH_FILTER" />
 	</http>
@@ -46,11 +43,6 @@
 			<password-encoder ref="passwordEncoder" />
 		</authentication-provider>
 	</authentication-manager>
-<!-- 	<b:bean id="httpFirewall"
-		class="org.springframework.security.web.firewall.StrictHttpFirewall">
-		<b:property name="allowUrlEncodedSlash" value="true"></b:property>
-	</b:bean>
-	<http-firewall ref="httpFirewall" /> -->
 
 
 </b:beans>

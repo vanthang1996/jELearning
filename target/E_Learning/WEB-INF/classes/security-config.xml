@@ -13,8 +13,6 @@
 
 
 
-	<!-- <b:bean id="authenticationTokenFilterBean" -->
-	<!-- class="com.spring.security.JwtAuthenticationTokenFilter"></b:bean> -->
 
 	<!-- <b:bean id="corsFilter" -->
 	<!-- class="org.springframework.web.cors.UrlBasedCorsConfigurationSource"></b:bean> -->
@@ -23,10 +21,8 @@
 	<!-- class="com.spring.security.JwtAuthenticationEntryPoint"></b:bean> -->
 
 	<http auto-config="true" create-session="stateless">
-
 		<csrf disabled="true" />
-		<intercept-url pattern="/*"
-			access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/**" access="hasRole('GV')" />
 
 		<!-- <form-login login-page="/login" login-processing-url="/do-login" username-parameter="userName" 
 			password-parameter="pwd" authentication-success-forward-url="/home" authentication-failure-forward-url="/login-failed" 
@@ -46,11 +42,9 @@
 			<password-encoder ref="passwordEncoder" />
 		</authentication-provider>
 	</authentication-manager>
-	<b:bean id="httpFirewall"
-		class="org.springframework.security.web.firewall.StrictHttpFirewall">
-		<b:property name="allowUrlEncodedSlash" value="true"></b:property>
-	</b:bean>
-	<http-firewall ref="httpFirewall" />
+	<!-- <b:bean id="httpFirewall" class="org.springframework.security.web.firewall.StrictHttpFirewall"> 
+		<b:property name="allowUrlEncodedSlash" value="true"></b:property> </b:bean> 
+		<http-firewall ref="httpFirewall" /> -->
 
 
 </b:beans>

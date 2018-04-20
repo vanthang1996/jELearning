@@ -34,7 +34,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		// System.out.println("filter n�");
+		 System.out.println("filter nef");
 		String email = null;
 		String authToken = this.jwtService.getToken(request);
 		LOGGER.info("[auth token]: " + authToken);
