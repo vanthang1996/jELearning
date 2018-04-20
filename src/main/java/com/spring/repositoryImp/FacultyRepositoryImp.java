@@ -14,7 +14,7 @@ import com.spring.repository.FacultyRepository;
 
 @Repository
 public class FacultyRepositoryImp implements FacultyRepository {
-	private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+	private  final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
 

@@ -47,7 +47,14 @@ public class AppTest {
 
 	@Test
 	public void testGetRecordTeacher() {
-		this.teacherService.getAllRecord().stream().forEach(x -> {
+		// /*this.teacherService.getAllRecord().stream().forEach(x -> {
+		// System.out.println(x);
+		// });
+		// this.teacherService.getRoleOfUserByEmail("dinhlong@gmail.com").stream().forEach(x
+		// -> {
+		// System.out.println(x);
+		// });*/
+		this.teacherService.getAllRecordUserRole().stream().forEach(x -> {
 			System.out.println(x);
 		});
 	}
