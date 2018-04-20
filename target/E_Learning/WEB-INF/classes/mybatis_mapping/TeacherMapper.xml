@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.TeacherMapper">
+	<resultMap type="com.spring.mapper.entities.Teacher"
+		id="teacherResult">
+		<id column="MAGV" property="teacherId" />
+		<result column="HOGV" property="firstName" />
+		<result column="TENGV" property="lastName" />
+		<result column="NGAYSINH" property="birthDay" />
+		<result column="EMAIL" property="email" />
+		<result column="ANHGV" property="avatar" />
+		<result column="DIACHI" property="address" />
+		<result column="DIENTHOAI" property="phoneNumber" />
+		<result column="GIOITINH" property="sex" />
+		<result column="MABOMON" property="departmentId" />
+		<collection column="MAGV"
+			select="com.spring.mapper.JobMapper.getJobByTeacherId"
+			property="jobs" />
+	</resultMap>
+
+	<select id="getAllRecord" resultMap="teacherResult"
+		resultType="java.util.List">
+		select m.* from GIANG_VIEN m
+	</select>
+
+	<select id="getTeacherByDepartmentId" resultMap="teacherResult"
+		resultType="java.util.List" parameterType="long">
+		select * from GIANG_VIEN
+		where MABOMON = #{departmentId}
+	</select>
+	<select id="getRoleOfUserByEmail" resultType="java.lang.String"
+	statementType="CALLABLE" parameterType="java.lang.String" >
+	select * from RoleOfUser(#{email})
+	</select>
+
+
+</mapper>

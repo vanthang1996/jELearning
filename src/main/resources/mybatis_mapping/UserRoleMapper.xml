@@ -13,12 +13,20 @@
 
 	<select id="getAllRecord" resultMap="userRoleResult"
 		resultType="java.util.List">
-		select email, matkhau, trangthai from GIANG_VIEN 
+		select email, matkhau, trangthai from GIANG_VIEN
 	</select>
 	<select id="getRoleOfUserByEmail" resultType="java.lang.String"
 		statementType="CALLABLE" parameterType="java.lang.String">
 		select * from
 		RoleOfUser(#{email})
+	</select>
+
+
+	<select id="getUserRoleByEmail" resultMap="userRoleResult"
+		parameterType="java.lang.String">
+		select email, matkhau, trangthai from Giang_vien where
+		email =#{email}
+
 	</select>
 
 

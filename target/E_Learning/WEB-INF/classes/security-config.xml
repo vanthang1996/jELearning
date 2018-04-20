@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:b="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+	<b:bean id="passwordEncoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<b:constructor-arg name="strength" value="12"></b:constructor-arg>
+	</b:bean>
+
+
+
+	<!-- <b:bean id="authenticationTokenFilterBean" -->
+	<!-- class="com.spring.security.JwtAuthenticationTokenFilter"></b:bean> -->
+
+	<!-- <b:bean id="corsFilter" -->
+	<!-- class="org.springframework.web.cors.UrlBasedCorsConfigurationSource"></b:bean> -->
+
+	<!-- <b:bean id="unauthorizedHandler" -->
+	<!-- class="com.spring.security.JwtAuthenticationEntryPoint"></b:bean> -->
+
+	<http auto-config="true" create-session="stateless">
+
+		<csrf disabled="true" />
+		<intercept-url pattern="/*"
+			access="hasRole('ROLE_ADMIN')" />
+
+		<!-- <form-login login-page="/login" login-processing-url="/do-login" username-parameter="userName" 
+			password-parameter="pwd" authentication-success-forward-url="/home" authentication-failure-forward-url="/login-failed" 
+			/> <logout logout-url="/do-logout" logout-success-url="/logout-success" /> -->
+		<custom-filter ref="filterBefore"
+			before="BASIC_AUTH_FILTER" />
+	</http>
+
+	<b:bean id="filterBefore"
+		class="com.spring.security.JwtAuthenticationTokenFilter"></b:bean>
+
+
+	<authentication-manager
+		alias="authenticationManager">
+		<authentication-provider
+			user-service-ref="userDetailService">
+			<password-encoder ref="passwordEncoder" />
+		</authentication-provider>
+	</authentication-manager>
+	<b:bean id="httpFirewall"
+		class="org.springframework.security.web.firewall.StrictHttpFirewall">
+		<b:property name="allowUrlEncodedSlash" value="true"></b:property>
+	</b:bean>
+	<http-firewall ref="httpFirewall" />
+
+
+</b:beans>

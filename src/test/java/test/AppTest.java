@@ -1,5 +1,6 @@
 package test;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import com.spring.config.jwt.ConfigVariable;
 import com.spring.service.AnswerService;
 import com.spring.service.CreateQuestionService;
 import com.spring.service.ExamTestDetailService;
@@ -17,6 +19,7 @@ import com.spring.service.QuestionService;
 import com.spring.service.StructureTestService;
 import com.spring.service.TeacherService;
 
+//@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:root-context.xml")
 @WebAppConfiguration
@@ -117,6 +120,14 @@ public class AppTest {
 		this.questionService.getAllRecord().stream().forEach(x -> {
 			System.out.println(x);
 		});
+	}
+
+	@Autowired
+	private ConfigVariable configVariable;
+
+	@Test
+	public void testConfig() {
+		 System.out.println( this.configVariable.toString());
 	}
 
 }

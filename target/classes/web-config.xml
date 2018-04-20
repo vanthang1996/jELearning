@@ -20,5 +20,22 @@
 	<!-- scan beans -->
 	<context:component-scan
 		base-package="com.spring.*" />
+	<!-- cái này quan trọng để tìm thấy device nè! -->
+	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
+			<bean
+				class="org.springframework.mobile.device.DeviceWebArgumentResolver" />
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
 
+	<mvc:interceptors>
+		<!-- Resolve the device which has generated the request -->
+		<bean id="deviceResolverHandlerInterceptor"
+			class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor"></bean>
+
+		<!-- On pre handle, manage the user's site preference (declare after DeviceResolverHandlerInterceptor) -->
+		<bean
+			class="org.springframework.mobile.device.site.SitePreferenceHandlerInterceptor" />
+
+	</mvc:interceptors>
 </beans>

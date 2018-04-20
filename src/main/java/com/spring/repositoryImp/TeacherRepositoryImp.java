@@ -2,6 +2,7 @@ package com.spring.repositoryImp;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -60,5 +61,19 @@ public class TeacherRepositoryImp implements TeacherRepository {
 			session.close();
 		}
 		return list;
+	}
+
+	@Override
+	public Optional<UserRole> getUserRoleByEmail(String email) {
+		SqlSession session = this.sessionFactory.openSession();
+		UserRole userRole = null;
+		try {
+			userRole = session.selectOne("com.spring.mapper.UserRoleMapper.getUserRoleByEmail", email);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(userRole);
 	}
 }

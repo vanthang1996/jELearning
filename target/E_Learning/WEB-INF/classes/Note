@@ -1,0 +1,6 @@
+<beans></beans>   với <beans:beans></beans:beans> : xác định thẻ thuộc namespace nào ở xmlns.
+xmlns là gì? Giải quyết vấn đề trùng tên trong tài liệu XML
+
+
+** Thêm cột trạng thái giáo viên
+
