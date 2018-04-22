@@ -12,21 +12,27 @@
 	</b:bean>
 	<b:bean id="entryPoint"
 		class="com.spring.security.JwtAuthenticationEntryPoint"></b:bean>
+	<b:bean id="corsFilter"
+		class="org.springframework.web.cors.UrlBasedCorsConfigurationSource"></b:bean>
 
 	<!-- Auto-config không cho phép tự động chuyển sang trang login khi đường 
 		dẫn không có quyền truy cập -->
 	<!-- entry-point-ref : chỉ đến bean định nghĩa sẽ làm gì khi đường dẫn không 
 		có quyền truy cập -->
+		
+		
 	<http pattern="/auth/login" security="none"></http>
-	<http auto-config="false" entry-point-ref="entryPoint"  use-expressions="true" create-session="stateless">
-		<csrf disabled="true"  />
+	<http auto-config="false" entry-point-ref="entryPoint"
+		use-expressions="true" create-session="stateless">
+		<cors configuration-source-ref="corsFilter" />
+		<csrf disabled="true" />
 		<intercept-url pattern="/**" access="hasAuthority('GV')" />
-
+		<!-- <intercept-url pattern="/auth/login*" method="POST" access="permitAll"/> -->
 		<!-- <form-login login-page="/login" login-processing-url="/do-login" username-parameter="userName" 
 			password-parameter="pwd" authentication-success-forward-url="/home" authentication-failure-forward-url="/login-failed" 
 			/> -->
-		<logout logout-url="/do-logout"
-			logout-success-url="/logout-success" />
+		<!-- <logout logout-url="/do-logout" -->
+		<!-- logout-success-url="/logout-success" /> -->
 		<custom-filter ref="filterBefore"
 			before="BASIC_AUTH_FILTER" />
 	</http>
