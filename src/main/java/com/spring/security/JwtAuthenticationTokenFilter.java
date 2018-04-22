@@ -18,7 +18,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.spring.config.jwt.JwtService;
-import com.spring.domain.UserPrincipal;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
@@ -34,7 +33,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		 System.out.println("filter nef");
+		System.out.println("filter nef");
+		response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+		response.setHeader("Access-Control-Allow-Credentials", "true");
+		response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT, PATCH");
+		response.setHeader("Access-Control-Max-Age", "3600");
+		response.setHeader("Access-Control-Allow-Headers",
+				"Content-Type, Accept, X-Requested-With, remember-me, authorization, x-auth-token");
 		String email = null;
 		String authToken = this.jwtService.getToken(request);
 		LOGGER.info("[auth token]: " + authToken);
@@ -61,26 +66,18 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 						userDetails, null, userDetails.getAuthorities());
 
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-				LOGGER.info("[UserDetail from Token]: " + (UserPrincipal) userDetails);
 				LOGGER.info("authenticated user " + email + ", setting security context");
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 
-				response.setHeader("Access-Control-Allow-Credentials", "true");
-				response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT, PATCH");
-				response.setHeader("Access-Control-Max-Age", "3600");
-				response.setHeader("Access-Control-Allow-Headers",
-						"Content-Type, Accept, X-Requested-With, remember-me, authorization, x-auth-token");
 			}
 		}
-		response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+		// if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+		// response.setStatus(HttpServletResponse.SC_OK);
+		// } else {
+		// filterChain.doFilter(request, response);
+		// }
 
-//		if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-//			response.setStatus(HttpServletResponse.SC_OK);
-//		} else {
-//			filterChain.doFilter(request, response);
-//		}
-
-		 filterChain.doFilter(request, response);
+		filterChain.doFilter(request, response);
 
 	}
 

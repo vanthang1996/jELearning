@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +33,7 @@ import com.spring.domain.UserTokenState;
 @EnableWebSecurity
 @RequestMapping(value = "/auth")
 public class AuthenticationRest {
+	private final Logger logger = LoggerFactory.getLogger(AuthenticationRest.class);
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -43,7 +46,7 @@ public class AuthenticationRest {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody UserAuth authenticationRequest,
 			HttpServletResponse response, Device device) throws AuthenticationException, IOException {
-
+		logger.info("[Call /Login]");
 		UserDetails userDetails;
 
 		try {
@@ -63,7 +66,7 @@ public class AuthenticationRest {
 		// Add cookie to response
 		response.addCookie(jwtService.createAuthCookie(jws, expiresIn));
 		// Return the token
-		return ResponseEntity.ok(new UserTokenState(jws, expiresIn));
+		return  new  ResponseEntity(new UserTokenState(jws, expiresIn),HttpStatus.OK);
 	}
 
 }
