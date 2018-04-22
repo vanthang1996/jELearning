@@ -74,13 +74,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 		}
 		response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
 
-		if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-			response.setStatus(HttpServletResponse.SC_OK);
-		} else {
-			filterChain.doFilter(request, response);
-		}
+//		if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+//			response.setStatus(HttpServletResponse.SC_OK);
+//		} else {
+//			filterChain.doFilter(request, response);
+//		}
 
-		// filterChain.doFilter(request, response);
+		 filterChain.doFilter(request, response);
 
 	}
 

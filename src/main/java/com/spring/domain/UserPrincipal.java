@@ -27,7 +27,7 @@ public class UserPrincipal implements UserDetails {
 		List<String> list = this.user.getRoles();
 		if (list != null) {
 			list.forEach(x -> {
-				authorities.add(new SimpleGrantedAuthority(x));
+				authorities.add(new SimpleGrantedAuthority(x.trim()));
 			});
 		}
 

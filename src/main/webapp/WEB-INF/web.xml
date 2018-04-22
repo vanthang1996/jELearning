@@ -28,7 +28,7 @@
 	<!-- Map all requests to the DispatcherServlet for handling -->
 	<servlet-mapping>
 		<servlet-name>dispatcher-servlet</servlet-name>
-		<url-pattern>/ws/</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	<!-- Spring security -->
 
