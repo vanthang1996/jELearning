@@ -2,7 +2,9 @@
 package com.spring.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -66,7 +68,7 @@ public class AuthenticationRest {
 		// Add cookie to response
 		response.addCookie(jwtService.createAuthCookie(jws, expiresIn));
 		// Return the token
-		return  new  ResponseEntity(new UserTokenState(jws, expiresIn),HttpStatus.OK);
+		return new ResponseEntity(new UserTokenState(jws, expiresIn), HttpStatus.OK);
 	}
 
 }
