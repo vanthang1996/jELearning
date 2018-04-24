@@ -76,4 +76,18 @@ public class TeacherRepositoryImp implements TeacherRepository {
 		}
 		return Optional.ofNullable(userRole);
 	}
+
+	@Override
+	public Optional<Teacher> getTeacherByEmail(String email) {
+		SqlSession session = this.sessionFactory.openSession();
+		Teacher teacher = null;
+		try {
+			teacher = session.selectOne("com.spring.mapper.TeacherMapper.getTeacherByEmail", email);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(teacher);
+	}
 }

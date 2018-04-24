@@ -57,9 +57,10 @@ public class AppTest {
 		// -> {
 		// System.out.println(x);
 		// });*/
-		this.teacherService.getAllRecordUserRole().stream().forEach(x -> {
-			System.out.println(x);
-		});
+//		this.teacherService.getAllRecordUserRole().stream().forEach(x -> {
+//			System.out.println(x);
+//		});
+		System.out.println(this.teacherService.getTeacherByEmail("dinhlong@gmail.com").get());
 	}
 
 	@Autowired
@@ -127,7 +128,7 @@ public class AppTest {
 
 	@Test
 	public void testConfig() {
-		 System.out.println( this.configVariable.toString());
+		System.out.println(this.configVariable.toString());
 	}
 
 }
