@@ -11,7 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CorsFilter implements Filter {
+public class NoneSecurityFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {

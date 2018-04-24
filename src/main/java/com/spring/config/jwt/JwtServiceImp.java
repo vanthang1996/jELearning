@@ -3,6 +3,7 @@ package com.spring.config.jwt;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Optional;
 
 import javax.servlet.http.Cookie;
@@ -80,6 +81,16 @@ public class JwtServiceImp implements JwtService {
 		 * get token from from request header
 		 */
 		String authRequest = request.getHeader(this.configVariable.getJwtRequestHeader());
+		Enumeration<String> headerNames = request.getHeaderNames();
+		while (headerNames.hasMoreElements()) {
+			String headerName = headerNames.nextElement();
+			LOGGER.info("Header Name - " + headerName + ", Value - " + request.getHeader(headerName));
+		}
+		Enumeration<String> params = request.getParameterNames();
+		while (params.hasMoreElements()) {
+			String paramName = params.nextElement();
+			LOGGER.info("Parameter Name - " + paramName + ", Value - " + request.getParameter(paramName));
+		}
 		if (authRequest != null) {
 			if (authRequest.startsWith(this.configVariable.getJwtPrefix())) {
 				/**
