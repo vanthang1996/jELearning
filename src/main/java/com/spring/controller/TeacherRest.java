@@ -1,6 +1,7 @@
 
 package com.spring.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mobile.device.Device;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,7 +41,15 @@ public class TeacherRest {
 		if (optional.isPresent()) {
 			return new ResponseEntity<>(optional.get(), HttpStatus.OK);
 		}
-		ApiMessage apiMessage = new ApiMessage(HttpStatus.CONFLICT, "Looix");
+		ApiMessage apiMessage = new ApiMessage(HttpStatus.CONFLICT, "Lỗi");
 		return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
+	}
+
+	@RequestMapping(value = "/role")
+	public ResponseEntity<?> getRoleOfTeacher(HttpServletRequest request) {
+		String email = this.jwtService.getEmailFromToKen(this.jwtService.getToken(request));
+		List<String> result = this.teacherService.getRoleOfUserByEmail(email);
+		return new ResponseEntity<>(result, HttpStatus.OK);
+
 	}
 }
