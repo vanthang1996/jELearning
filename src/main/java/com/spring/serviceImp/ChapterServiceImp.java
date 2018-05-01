@@ -1,6 +1,7 @@
 package com.spring.serviceImp;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,11 @@ public class ChapterServiceImp implements ChapterService {
 	@Override
 	public List<?> getAllRecord() {
 		return this.chapterRepository.getAllRecord();
+	}
+
+	@Override
+	public Optional<?> getChapterBySubjectId(long subjectId, int page, int size) {
+		return this.chapterRepository.getChapterBySubjectId(subjectId, page, size);
 	}
 
 }

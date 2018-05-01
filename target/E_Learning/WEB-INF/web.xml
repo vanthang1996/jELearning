@@ -22,10 +22,6 @@
 			<param-name>throwExceptionIfNoHandlerFound</param-name>
 			<param-value>true</param-value>
 		</init-param>
-		<init-param>
-			<param-name>dispatchOptionsRequest</param-name>
-			<param-value>true</param-value>
-		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
@@ -45,7 +41,18 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
+	<!--  filter dung cho duong dan khong co security ex: security="none" -->
+	<filter>
+		<filter-name>noneSecurityFilter</filter-name>
+		<filter-class>com.spring.security.NoneSecurityFilter
+					</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>noneSecurityFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 </web-app>
 <!-- The front controller of this Spring Web application, responsible for 
 	handling all application requests -->

@@ -14,6 +14,16 @@
 			select="com.spring.mapper.AnswerMapper.getAnswerByQuestionId"
 			property="answers" />
 	</resultMap>
+	<resultMap type="com.spring.mapper.entities.Question"
+		id="questionResult_no_collection">
+		<id column="MACH" property="questionId" />
+		<result column="NOIDUNG" property="content" />
+		<result column="MACHUONG" property="chapterId" />
+		<result column="MAMON" property="subjectId" />
+		<result column="MADOKHO" property="levelId" />
+		<result column="MAGV" property="teacherCreateId" />
+		<result column="TRANGTHAI" property="status" />
+	</resultMap>
 
 	<select id="getAllRecord" resultMap="questionResult"
 		resultType="java.util.List">
@@ -21,12 +31,12 @@
 	</select>
 
 	<select id="getQuestionByChapterId" resultType="java.util.List"
-		parameterType="long" resultMap="questionResult">
+		parameterType="long" resultMap="questionResult_no_collection">
 		select * from CAU_HOI where MACHUONG
 		=#{chapterId}
 	</select>
 	<select id="getQuestionBySubjectId" resultType="java.util.List"
-		parameterType="long" resultMap="questionResult">
+		parameterType="long" resultMap="questionResult_no_collection">
 		select * from CAU_HOI where MAMON
 		=#{subjectId}
 	</select>

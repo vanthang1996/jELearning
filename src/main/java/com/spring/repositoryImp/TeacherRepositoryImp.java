@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.mapper.entities.Department;
 import com.spring.mapper.entities.Teacher;
 import com.spring.mapper.entities.UserRole;
 import com.spring.repository.TeacherRepository;
@@ -83,6 +84,34 @@ public class TeacherRepositoryImp implements TeacherRepository {
 		Teacher teacher = null;
 		try {
 			teacher = session.selectOne("com.spring.mapper.TeacherMapper.getTeacherByEmail", email);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(teacher);
+	}
+
+	@Override
+	public Optional<?> getListDepartmentyByTeacherEmail(String email) {
+		SqlSession session = this.sessionFactory.openSession();
+		List<Department> list = null;
+		try {
+			list = session.selectList("com.spring.mapper.DepartmentMapper.getListDepartmentyByTeacherEmail", email);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(list);
+	}
+
+	@Override
+	public Optional<?> getTeacherNoCollectionByTeacherId(long teacherId) {
+		SqlSession session = this.sessionFactory.openSession();
+		Teacher teacher = null;
+		try {
+			teacher = session.selectOne("com.spring.mapper.TeacherMapper.getTeacherByTeacherManagementId", teacherId);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		} finally {
