@@ -17,4 +17,8 @@ public interface TeacherRepository {
 	public Optional<UserRole> getUserRoleByEmail(String email);
 
 	public Optional<Teacher> getTeacherByEmail(String emailFromToKen);
+
+	public Optional<?> getListDepartmentyByTeacherEmail(String email);
+
+	public Optional<?> getTeacherNoCollectionByTeacherId(long teacherId);
 }
