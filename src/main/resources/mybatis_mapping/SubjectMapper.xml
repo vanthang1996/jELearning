@@ -17,10 +17,28 @@
 		<collection column="MAMON"
 			select="com.spring.mapper.ChapterMapper.getChapterBySubjectId"
 			property="chapters" />
-			<collection column="MAMON"
+		<collection column="MAMON"
 			select="com.spring.mapper.QuestionMapper.getQuestionBySubjectId"
 			property="questions" />
+		<collection column="MAMON"
+			select="com.spring.mapper.TeacherMapper.getTeacherBySubjectId"
+			property="teachers" />
 	</resultMap>
+	<resultMap type="com.spring.mapper.entities.Subject"
+		id="subjectResult_no_collection">
+		<id column="MAMON" property="subjectId" />
+		<result column="TENMON" property="subjectName" />
+		<result column="MABOMON" property="departmentId" />
+		<result column="MAGV" property="teacherManagementId" />
+		<result column="TRANGTHAI" property="status" />
+		<association  column="MAGV" select="com.spring.mapper.TeacherMapper.getTeacherByTeacherManagementId" property="teacherManagement"></association>
+	</resultMap>
+	<select id="getSubjectByTeacherId"
+		resultMap="subjectResult_no_collection" parameterType="long">
+		select MON_HOC.*
+		from QUAN_LY_MH join MON_HOC on MON_HOC.MAMON= QUAN_LY_MH.MAMON where
+		QUAN_LY_MH.MAGV =#{teacherId}
+	</select>
 
 	<select id="getAllRecord" resultMap="subjectResult"
 		resultType="java.util.List">
@@ -30,6 +48,17 @@
 		resultType="java.util.List" parameterType="long">
 		select * from MON_HOC where
 		MABOMON = #{departmentId}
+	</select>
+	<select id="getListSubjectOfTeacherPaging"
+		resultMap="subjectResult_no_collection" statementType="CALLABLE"
+		parameterType="java.util.Map">
+		{ call proc_paging_query(#{page}, #{size}, #{sumPage,
+		mode=OUT,
+		jdbcType=INTEGER},
+		#{sumRecord,
+		mode=OUT,jdbcType=INTEGER},'select * from MON_HOC where MAMON
+		in(SELECT MAMON FROM QUAN_LY_MH WHERE MAGV = (SELECT MAGV FROM
+		GIANG_VIEN WHERE EMAIL=''${email}'' ))')}
 	</select>
 
 

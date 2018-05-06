@@ -1,8 +1,11 @@
 package com.spring.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SubjectRepository {
 
-	public List<?> getAllRecord();
+	 List<?> getAllRecord();
+
+	 Optional<?> getListSubjectOfTeacherPaging(String email, int page, int size);
 }

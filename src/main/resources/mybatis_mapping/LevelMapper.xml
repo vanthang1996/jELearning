@@ -6,8 +6,12 @@
 		<id column="MADOKHO" property="levelId" />
 		<result column="TENDOKHO" property="levelName" />
 	</resultMap>
-	<select id="getAllRecord" 
-		resultMap="levelResult">
+	<select id="getAllRecord" resultMap="levelResult">
 		select d.* from do_kho d
+	</select>
+	<!-- association of StructureTestDetail -->
+	<select id="getLevelByLevelId" parameterType="long"
+		resultMap="levelResult">
+		Select * from do_kho where madokho=#{levelId}
 	</select>
 </mapper>

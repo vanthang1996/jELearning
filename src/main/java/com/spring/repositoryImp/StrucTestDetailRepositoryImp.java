@@ -2,6 +2,7 @@ package com.spring.repositoryImp;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -31,6 +32,20 @@ public class StrucTestDetailRepositoryImp implements StrucTestDetailRepository {
 			session.close();
 		}
 		return list;
+	}
+
+	@Override
+	public Optional<?> getListStrucTestDetailBySubjectId(long subjectId) {
+		SqlSession session = sessionFactory.openSession();
+		List<StrucTestDetail> list = Collections.emptyList();
+		try {
+			list = session.selectList("com.spring.mapper.StrucTestDetailMapper.getListStrucTestDetailBySubjectId",subjectId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(list);
 	}
 
 }

@@ -14,8 +14,8 @@ public class Teacher {
 	private String phoneNumber;
 	private boolean sex;
 	private long departmentId;
-	private List<SubjectManage> subjects;
 	private List<Job> jobs;
+	private List<Subject> subjects;
 
 	public Teacher() {
 	}
@@ -100,13 +100,6 @@ public class Teacher {
 		this.departmentId = departmentId;
 	}
 
-	public List<SubjectManage> getSubjects() {
-		return subjects;
-	}
-
-	public void setSubjects(List<SubjectManage> subjects) {
-		this.subjects = subjects;
-	}
 
 	public List<Job> getJobs() {
 		return jobs;
@@ -116,12 +109,20 @@ public class Teacher {
 		this.jobs = jobs;
 	}
 
+	public List<Subject> getSubjects() {
+		return subjects;
+	}
+
+	public void setSubjects(List<Subject> subjects) {
+		this.subjects = subjects;
+	}
+
 	@Override
 	public String toString() {
 		return "Teacher [teacherId=" + teacherId + ", firstName=" + firstName + ", lastName=" + lastName + ", birthDay="
 				+ birthDay + ", email=" + email + ", avatar=" + avatar + ", address=" + address + ", phoneNumber="
-				+ phoneNumber + ", sex=" + sex + ", departmentId=" + departmentId + ", subjects=" + subjects + ", jobs="
-				+ jobs + "]";
+				+ phoneNumber + ", sex=" + sex + ", departmentId=" + departmentId + ", jobs=" + jobs + ", subjects="
+				+ subjects + "]";
 	}
 
 }

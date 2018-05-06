@@ -8,11 +8,12 @@ public class Subject {
 	private long departmentId;
 	private long teacherManagementId;
 	private int status;
-	private List<SubjectManage> teachers;
+	private Teacher teacherManagement;
 	private StructureTest structureTest;
 	private List<ExamTest> examTests;
 	private List<Chapter> chapters;
 	private List<Question> questions;
+	private List<Teacher> teachers;
 
 	public Subject() {
 	}
@@ -57,18 +58,20 @@ public class Subject {
 		this.status = status;
 	}
 
+	public Teacher getTeacherManagement() {
+		return teacherManagement;
+	}
+
+	public void setTeacherManagement(Teacher teacherManagement) {
+		this.teacherManagement = teacherManagement;
+	}
+
 	/**
 	 * Chức năng chưa được thực hiện
 	 * 
 	 * @return null
 	 */
-	public List<SubjectManage> getTeachers() {
-		return teachers;
-	}
 
-	public void setTeachers(List<SubjectManage> teachers) {
-		this.teachers = teachers;
-	}
 
 	public StructureTest getStructureTest() {
 		return structureTest;
@@ -102,12 +105,21 @@ public class Subject {
 		this.questions = questions;
 	}
 
+	public List<Teacher> getTeachers() {
+		return teachers;
+	}
+
+	public void setTeachers(List<Teacher> teachers) {
+		this.teachers = teachers;
+	}
+
 	@Override
 	public String toString() {
 		return "Subject [subjectId=" + subjectId + ", subjectName=" + subjectName + ", departmentId=" + departmentId
-				+ ", teacherManagementId=" + teacherManagementId + ", status=" + status + ", teachers=" + teachers
-				+ ", structureTest=" + structureTest + ", examTests=" + examTests + ", chapters=" + chapters
-				+ ", questions=" + questions + "]";
+				+ ", teacherManagementId=" + teacherManagementId + ", status=" + status + ", teacherManagement="
+				+ teacherManagement + ", structureTest=" + structureTest + ", examTests=" + examTests + ", chapters="
+				+ chapters + ", questions=" + questions + ", teachers=" + teachers + "]";
 	}
+
 
 }

@@ -42,4 +42,14 @@ public class TeacherServiceImp implements TeacherService {
 		return this.teacherRepository.getTeacherByEmail(emailFromToKen);
 	}
 
+	@Override
+	public Optional<?> getListDepartmentyByTeacherEmail(String email) {
+		return this.teacherRepository.getListDepartmentyByTeacherEmail(email);
+	}
+
+	@Override
+	public Optional<?> getTeacherNoCollectionByTeacherId(long teacherId) {
+		return this.teacherRepository.getTeacherNoCollectionByTeacherId(teacherId);
+	}
+
 }
