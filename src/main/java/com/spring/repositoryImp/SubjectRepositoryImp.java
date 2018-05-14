@@ -60,4 +60,19 @@ public class SubjectRepositoryImp implements SubjectRepository {
 		return Optional.ofNullable(result);
 	}
 
+	@Override
+	public Optional<?> getSubjectsDataByDepartmentId(long departmentId) {
+		SqlSession session = sessionFactory.openSession();
+		List<Subject> list = Collections.emptyList();
+		try {
+			list = session.selectList("com.spring.mapper.SubjectMapper.getSubjectsDataByDepartmentId_no_collection",
+					departmentId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(list);
+	}
+
 }

@@ -7,4 +7,6 @@ public interface SubjectService {
 	public List<?> getAllRecord();
 
 	public Optional<?> getListSubjectOfTeacherPaging(String emailFromToKen, int page, int size);
+
+	public Optional<?> getSubjectsDataByDepartmentId(long departmentId);
 }

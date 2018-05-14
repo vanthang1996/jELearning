@@ -165,6 +165,13 @@ public class AppTest {
 		System.out.println(string);
 	}
 
+	@Test
+	public void testGetSubjectsByDepartmentIdNoCollection() throws JsonProcessingException {
+		Optional<?> optional = this.subjectService.getSubjectsDataByDepartmentId(1);
+		String string = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(optional.get());
+		System.out.println(string);
+	}
+
 	@Autowired
 	private ChapterService chapterService;
 
