@@ -15,11 +15,16 @@
 		resultType="java.util.List">
 		select c.* from CAU_TRUC_DE_THI c
 	</select>
+	<!-- association of structureTestDetail -->
+	<select id="getStrucTestByStrucTestId"
+		resultMap="structureTestResult" parameterType="long">
+		select * from
+		cau_truc_de_thi where mactdt=#{structureTestId}
+	</select>
 
 	<select id="getStructureTestBySubjectId"
 		resultMap="structureTestResult" resultType="java.lang.Object"
 		parameterType="long">
-		select  * from  CAU_TRUC_DE_THI where MAMON = #{subjectId}
-		
-		</select>
+		select * from CAU_TRUC_DE_THI where MAMON = #{subjectId}
+	</select>
 </mapper>

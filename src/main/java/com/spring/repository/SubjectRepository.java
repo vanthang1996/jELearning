@@ -5,7 +5,9 @@ import java.util.Optional;
 
 public interface SubjectRepository {
 
-	 List<?> getAllRecord();
+	List<?> getAllRecord();
 
-	 Optional<?> getListSubjectOfTeacherPaging(String email, int page, int size);
+	Optional<?> getListSubjectOfTeacherPaging(String email, int page, int size);
+
+	Optional<?> getSubjectsDataByDepartmentId(long departmentId);
 }
