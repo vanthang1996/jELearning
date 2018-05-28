@@ -11,6 +11,23 @@
 		<result column="TGKETTHUC" property="endTime" />
 		<result column="NOIDUNGCV" property="jobContent" />
 		<result column="TRANGTHAI" property="status" />
+		<association column="MAMON" property="subject"
+			select="com.spring.mapper.SubjectMapper.getSubjectBySubjectId_no_collection" />
+		<association column="MAGV" property="teacher"
+			select="com.spring.mapper.TeacherMapper.getTeacherByTeacherManagementId" />
+		<association column="MALOAICV" property="jobType"
+			select="com.spring.mapper.JobTypeMapper.getJobTypeByJobTypeId" />
+	</resultMap>
+	<resultMap type="com.spring.mapper.entities.Job"
+		id="jobResult_no_collection">
+		<id column="MACV" property="jobId" />
+		<result column="MAMON" property="subjectId" />
+		<result column="MAGV" property="teacherId" />
+		<result column="MALOAICV" property="jobTypeId" />
+		<result column="TGBATDAU" property="startTime" />
+		<result column="TGKETTHUC" property="endTime" />
+		<result column="NOIDUNGCV" property="jobContent" />
+		<result column="TRANGTHAI" property="status" />
 	</resultMap>
 
 	<select id="getAllRecord" resultMap="jobResult"
@@ -22,6 +39,17 @@
 		resultType="java.util.List" parameterType="long">
 		select * from CONG_VIEC
 		where MAGV = #{teacherId}
+	</select>
+
+	<select id="getJobsByTeacherIdPaging" resultMap="jobResult"
+		statementType="CALLABLE" parameterType="java.util.Map">
+		{ call
+		proc_paging_query(#{page}, #{size}, #{sumPage,
+		mode=OUT,
+		jdbcType=INTEGER},
+		#{sumRecord,
+		mode=OUT,jdbcType=INTEGER},'select *
+		from CONG_VIEC where MAGV =''${teacherId}''')}
 	</select>
 
 

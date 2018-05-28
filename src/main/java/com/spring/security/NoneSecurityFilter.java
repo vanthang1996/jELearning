@@ -10,7 +10,11 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+	
+/**
+ * @author vanth
+ * 
+ */
 public class NoneSecurityFilter implements Filter {
 
 	@Override

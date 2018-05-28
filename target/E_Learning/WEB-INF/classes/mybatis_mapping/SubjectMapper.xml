@@ -66,9 +66,16 @@
 		in(SELECT MAMON FROM QUAN_LY_MH WHERE MAGV = (SELECT MAGV FROM
 		GIANG_VIEN WHERE EMAIL=''${email}'' ))')}
 	</select>
-	<select id="getSubjectsDataByDepartmentId_no_collection"  resultType="java.util.List"
-		resultMap="subjectResult_no_collection" parameterType="long">
-		select  * from MON_HOC where MABOMON =#{departmentId}
+	<select id="getSubjectsDataByDepartmentId_no_collection"
+		resultType="java.util.List" resultMap="subjectResult_no_collection"
+		parameterType="long">
+		select * from MON_HOC where MABOMON =#{departmentId}
 	</select>
+	<!-- get subject by subjectId -->
 
+	<select id="getSubjectBySubjectId_no_collection"
+		resultType="java.util.List" resultMap="subjectResult_no_collection"
+		parameterType="long">
+		select * from MON_HOC where MAMON=#{subjectId}
+	</select>
 </mapper>
