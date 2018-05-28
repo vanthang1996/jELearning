@@ -10,6 +10,14 @@
 		<result column="MADOKHO" property="levelId" />
 		<result column="MAGV" property="teacherCreateId" />
 		<result column="TRANGTHAI" property="status" />
+		<association column="MACHUONG" property="chapter"
+			select="com.spring.mapper.ChapterMapper.getChapterByChapterId" />
+		<association column="MAMON" property="subject"
+			select="com.spring.mapper.SubjectMapper.getSubjectBySubjectId_no_collection" />
+		<association column="MADOKHO" property="level"
+			select="com.spring.mapper.LevelMapper.getLevelByLevelId" />
+		<association column="MAGV" property="teacher"
+			select="com.spring.mapper.TeacherMapper.getTeacherByTeacherManagementId" />
 		<collection column="MACH"
 			select="com.spring.mapper.AnswerMapper.getAnswerByQuestionId"
 			property="answers" />
@@ -41,6 +49,13 @@
 		=#{subjectId}
 	</select>
 
-
+	<select id="getListQuestionByChapterIdPaging" resultMap="questionResult" statementType="CALLABLE"
+		parameterType="java.util.Map">
+		{ call proc_paging_query(#{page}, #{size}, #{sumPage,
+		mode=OUT,
+		jdbcType=INTEGER},
+		#{sumRecord,
+		mode=OUT,jdbcType=INTEGER},'SELECT * FROM CAU_HOI WHERE MACHUONG=''${chapterId}''')}
+	</select>
 
 </mapper>

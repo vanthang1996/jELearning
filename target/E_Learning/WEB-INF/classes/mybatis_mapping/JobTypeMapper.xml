@@ -8,8 +8,13 @@
 	</resultMap>
 
 	<select id="getAllJobType" resultMap="jobTypeResult">
-		select l.* from LOAI_CONG_VIEC l
+		select l.* from
+		LOAI_CONG_VIEC l
 	</select>
-
+	<!-- Lấy jobType từ mã jobId -->
+	<select id="getJobTypeByJobTypeId" resultMap="jobTypeResult"
+		parameterType="long">
+		Select * from LOAI_CONG_VIEC where MALOAICV=#{jobTypeId}
+	</select>
 
 </mapper>

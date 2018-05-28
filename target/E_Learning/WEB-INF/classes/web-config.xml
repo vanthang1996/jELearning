@@ -12,12 +12,14 @@
                            http://www.springframework.org/schema/context/spring-context.xsd ">
 
 	<!-- cấu hình MVC cho Spring -->
+	
 	<!-- Hỗ trợ cho các định dạng số với @NumberFormat Hỗ trợ cho các định dạng 
 		ngày, lịch, và thời gian @DateTimeFormat. Hỗ trợ cho việc chứng thực đầu 
 		vào @Controller với @Valid. Hỗ trợ đọc và viết XML trên classpath. Hỗ trợ 
-		đọc và viết JSON trên classpath. @Controler, @RequestMapping -->
+		đọc và viết JSON trên classpath. @Controler, @RequestMapping trong web-->
 	<mvc:annotation-driven />
-	<!-- scan beans -->
+	<!-- scan beans có trong java code component là lớn nhất không biết thì 
+		cứ quất component, service, repository -->
 	<context:component-scan
 		base-package="com.spring.*" />
 	<!-- cái này quan trọng để tìm thấy device nè! -->
