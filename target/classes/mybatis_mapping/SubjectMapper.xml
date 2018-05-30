@@ -78,4 +78,10 @@
 		parameterType="long">
 		select * from MON_HOC where MAMON=#{subjectId}
 	</select>
+	<select id="getSubjectBySubjectId" resultType="java.util.List"
+		resultMap="subjectResult" parameterType="long">
+		select * from MON_HOC where
+		MAMON=#{subjectId}
+	</select>
+
 </mapper>

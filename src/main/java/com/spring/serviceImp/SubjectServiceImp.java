@@ -30,4 +30,9 @@ public class SubjectServiceImp implements SubjectService {
 		return this.subjectRepository.getSubjectsDataByDepartmentId(departmentId);
 	}
 
+	@Override
+	public Optional<?> getSubjectBySubjectId(long subjectId) {
+		return this.subjectRepository.getSubjectBySubjectId(subjectId);
+	}
+
 }
