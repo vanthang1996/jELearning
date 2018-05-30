@@ -27,13 +27,19 @@ public class SubjectRest {
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "size", required = false, defaultValue = "10") int size) {
 		Optional<?> optional = this.chapterService.getChapterBySubjectId(subjectId, page, size);
-		return new ResponseEntity<>(optional.get(), HttpStatus.OK);
+		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{departmentId}/subjects")
 	public ResponseEntity<?> getSubjectsDataByDepartmentId(@PathVariable long departmentId) {
 		Optional<?> optional = this.subjectService.getSubjectsDataByDepartmentId(departmentId);
-		return new ResponseEntity<>(optional.get(), HttpStatus.OK);
+		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/{subjectId}")
+	public ResponseEntity<?> getSubjectBySubjectId(@PathVariable long subjectId) {
+		Optional<?> optional = this.subjectService.getSubjectBySubjectId(subjectId);
+		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
 
 }

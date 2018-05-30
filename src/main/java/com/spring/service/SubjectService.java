@@ -9,4 +9,6 @@ public interface SubjectService {
 	public Optional<?> getListSubjectOfTeacherPaging(String emailFromToKen, int page, int size);
 
 	public Optional<?> getSubjectsDataByDepartmentId(long departmentId);
+
+	public Optional<?> getSubjectBySubjectId(long subjectId);
 }

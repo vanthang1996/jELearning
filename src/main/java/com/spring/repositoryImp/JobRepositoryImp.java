@@ -61,4 +61,19 @@ public class JobRepositoryImp implements JobRepository {
 		}
 		return Optional.ofNullable(result);
 	}
+
+	@Override
+	public String addOutLine(Job job) {
+		SqlSession session = sessionFactory.openSession();
+		String message = "";
+		try {
+			int rowNum = session.update("com.spring.mapper.JobMapper.addOutLine", job);
+			message = rowNum > 0 ? "Thêm thành công!" : "Thêm thất bại!";
+		} catch (Exception e) {
+			message = e.getMessage();
+		} finally {
+			session.close();
+		}
+		return message;
+	}
 }

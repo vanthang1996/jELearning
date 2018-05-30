@@ -51,6 +51,14 @@
 		mode=OUT,jdbcType=INTEGER},'select *
 		from CONG_VIEC where MAGV =''${teacherId}''')}
 	</select>
+	
+	<select id="addOutLine" statementType="CALLABLE"
+		parameterType="com.spring.mapper.entities.Job">
+		{ call
+		p_themCongViec_CONG_VIEC(#{subjectId},
+		#{teacherId}, 1,
+		#{startTime, mode=IN , jdbcType=DATE}, #{endTime, jdbcType=DATE}, #{jobContent})}
+	</select>
 
 
 </mapper>

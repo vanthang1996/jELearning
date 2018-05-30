@@ -26,4 +26,9 @@ public class JobServiceImp implements JobService {
 		return this.jobRepository.getJobsByTeacherIdPaging(teacherId, page, size);
 	}
 
+	@Override
+	public String addOutLine(Job job) {
+		return this.jobRepository.addOutLine(job);
+	}
+
 }

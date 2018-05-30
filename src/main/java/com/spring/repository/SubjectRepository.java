@@ -10,4 +10,6 @@ public interface SubjectRepository {
 	Optional<?> getListSubjectOfTeacherPaging(String email, int page, int size);
 
 	Optional<?> getSubjectsDataByDepartmentId(long departmentId);
+
+	Optional<?> getSubjectBySubjectId(long subjectId);
 }
