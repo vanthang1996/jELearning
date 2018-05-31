@@ -1,5 +1,7 @@
 package com.spring.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +22,14 @@ public class JobRest {
 
 	@RequestMapping("/add-out-line")
 	public ResponseEntity<?> addOutLine(@RequestBody Job job) throws JsonProcessingException {
-		String message = this.jobService.addOutLine(job);
+		Date startTime = new Date();
 		ObjectMapper mapper = new ObjectMapper();
+		String message;
+		if (job.getEndTime().after(startTime)) {
+			job.setStartTime(startTime);
+			message = this.jobService.addOutLine(job);
+		} else
+			message = "Invalid end date!";
 		return new ResponseEntity<>(mapper.writeValueAsString(message), HttpStatus.OK);
 	}
 
