@@ -11,4 +11,6 @@ public interface SubjectService {
 	public Optional<?> getSubjectsDataByDepartmentId(long departmentId);
 
 	public Optional<?> getSubjectBySubjectId(long subjectId);
+
+	Optional<?> getSubjectAddOutLineOrStructureTest(long departmentId, long jobTypeId);
 }

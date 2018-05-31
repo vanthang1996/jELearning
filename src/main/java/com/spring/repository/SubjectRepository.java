@@ -12,4 +12,6 @@ public interface SubjectRepository {
 	Optional<?> getSubjectsDataByDepartmentId(long departmentId);
 
 	Optional<?> getSubjectBySubjectId(long subjectId);
+
+	Optional<?> getSubjectAddOutLineOrStructureTest(long departmentId, long jobTypeId);
 }

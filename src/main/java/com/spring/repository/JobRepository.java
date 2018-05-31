@@ -11,4 +11,7 @@ public interface JobRepository {
 	public Optional<?> getJobsByTeacherIdPaging(long teacherId, int page, int size);
 
 	String addOutLine(Job job);
+
+	public String addStructureTest(Job job);
+
 }
