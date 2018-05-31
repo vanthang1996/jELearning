@@ -1,5 +1,7 @@
 package test;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -12,6 +14,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.config.jwt.ConfigVariable;
+import com.spring.mapper.entities.Job;
+import com.spring.repository.JobRepository;
 import com.spring.service.AnswerService;
 import com.spring.service.ChapterService;
 import com.spring.service.CreateQuestionService;
@@ -156,6 +160,13 @@ public class AppTest {
 	private SubjectService subjectService;
 
 	@Test
+	public void testGetSubjectBySubejectId() throws JsonProcessingException {
+		Optional<?> optional = this.subjectService.getSubjectBySubjectId(2);
+		String string = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(optional.get());
+		System.out.println(string);
+	}
+
+	@Test
 	public void testGetAllRecordSubject() {
 		this.subjectService.getAllRecord().stream().forEach(value -> {
 			try {
@@ -201,4 +212,18 @@ public class AppTest {
 		System.out.println(string);
 	}
 
+	@Autowired
+	private JobRepository jobRepository;
+
+	@Test
+	public void testAddOutLine() {
+		 Job job  = new Job();
+		 job.setSubjectId(6);
+		 job.setJobContent("Làm nhanh em nhé!");
+		 job.setStartTime( new Date(Calendar.getInstance().getTimeInMillis()));
+		 job.setEndTime(new Date(2018,12,12));
+		 job.setTeacherId(2);
+		 
+		 System.out.println(this.jobRepository.addOutLine(job));;
+	}
 }
