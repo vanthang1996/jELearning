@@ -119,20 +119,29 @@ public class AppTest {
 	private JobService jobService;
 
 	@Test
-	public void testGetRecordJobRepository() {
-		this.jobService.getAllRecord().stream().forEach(x -> {
-			System.out.println(x);
-		});
+	public void testGetRecordJobRepository() throws JsonProcessingException {
+		System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(this.jobService.getAllRecord()));
+	}
+
+	@Test
+	public void testGetJobsByTeacherIdPaging() throws JsonProcessingException {
+		System.out.println(mapper.writerWithDefaultPrettyPrinter()
+				.writeValueAsString(this.jobService.getJobsByTeacherIdPaging(11, 1, 5).get()));
 	}
 
 	@Autowired
 	private QuestionService questionService;
 
 	@Test
-	public void testGetRecordQuestionService() {
-		this.questionService.getAllRecord().stream().forEach(x -> {
-			System.out.println(x);
-		});
+	public void testGetRecordQuestionService() throws JsonProcessingException {
+		System.out.println(
+				mapper.writerWithDefaultPrettyPrinter().writeValueAsString(this.questionService.getAllRecord()));
+	}
+
+	@Test
+	public void testGetListQuestionByChapterIdPaging() throws JsonProcessingException {
+		System.out.println(mapper.writerWithDefaultPrettyPrinter()
+				.writeValueAsString(this.questionService.getListQuestionByChapterIdPaging(2, 1, 20).get()));
 	}
 
 	@Autowired

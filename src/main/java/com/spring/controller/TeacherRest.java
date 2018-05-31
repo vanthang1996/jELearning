@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mobile.device.Device;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.config.jwt.JwtService;
 import com.spring.domain.ApiMessage;
 import com.spring.mapper.entities.Teacher;
+import com.spring.service.JobService;
 import com.spring.service.SubjectService;
 import com.spring.service.TeacherService;
 
@@ -35,6 +35,8 @@ public class TeacherRest {
 
 	@Autowired
 	private JwtService jwtService;
+	@Autowired
+	private JobService jobService;
 
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
 	public ResponseEntity<?> getTeacherInfo(HttpServletRequest request, Device device) {
@@ -77,4 +79,18 @@ public class TeacherRest {
 		return new ResponseEntity<>(optional.get(), HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/jobs")
+	public ResponseEntity<?> getJobsOfTeacher(HttpServletRequest request,
+			@RequestParam(name = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(name = "size", required = false, defaultValue = "10") int size) {
+		String email = this.jwtService.getEmailFromToKen(this.jwtService.getToken(request));
+		try {
+			Optional<Teacher> teacher = teacherService.getTeacherByEmail(email);
+			Optional<?> optional = jobService.getJobsByTeacherIdPaging(teacher.get().getTeacherId(), page, size);
+			return new ResponseEntity<>(optional.get(), HttpStatus.OK);
+		} catch (Exception e) {
+			ApiMessage apiMessage = new ApiMessage(HttpStatus.FORBIDDEN, e.getMessage());
+			return new ResponseEntity<Object>(apiMessage, apiMessage.getStatusCode());
+		}
+	}
 }

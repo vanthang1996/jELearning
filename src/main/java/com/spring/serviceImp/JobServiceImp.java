@@ -1,10 +1,12 @@
 package com.spring.serviceImp;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.mapper.entities.Job;
 import com.spring.repository.JobRepository;
 import com.spring.service.JobService;
 
@@ -16,8 +18,12 @@ public class JobServiceImp implements JobService {
 
 	@Override
 	public List<?> getAllRecord() {
-		// TODO Auto-generated method stub
 		return this.jobRepository.getAllRecord();
+	}
+
+	@Override
+	public Optional<?> getJobsByTeacherIdPaging(long teacherId, int page, int size) {
+		return this.jobRepository.getJobsByTeacherIdPaging(teacherId, page, size);
 	}
 
 }

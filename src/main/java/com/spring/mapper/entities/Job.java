@@ -5,8 +5,11 @@ import java.util.Date;
 public class Job {
 	private long jobId;
 	private long subjectId;
+	private Subject subject;
 	private long teacherId;
+	private Teacher teacher;
 	private long jobTypeId;
+	private JobType jobType;
 	private Date startTime;
 	private Date endTime;
 	private String jobContent;
@@ -31,6 +34,14 @@ public class Job {
 		this.subjectId = subjectId;
 	}
 
+	public Subject getSubject() {
+		return subject;
+	}
+
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
+
 	public long getTeacherId() {
 		return teacherId;
 	}
@@ -39,12 +50,28 @@ public class Job {
 		this.teacherId = teacherId;
 	}
 
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+
 	public long getJobTypeId() {
 		return jobTypeId;
 	}
 
 	public void setJobTypeId(long jobTypeId) {
 		this.jobTypeId = jobTypeId;
+	}
+
+	public JobType getJobType() {
+		return jobType;
+	}
+
+	public void setJobType(JobType jobType) {
+		this.jobType = jobType;
 	}
 
 	public Date getStartTime() {
@@ -81,9 +108,9 @@ public class Job {
 
 	@Override
 	public String toString() {
-		return "Job [jobId=" + jobId + ", subjectId=" + subjectId + ", teacherId=" + teacherId + ", jobTypeId="
-				+ jobTypeId + ", startTime=" + startTime + ", endTime=" + endTime + ", jobContent=" + jobContent
-				+ ", status=" + status + "]";
+		return "Job [jobId=" + jobId + ", subjectId=" + subjectId + ", subject=" + subject + ", teacherId=" + teacherId
+				+ ", teacher=" + teacher + ", jobTypeId=" + jobTypeId + ", jobType=" + jobType + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", jobContent=" + jobContent + ", status=" + status + "]";
 	}
 
 }

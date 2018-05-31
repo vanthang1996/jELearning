@@ -10,6 +10,10 @@ public class Question {
 	private long levelId;
 	private long teacherCreateId;
 	private int status;
+	private  Chapter chapter;
+	private  Subject subject;
+	private Level level;
+	private Teacher teacher;
 	private List<Answer> answers;
 
 	public Question() {
@@ -71,6 +75,38 @@ public class Question {
 		this.status = status;
 	}
 
+	public Chapter getChapter() {
+		return chapter;
+	}
+
+	public void setChapter(Chapter chapter) {
+		this.chapter = chapter;
+	}
+
+	public Subject getSubject() {
+		return subject;
+	}
+
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
+
+	public Level getLevel() {
+		return level;
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
+	}
+
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+
 	public List<Answer> getAnswers() {
 		return answers;
 	}
@@ -83,6 +119,7 @@ public class Question {
 	public String toString() {
 		return "Question [questionId=" + questionId + ", content=" + content + ", chapterId=" + chapterId
 				+ ", subjectId=" + subjectId + ", levelId=" + levelId + ", teacherCreateId=" + teacherCreateId
-				+ ", status=" + status + ", answers=" + answers + "]";
+				+ ", status=" + status + ", chapter=" + chapter + ", subject=" + subject + ", level=" + level
+				+ ", teacher=" + teacher + ", answers=" + answers + "]";
 	}
 }
