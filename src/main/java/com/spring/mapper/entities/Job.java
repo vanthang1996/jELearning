@@ -1,8 +1,9 @@
 package com.spring.mapper.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Job {
+public class Job implements Serializable {
 	private long jobId;
 	private long subjectId;
 	private Subject subject;

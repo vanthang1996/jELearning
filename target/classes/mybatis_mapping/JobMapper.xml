@@ -56,8 +56,8 @@
 		parameterType="com.spring.mapper.entities.Job">
 		{ call
 		p_themCongViec_CONG_VIEC(#{subjectId},
-		#{teacherId}, 1,
-		#{startTime, mode=IN , jdbcType=DATE}, #{endTime, jdbcType=DATE}, #{jobContent})}
+		#{teacherId}, '1',
+		#{startTime, mode=IN , jdbcType=DATE}, #{endTime, mode=IN , jdbcType=DATE}, #{jobContent, mode=IN , jdbcType=LONGVARCHAR})}
 	</select>
 
 

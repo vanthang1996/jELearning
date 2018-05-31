@@ -68,9 +68,10 @@ public class JobRepositoryImp implements JobRepository {
 		String message = "";
 		try {
 			int rowNum = session.update("com.spring.mapper.JobMapper.addOutLine", job);
-			message = rowNum > 0 ? "Thêm thành công!" : "Thêm thất bại!";
+			message = rowNum > 0 ? "Add success!" : "Add failed!";
 		} catch (Exception e) {
-			message = e.getMessage();
+			message = e.getCause().getMessage();
+			logger.error(e.getMessage());
 		} finally {
 			session.close();
 		}
