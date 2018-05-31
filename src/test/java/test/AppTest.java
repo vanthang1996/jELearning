@@ -160,6 +160,13 @@ public class AppTest {
 	private SubjectService subjectService;
 
 	@Test
+	public void testGetSubjectAddOutLineOrStructureTest() throws JsonProcessingException {
+		Optional<?> optional = this.subjectService.getSubjectAddOutLineOrStructureTest(1, 1);
+		String string = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(optional.get());
+		System.out.println(string);
+	}
+
+	@Test
 	public void testGetSubjectBySubejectId() throws JsonProcessingException {
 		Optional<?> optional = this.subjectService.getSubjectBySubjectId(2);
 		String string = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(optional.get());
@@ -217,13 +224,25 @@ public class AppTest {
 
 	@Test
 	public void testAddOutLine() {
-		 Job job  = new Job();
-		 job.setSubjectId(6);
-		 job.setJobContent("Làm nhanh em nhé!");
-		 job.setStartTime( new Date(Calendar.getInstance().getTimeInMillis()));
-		 job.setEndTime(new Date(2018,12,12));
-		 job.setTeacherId(2);
-		 
-		 System.out.println(this.jobRepository.addOutLine(job));;
+		Job job = new Job();
+		job.setSubjectId(6);
+		job.setJobContent("Làm nhanh em nhé!");
+		job.setStartTime(new Date(Calendar.getInstance().getTimeInMillis()));
+		job.setEndTime(new Date(Calendar.getInstance().getTimeInMillis() + 1000));
+		job.setTeacherId(2);
+
+		System.out.println(this.jobRepository.addOutLine(job));
+		;
+	}
+
+	@Test
+	public void testStructureTest() {
+		Job job = new Job();
+		job.setSubjectId(6);
+		job.setJobContent("Làm nhanh em nhé!");
+		job.setStartTime(new Date(Calendar.getInstance().getTimeInMillis()));
+		job.setEndTime(new Date(2018, 12, 12));
+		job.setTeacherId(2);
+		System.out.println(this.jobRepository.addStructureTest(job));
 	}
 }

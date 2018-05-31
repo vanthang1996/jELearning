@@ -42,4 +42,16 @@ public class SubjectRest {
 		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/{departmentId}/add-out-line/subjects")
+	public ResponseEntity<?> getSubjectsAddOutLine(@PathVariable long departmentId) {
+		Optional<?> optional = this.subjectService.getSubjectAddOutLineOrStructureTest(departmentId, 1);
+		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/{departmentId}/add-structure-test/subjects")
+	public ResponseEntity<?> getSubjectsAddStructureTest(@PathVariable long departmentId) {
+		Optional<?> optional = this.subjectService.getSubjectAddOutLineOrStructureTest(departmentId, 3);
+		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
+	}
+
 }

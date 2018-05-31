@@ -35,4 +35,8 @@ public class SubjectServiceImp implements SubjectService {
 		return this.subjectRepository.getSubjectBySubjectId(subjectId);
 	}
 
+	@Override
+	public Optional<?> getSubjectAddOutLineOrStructureTest(long departmentId, long jobTypeId) {
+		return this.subjectRepository.getSubjectAddOutLineOrStructureTest(departmentId, jobTypeId);
+	}
 }
