@@ -89,4 +89,27 @@ public class SubjectRepositoryImp implements SubjectRepository {
 		return Optional.ofNullable(list);
 	}
 
+	/**
+	 * @param departmentId,
+	 *            jobTypeId ==1 addOutLine jobTypeId ==3 addStructureTest
+	 * @return List<Subject>
+	 */
+	@Override
+	public Optional<?> getSubjectAddOutLineOrStructureTest(long departmentId, long jobTypeId) {
+		SqlSession session = this.sessionFactory.openSession();
+		List<Subject> list = Collections.emptyList();
+		Map<String, Object> params = new HashMap<>();
+		params.put("departmentId", departmentId);
+		params.put("jobTypeId", jobTypeId);
+		try {
+			list = session.selectList("com.spring.mapper.SubjectMapper.getSubjectAddOutLineOrStructureTest", params);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+
+		}
+		return Optional.ofNullable(list);
+	}
+
 }

@@ -51,13 +51,27 @@
 		mode=OUT,jdbcType=INTEGER},'select *
 		from CONG_VIEC where MAGV =''${teacherId}''')}
 	</select>
-	
+
 	<select id="addOutLine" statementType="CALLABLE"
 		parameterType="com.spring.mapper.entities.Job">
 		{ call
 		p_themCongViec_CONG_VIEC(#{subjectId},
-		#{teacherId}, 1,
-		#{startTime, mode=IN , jdbcType=DATE}, #{endTime, jdbcType=DATE}, #{jobContent})}
+		#{teacherId}, '1',
+		#{startTime, mode=IN , jdbcType=DATE}, #{endTime,
+		mode=IN , jdbcType=DATE}, #{jobContent, mode=IN ,
+		jdbcType=LONGVARCHAR})}
+	</select>
+	<select id="addStructureTest" statementType="CALLABLE"
+		parameterType="com.spring.mapper.entities.Job">
+		{ call
+		p_themCongViec2_CONG_VIEC(
+		#{subjectId},
+		#{teacherId},
+		3,
+		#{startTime, mode=IN , jdbcType=DATE},
+		#{endTime, mode=IN, jdbcType=DATE},
+		#{jobContent, mode=IN,	jdbcType=LONGVARCHAR},
+		0)}
 	</select>
 
 

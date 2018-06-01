@@ -83,5 +83,14 @@
 		select * from MON_HOC where
 		MAMON=#{subjectId}
 	</select>
+	<select id="getSubjectAddOutLineOrStructureTest"
+		resultType="java.util.List" resultMap="subjectResult"
+		parameterType="java.util.Map">
+		select * from mon_hoc where
+		MABOMON=#{departmentId} and
+		mamon not in(select mamon from CONG_VIEC where
+		MALOAICV=#{jobTypeId}
+		and TRANGTHAI=0)
+	</select>
 
 </mapper>

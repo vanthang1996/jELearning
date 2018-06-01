@@ -14,9 +14,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.mapper.entities.Job;
-import com.spring.mapper.entities.Subject;
 import com.spring.repository.JobRepository;
 
+/**
+ * @author vanth
+ *
+ */
+/**
+ * @author vanth
+ *
+ */
 @Repository
 public class JobRepositoryImp implements JobRepository {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
@@ -68,12 +75,30 @@ public class JobRepositoryImp implements JobRepository {
 		String message = "";
 		try {
 			int rowNum = session.update("com.spring.mapper.JobMapper.addOutLine", job);
-			message = rowNum > 0 ? "Thêm thành công!" : "Thêm thất bại!";
+			message = rowNum > 0 ? "Add success!" : "Add failed!";
 		} catch (Exception e) {
-			message = e.getMessage();
+			message = e.getCause().getMessage();
+			logger.error(e.getMessage());
 		} finally {
 			session.close();
 		}
 		return message;
 	}
+
+	@Override
+	public String addStructureTest(Job job) {
+		SqlSession session = sessionFactory.openSession();
+		String message = "";
+		try {
+			int rowNum = session.update("com.spring.mapper.JobMapper.addStructureTest", job);
+			message = rowNum > 0 ? "Add success!" : "Add failed!";
+		} catch (Exception e) {
+			message = e.getCause().getMessage();
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return message;
+	}
+
 }
