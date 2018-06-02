@@ -39,4 +39,12 @@
 		MACTDT from CAU_TRUC_DE_THI where MAMON=#{subjectId} and TRANGTHAI=1 )
 	</select>
 
+	<select id="editStructureTestDetailByChapterId" parameterType="com.spring.mapper.entities.StrucTestDetail">
+		<!-- UPDATE CHI_TIET_CTDT
+		SET MADOKHO = #{levelId}, SLCAUHOI = #{numberOfQuestion}, TONGDIEM = #{totalScore}
+		WHERE MACHUONG = #{chapterId} AND MACTDT = #{structureTestId} -->
+		{ call
+		p_addStructureTestDetail(#{structureTestId}, #{chapterId}, #{levelId}, #{numberOfQuestion}, #{totalScore})
+		}
+	</select>
 </mapper>

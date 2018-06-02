@@ -1,6 +1,7 @@
 package com.spring.repositoryImp;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -34,6 +35,18 @@ public class StructureTestRepositoryImp implements StructureTestRepository {
 		return list;
 	}
 
-	
+	@Override
+	public int createStructureTest(StructureTest structureTest) {
+		SqlSession session = sessionFactory.openSession();
+		int rowNum = -1;
+		try {
+			rowNum = session.insert("com.spring.mapper.StructureTestMapper.createStructureTest", structureTest);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return rowNum;
+	}
 
 }
