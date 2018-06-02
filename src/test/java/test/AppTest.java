@@ -1,5 +1,8 @@
 package test;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
@@ -223,6 +226,17 @@ public class AppTest {
 	private JobRepository jobRepository;
 
 	@Test
+	public void testAddQuestionJob() {
+		Job job = new Job();
+		job.setSubjectId(2);
+		job.setJobContent("Làm nhanh em nhé!");
+		job.setStartTime(new Date(Calendar.getInstance().getTimeInMillis()));
+		job.setEndTime(new Date(Calendar.getInstance().getTimeInMillis() + 1000));
+		job.setTeacherId(12);
+		System.out.println(jobRepository.addQuestionJob(job));
+	}
+
+	@Test
 	public void testAddOutLine() {
 		Job job = new Job();
 		job.setSubjectId(6);
@@ -232,7 +246,6 @@ public class AppTest {
 		job.setTeacherId(2);
 
 		System.out.println(this.jobRepository.addOutLine(job));
-		;
 	}
 
 	@Test

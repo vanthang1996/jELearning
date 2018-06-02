@@ -33,8 +33,12 @@ public class JobServiceImp implements JobService {
 
 	@Override
 	public String addStructureTest(Job job) {
-		// TODO Auto-generated method stub
 		return this.jobRepository.addStructureTest(job);
+	}
+
+	@Override
+	public Job addQuestionJob(Job job) {
+		return this.jobRepository.addQuestionJob(job);
 	}
 
 }

@@ -12,6 +12,9 @@
 		resultType="java.util.List">
 		select k.* from CT_TAO_CAU_HOI k
 	</select>
-
+	<select id="addDetailCreateQuetionJob" statementType="CALLABLE"
+		parameterType="com.spring.mapper.entities.CreateQuestion"  resultType="long">
+		{ call p_them_cauhoi_congviec2(#{jobId}, #{chapterId}, #{amount}) }
+	</select>
 
 </mapper>

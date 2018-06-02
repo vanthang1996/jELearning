@@ -14,4 +14,6 @@ public interface JobService {
 
 	public String addStructureTest(Job job);
 
+	public Job addQuestionJob(Job job);
+
 }

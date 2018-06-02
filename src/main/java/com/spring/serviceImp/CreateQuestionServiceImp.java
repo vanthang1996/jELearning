@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.mapper.entities.CreateQuestion;
 import com.spring.repository.CreateQuestionRepository;
 import com.spring.service.CreateQuestionService;
 
@@ -16,8 +17,11 @@ public class CreateQuestionServiceImp implements CreateQuestionService {
 
 	@Override
 	public List<?> getAllRecord() {
-		// TODO Auto-generated method stub
 		return this.createQuestionRepository.getAllRecord();
+	}
+	@Override
+	public boolean insert(CreateQuestion createQuestion) {
+		return this.createQuestionRepository.addDetailCreateQuetionJob(createQuestion);
 	}
 
 }
