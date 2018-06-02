@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.mapper.entities.StrucTestDetail;
 import com.spring.repository.StrucTestDetailRepository;
 import com.spring.service.StrucTestDetailService;
 
@@ -24,6 +25,11 @@ public class StrucTestDetailServiceImp implements StrucTestDetailService {
 	public Optional<?> getListStrucTestDetailBySubjectId(long subjectId) {
 		// TODO Auto-generated method stub
 		return this.strucTestDetailRepository.getListStrucTestDetailBySubjectId(subjectId);
+	}
+
+	@Override
+	public int editStructureTestDetailByChapterId(StrucTestDetail strucTestDetail) {
+		return this.strucTestDetailRepository.editStructureTestDetailByChapterId(strucTestDetail);
 	}
 
 }

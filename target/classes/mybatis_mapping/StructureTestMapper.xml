@@ -27,4 +27,10 @@
 		parameterType="long">
 		select * from CAU_TRUC_DE_THI where MAMON = #{subjectId}
 	</select>
+	
+	<select id="createStructureTest" parameterType="com.spring.mapper.entities.StructureTest">
+		UPDATE CAU_TRUC_DE_THI
+		SET NGAYCAPNHAT = #{updateTime}, MAGV = #{teacherManagementId}, TRANGTHAI = #{status}, SLDETOIDA = #{maxStructure}
+		WHERE MAMON = #{subjectId}
+	</select>
 </mapper>

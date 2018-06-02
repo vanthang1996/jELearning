@@ -48,4 +48,18 @@ public class StrucTestDetailRepositoryImp implements StrucTestDetailRepository {
 		return Optional.ofNullable(list);
 	}
 
+	@Override
+	public int editStructureTestDetailByChapterId(StrucTestDetail strucTestDetail) {
+		SqlSession session = sessionFactory.openSession();
+		int rowNum = -1;
+		try {
+			rowNum = session.insert("com.spring.mapper.StrucTestDetailMapper.editStructureTestDetailByChapterId", strucTestDetail);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return rowNum;
+	}
+
 }

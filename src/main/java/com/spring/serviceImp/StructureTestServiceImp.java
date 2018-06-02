@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.mapper.entities.StructureTest;
 import com.spring.repository.StructureTestRepository;
 import com.spring.service.StructureTestService;
 
@@ -17,6 +18,11 @@ public class StructureTestServiceImp implements StructureTestService {
 	@Override
 	public List<?> getAllRecord() {
 		return this.structureTestRepository.getAllRecord();
+	}
+
+	@Override
+	public int createStructureTest(StructureTest structureTest) {
+		return this.structureTestRepository.createStructureTest(structureTest);
 	}
 
 
