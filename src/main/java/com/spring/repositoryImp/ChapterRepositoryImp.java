@@ -62,4 +62,32 @@ public class ChapterRepositoryImp implements ChapterRepository {
 		return Optional.ofNullable(result);
 	}
 
+	@Override
+	public Optional<?> getListChapterBySubjectId(long subjectId) {
+		SqlSession session = sessionFactory.openSession();
+		List<Chapter> list = null;
+		try {
+			list = session.selectList("com.spring.mapper.ChapterMapper.getChapterBySubjectId", subjectId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(list);
+	}
+
+	@Override
+	public int createChapter(Chapter chapter) {
+		SqlSession session = sessionFactory.openSession();
+		int rowNum = -1;
+		try {
+			rowNum = session.insert("com.spring.mapper.ChapterMapper.createChapter", chapter);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return rowNum;
+	}
+
 }
