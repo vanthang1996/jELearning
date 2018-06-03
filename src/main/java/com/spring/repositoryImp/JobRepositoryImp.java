@@ -101,4 +101,32 @@ public class JobRepositoryImp implements JobRepository {
 		return message;
 	}
 
+	@Override
+	public Job addQuestionJob(Job job) {
+		SqlSession session = sessionFactory.openSession();
+		long jobId = 0;
+		try {
+			jobId = session.selectOne("com.spring.mapper.JobMapper.addQuestionJob", job);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return jobId != 0 ? findById(jobId) : null;
+	}
+
+	@Override
+	public Job findById(long jobId) {
+		SqlSession session = sessionFactory.openSession();
+		Job job = null;
+		try {
+			job = session.selectOne("com.spring.mapper.JobMapper.findById", jobId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return job;
+	}
+
 }

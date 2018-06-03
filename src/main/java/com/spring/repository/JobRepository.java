@@ -14,4 +14,12 @@ public interface JobRepository {
 
 	public String addStructureTest(Job job);
 
+	/**
+	 * @param job
+	 * @return null if can not insert
+	 */
+	Job addQuestionJob(Job job);
+
+	Job findById(long jobId);
+
 }
