@@ -47,4 +47,8 @@
 		select * from
 		CHUONG_MUC where MACHUONG=#{chapterId}
 	</select>
+	<select id="createChapter" parameterType="com.spring.mapper.entities.Chapter">
+		INSERT INTO CHUONG_MUC (TIEUDE, MOTA, MAMON)
+		VALUES (#{chapterName}, #{describe}, #{subjectId})
+	</select>
 </mapper>
