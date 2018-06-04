@@ -21,7 +21,7 @@ public class CreateQuestion {
 	public long getChapterId() {
 		return chapterId;
 	}
-
+	
 	public void setChapterId(long chapterId) {
 		this.chapterId = chapterId;
 	}

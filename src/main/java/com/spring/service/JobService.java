@@ -20,4 +20,12 @@ public interface JobService {
 	public Map<String, Object> getJobByManageTeacher(long teacherId, long jobTypeId, boolean status, int page,
 			int size);
 
+	/**
+	 * @param teacherId
+	 * @param size
+	 * @param page
+	 * @return Map Job paging with status= false,
+	 */
+	public Map<String, Object> getJobsOfTeacher(long teacherId, int page, int size);
+
 }

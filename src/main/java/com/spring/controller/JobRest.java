@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -135,8 +136,25 @@ public class JobRest {
 
 	@RequestMapping("/{jobId}/question-detail")
 	public ResponseEntity<?> getJobQuestionDetail(@PathVariable long jobId) {
-
 		return new ResponseEntity<>(this.createQuestionService.getCreateQuestionByJobId(jobId), HttpStatus.OK);
 	}
+
+	@RequestMapping("/teacher")
+	public ResponseEntity<?> getJobsOfTeacher(HttpServletRequest request,
+			@RequestParam(name = "page", required = false, defaultValue = "1") int page,
+			@RequestParam(name = "size", required = false, defaultValue = "10") int size) {
+		Optional<Teacher> optional = teacherService
+				.getTeacherByEmail(this.jwtService.getEmailFromToKen(this.jwtService.getToken(request)));
+		if (!optional.isPresent()) {
+			ApiMessage apiMessage = new ApiMessage(HttpStatus.CONFLICT, "Lỗi");
+			return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
+		}
+		long teacherId = optional.get().getTeacherId();
+		Map<String, Object> map = this.jobService.getJobsOfTeacher(teacherId, page, size);
+		return new ResponseEntity<>(map, HttpStatus.OK);
+	}
+	// xác nhận công việc hoàn thành@preauthor là người quản lý bộ môn theo mã công việc
+	
+	
 
 }
