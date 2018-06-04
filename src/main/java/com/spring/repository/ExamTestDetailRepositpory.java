@@ -7,4 +7,5 @@ public interface ExamTestDetailRepositpory {
 	public List<?> getAllRecord();
 
 	public Optional<?> getExamTestDetailById(long examTestId);
+
 }

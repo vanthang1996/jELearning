@@ -5,6 +5,7 @@ public class ExamTestDetail {
 	private long questionId;
 	private int correctLocation;
 	private double score;
+	private Question question;
 
 	public ExamTestDetail() {
 	}
@@ -41,10 +42,18 @@ public class ExamTestDetail {
 		this.score = score;
 	}
 
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
+
 	@Override
 	public String toString() {
 		return "ExamTestDetail [examTestId=" + examTestId + ", questionId=" + questionId + ", correctLocation="
-				+ correctLocation + ", score=" + score + "]";
+				+ correctLocation + ", score=" + score + ", question=" + question + "]";
 	}
 
 }

@@ -29,9 +29,10 @@ public class ExamTestRest {
 		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/detail/{examTestId", method = RequestMethod.GET)
+	@RequestMapping(value = "/detail/{examTestId}", method = RequestMethod.GET)
 	public ResponseEntity<?> getExamTestDetailById(@PathVariable long examTestId) {
 		Optional<?> optional = this.examTestDetailService.getExamTestDetailById(examTestId);
 		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
+
 }

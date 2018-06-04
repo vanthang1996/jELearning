@@ -7,7 +7,7 @@
 		<id column="MACH" property="questionId" />
 		<result column="VITRIDAPANDUNG" property="correctLocation" />
 		<result column="DIEM" property="score" />
-
+		<association column="MACH"  property="question"  select="com.spring.mapper.QuestionMapper.getQuestionByQuestionId"/>
 	</resultMap>
 
 	<select id="getAllRecord" resultMap="examTestDetailResult"

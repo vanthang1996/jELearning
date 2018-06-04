@@ -2,6 +2,7 @@ package com.spring.repositoryImp;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -32,6 +33,20 @@ public class DepartmentRepositoryImp implements DepartmentRepository {
 
 		}
 		return departments;
+	}
+
+	@Override
+	public Optional<?> getAllDepartment() {
+		SqlSession session = this.sessionFactory.openSession();
+		List<Department> list = Collections.emptyList();
+		try {
+			list = session.selectList("com.spring.mapper.DepartmentMapper.getAllRecord");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(list);
 	}
 
 }

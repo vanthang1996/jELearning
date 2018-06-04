@@ -1,6 +1,7 @@
 package com.spring.serviceImp;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,5 +19,11 @@ public class DepartmentServiceImp implements DepartmentService {
 	public List<Department> getAllRecord() {
 		// TODO Auto-generated method stub
 		return this.departmentRepository.getAllRecord();
+	}
+
+	@Override
+	public Optional<?> getAllDepartment() {
+		// TODO Auto-generated method stub
+		return this.departmentRepository.getAllDepartment();
 	}
 }
