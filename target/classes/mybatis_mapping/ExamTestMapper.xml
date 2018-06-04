@@ -20,6 +20,11 @@
 		select * from DE_THI where
 		MAMON = #{subjectId}
 	</select>
-
+	<select id="getExamTestById" resultMap="examTestResult"
+		resultType="java.util.List">
+		SELECT *
+		FROM DE_THI
+		WHERE MADETHI = #{examTestId}
+	</select>
 
 </mapper>
