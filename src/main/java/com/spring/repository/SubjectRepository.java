@@ -23,4 +23,6 @@ public interface SubjectRepository {
 	 * @return get list subject of teacher by status
 	 */
 	List<Subject> getListSubjectOfTeacher(long teacherId, boolean status);
+
+	Optional<?> getListSubjectOfTeacherPaging(String email, boolean status, int page, int size);
 }

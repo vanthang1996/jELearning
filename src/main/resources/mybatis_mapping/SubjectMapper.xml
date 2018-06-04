@@ -43,7 +43,7 @@
 		resultMap="subjectResult_no_collection" parameterType="long">
 		select MON_HOC.*
 		from QUAN_LY_MH join MON_HOC on MON_HOC.MAMON= QUAN_LY_MH.MAMON where
-		QUAN_LY_MH.MAGV =#{teacherId}
+		QUAN_LY_MH.MAGV =#{teacherId} and MON_HOC.TRANGTHAI=1
 	</select>
 
 	<select id="getAllRecord" resultMap="subjectResult"
@@ -53,7 +53,7 @@
 	<select id="getSubjectByDepartmentId" resultMap="subjectResult"
 		resultType="java.util.List" parameterType="long">
 		select * from MON_HOC where
-		MABOMON = #{departmentId}
+		MABOMON = #{departmentId} and TRANGTHAI=1
 	</select>
 	<select id="getListSubjectOfTeacherPaging"
 		resultMap="subjectResult_no_collection" statementType="CALLABLE"
@@ -62,26 +62,30 @@
 		mode=OUT,
 		jdbcType=INTEGER},
 		#{sumRecord,
-		mode=OUT,jdbcType=INTEGER},'select * from MON_HOC where MAMON
-		in(SELECT MAMON FROM QUAN_LY_MH WHERE MAGV = (SELECT MAGV FROM
+		mode=OUT,jdbcType=INTEGER},'select * from MON_HOC where
+		TRANGTHAI=''${status}'' and MAMON
+		in(SELECT MAMON FROM QUAN_LY_MH WHERE
+		MAGV = (SELECT MAGV FROM
 		GIANG_VIEN WHERE EMAIL=''${email}'' ))')}
 	</select>
 	<select id="getSubjectsDataByDepartmentId_no_collection"
 		resultType="java.util.List" resultMap="subjectResult_no_collection"
 		parameterType="long">
-		select * from MON_HOC where MABOMON =#{departmentId}
+		select * from MON_HOC where MABOMON =#{departmentId} and
+		TRANGTHAI=1
 	</select>
 	<!-- get subject by subjectId -->
 
 	<select id="getSubjectBySubjectId_no_collection"
 		resultType="java.util.List" resultMap="subjectResult_no_collection"
 		parameterType="long">
-		select * from MON_HOC where MAMON=#{subjectId}
+		select * from MON_HOC where MAMON=#{subjectId} and
+		TRANGTHAI=1
 	</select>
 	<select id="getSubjectBySubjectId" resultType="java.util.List"
 		resultMap="subjectResult" parameterType="long">
 		select * from MON_HOC where
-		MAMON=#{subjectId}
+		MAMON=#{subjectId} and TRANGTHAI=1
 	</select>
 	<select id="getSubjectAddOutLineOrStructureTest"
 		resultType="java.util.List" resultMap="subjectResult"
@@ -95,7 +99,9 @@
 
 	<select id="getListSubjectOfTeacher" resultType="java.util.List"
 		resultMap="subjectResult" parameterType="java.util.Map">
-		select * from MON_HOC where trangthai=#{status} and
-		mamon in (select mamon from QUAN_LY_MH where magv=#{teacherId})
+		select * from MON_HOC where
+		trangthai=#{status} and
+		mamon in (select mamon from QUAN_LY_MH where
+		magv=#{teacherId})
 	</select>
 </mapper>

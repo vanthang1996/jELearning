@@ -76,6 +76,7 @@ public class SubjectRest {
 		}
 		long teacherId = optional.get().getTeacherId();
 		List<Subject> list = this.subjectService.getSubjectOfTeacherByTeacherId(teacherId);
+		System.out.println(list);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 }
