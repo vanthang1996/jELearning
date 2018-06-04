@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.mapper.entities.Subject;
 import com.spring.repository.SubjectRepository;
 import com.spring.service.SubjectService;
 
@@ -38,5 +39,10 @@ public class SubjectServiceImp implements SubjectService {
 	@Override
 	public Optional<?> getSubjectAddOutLineOrStructureTest(long departmentId, long jobTypeId) {
 		return this.subjectRepository.getSubjectAddOutLineOrStructureTest(departmentId, jobTypeId);
+	}
+
+	@Override
+	public List<Subject> getSubjectOfTeacherByTeacherId(long teacherId) {
+		return this.subjectRepository.getListSubjectOfTeacher(teacherId, true);
 	}
 }

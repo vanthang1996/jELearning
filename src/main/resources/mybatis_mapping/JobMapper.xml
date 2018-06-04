@@ -94,15 +94,16 @@
 	<!-- association createQuestion -->
 	<select id="finById_no_collection" parameterType="long"
 		resultMap="jobResult_no_collection">select * from CONG_VIEC where MACV=#{jobId}</select>
-		
-	<select id="getJobByManageTeacher" parameterType="java.util.Map" statementType="CALLABLE"
-		resultMap="jobResult">
+
+	<select id="getJobByManageTeacher" parameterType="java.util.Map"
+		statementType="CALLABLE" resultMap="jobResult">
 		{ call
 		proc_paging_query(#{page}, #{size}, #{sumPage,
 		mode=OUT,
 		jdbcType=INTEGER},
 		#{sumRecord,
-		mode=OUT,jdbcType=INTEGER},'select * from CONG_VIEC where
+		mode=OUT,jdbcType=INTEGER},'select *
+		from CONG_VIEC where
 		<if test="jobTypeId != 0">
 			MALOAICV=''${jobTypeId}'' and
 		</if>
@@ -111,7 +112,17 @@
 		MABOMON
 		in (select MABOMON from
 		BO_MON where MAGV =''${teacherId}''))')}
-		
+	</select>
+	<select id="getJobsOfTeacherByTeacherIdAndStatus"
+		parameterType="java.util.Map" statementType="CALLABLE"
+		resultMap="jobResult">
+		{ call
+		proc_paging_query(#{page}, #{size}, #{sumPage,
+		mode=OUT,
+		jdbcType=INTEGER},
+		#{sumRecord,
+		mode=OUT,jdbcType=INTEGER},'select * from cong_viec where
+		MAGV=''${teacherId}'' and TRANGTHAI=''${status}''')}
 	</select>
 
 </mapper>

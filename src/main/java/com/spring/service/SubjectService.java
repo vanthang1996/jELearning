@@ -3,6 +3,8 @@ package com.spring.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.spring.mapper.entities.Subject;
+
 public interface SubjectService {
 	public List<?> getAllRecord();
 
@@ -13,4 +15,6 @@ public interface SubjectService {
 	public Optional<?> getSubjectBySubjectId(long subjectId);
 
 	Optional<?> getSubjectAddOutLineOrStructureTest(long departmentId, long jobTypeId);
+
+	public List<Subject> getSubjectOfTeacherByTeacherId(long teacherId);
 }

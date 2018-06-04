@@ -26,4 +26,6 @@ public interface JobRepository {
 	public Map<String, Object> getJobByManageTeacher(long teacherId, long jobTypeId, boolean status, int page,
 			int size);
 
+	Map<String, Object> getJobsOfTeacherByTeacherId(long teacherId, boolean status, int page, int size);
+
 }
