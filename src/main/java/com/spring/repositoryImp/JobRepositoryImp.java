@@ -129,4 +129,57 @@ public class JobRepositoryImp implements JobRepository {
 		return job;
 	}
 
+	@Override
+	public Map<String, Object> getJobByManageTeacher(long teacherId, long jobTypeId, boolean status, int page,
+			int size) {
+		SqlSession session = sessionFactory.openSession();
+		List<Job> list = null;
+		Map<String, Object> param = new HashMap<>();
+		Map<String, Object> result = new HashMap<>();
+		param.put("page", page);
+		param.put("size", size);
+		param.put("teacherId", teacherId);
+		param.put("jobTypeId", jobTypeId);
+		param.put("status", status);
+		try {
+			list = session.selectList("com.spring.mapper.JobMapper.getJobByManageTeacher", param);
+			int numberOfPage = (int) param.get("sumPage");
+			int numberOfRecord = (int) param.get("sumRecord");
+			result.put("listOfResult", list);
+			result.put("numberOfPage", numberOfPage);
+			result.put("numberOfRecord", numberOfRecord);
+		} catch (Exception e) {
+			logger.error("[getJobByManageTeacher() is ERROR]" + e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+
+	@Override
+	public Map<String, Object> getJobsOfTeacherByTeacherId(long teacherId, boolean status, int page, int size) {
+		SqlSession session = sessionFactory.openSession();
+		List<Job> list = null;
+		Map<String, Object> param = new HashMap<>();
+		Map<String, Object> result = new HashMap<>();
+		param.put("page", page);
+		param.put("size", size);
+		param.put("teacherId", teacherId);
+		param.put("status", status);
+		try {
+			list = session.selectList("com.spring.mapper.JobMapper.getJobsOfTeacherByTeacherIdAndStatus", param);
+			int numberOfPage = (int) param.get("sumPage");
+			int numberOfRecord = (int) param.get("sumRecord");
+			result.put("listOfResult", list);
+			result.put("numberOfPage", numberOfPage);
+			result.put("numberOfRecord", numberOfRecord);
+		} catch (Exception e) {
+			logger.error("[getJobsOfTeacherByTeacherId(long teacherId, boolean status, int page, int size) is ERROR]"
+					+ e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
+	}
+
 }

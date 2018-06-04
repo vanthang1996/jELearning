@@ -3,6 +3,8 @@ package com.spring.repository;
 import java.util.List;
 import java.util.Optional;
 
+import com.spring.mapper.entities.Subject;
+
 public interface SubjectRepository {
 
 	List<?> getAllRecord();
@@ -14,4 +16,11 @@ public interface SubjectRepository {
 	Optional<?> getSubjectBySubjectId(long subjectId);
 
 	Optional<?> getSubjectAddOutLineOrStructureTest(long departmentId, long jobTypeId);
+
+	/**
+	 * @param teacherId
+	 * @param status
+	 * @return get list subject of teacher by status
+	 */
+	List<Subject> getListSubjectOfTeacher(long teacherId, boolean status);
 }
