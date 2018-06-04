@@ -16,6 +16,10 @@ import org.springframework.stereotype.Repository;
 import com.spring.mapper.entities.Subject;
 import com.spring.repository.QuestionRepository;
 
+/**
+ * @author vanth
+ *
+ */
 @Repository
 public class QuestionRepositoryImp implements QuestionRepository {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
@@ -59,5 +63,34 @@ public class QuestionRepositoryImp implements QuestionRepository {
 			session.close();
 		}
 		return Optional.ofNullable(result);
+	}
+
+	@Override
+	public Map<String, Object> getQuestionOfTeacherCompile(long subjectId, long teacherId, boolean status, int page,
+			int size) {
+		SqlSession session = sessionFactory.openSession();
+		List<Subject> list = null;
+		Map<String, Object> param = new HashMap<>();
+		Map<String, Object> result = new HashMap<>();
+		param.put("page", page);
+		param.put("size", size);
+		param.put("subjectId", subjectId);
+		param.put("teacherId", teacherId);
+		param.put("status", status);
+		try {
+			list = session.selectList("com.spring.mapper.QuestionMapper.getQuestionOfTeacherCompile", param);
+			int numberOfPage = (int) param.get("sumPage");
+			int numberOfRecord = (int) param.get("sumRecord");
+			result.put("listOfResult", list);
+			result.put("numberOfPage", numberOfPage);
+			result.put("numberOfRecord", numberOfRecord);
+		} catch (Exception e) {
+			logger.error("[getQuestionOfTeacherCompile(long subjectId, long teacherId, boolean status, int page,\r\n"
+					+ "	int size) is ERROR]" + e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
+
 	}
 }

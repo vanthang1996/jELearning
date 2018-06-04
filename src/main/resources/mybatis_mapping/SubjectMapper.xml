@@ -39,6 +39,20 @@
 			select="com.spring.mapper.TeacherMapper.getTeacherByTeacherManagementId"
 			property="teacherManagement"></association>
 	</resultMap>
+		<resultMap type="com.spring.mapper.entities.Subject"
+		id="subjectResult_view">
+		<id column="MAMON" property="subjectId" />
+		<result column="TENMON" property="subjectName" />
+		<result column="MABOMON" property="departmentId" />
+		<result column="MAGV" property="teacherManagementId" />
+		<result column="TRANGTHAI" property="status" />
+		<association column="MAGV"
+			select="com.spring.mapper.TeacherMapper.getTeacherByTeacherManagementId"
+			property="teacherManagement" />
+		<collection column="MAMON"
+			select="com.spring.mapper.ChapterMapper.getChapterBySubjectId"
+			property="chapters" />
+	</resultMap>
 	<select id="getSubjectByTeacherId"
 		resultMap="subjectResult_no_collection" parameterType="long">
 		select MON_HOC.*
@@ -98,7 +112,7 @@
 	</select>
 
 	<select id="getListSubjectOfTeacher" resultType="java.util.List"
-		resultMap="subjectResult" parameterType="java.util.Map">
+		resultMap="subjectResult_view" parameterType="java.util.Map">
 		select * from MON_HOC where
 		trangthai=#{status} and
 		mamon in (select mamon from QUAN_LY_MH where
