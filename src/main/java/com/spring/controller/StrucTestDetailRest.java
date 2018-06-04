@@ -25,7 +25,7 @@ public class StrucTestDetailRest {
 	@RequestMapping(value = "/{subjectId}")
 	public ResponseEntity<?> getListStrucBySubjectId(@PathVariable long subjectId) {
 		Optional<?> optional = this.strucTestDetailService.getListStrucTestDetailBySubjectId(subjectId);
-		return new ResponseEntity<>(optional.get(), HttpStatus.OK);
+		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 
 	}
 

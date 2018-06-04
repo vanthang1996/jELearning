@@ -38,18 +38,18 @@
 		resultMap="teacherResult_no_collection">
 		select GIANG_VIEN.* from QUAN_LY_MH join GIANG_VIEN on
 		GIANG_VIEN.MAGV = QUAN_LY_MH.MAGV where QUAN_LY_MH.MAMON
-		=#{subjectId}
+		=#{subjectId} and GIANG_VIEN.TRANGTHAI=1
 	</select>
 
 	<select id="getAllRecord" resultMap="teacherResult"
 		resultType="java.util.List">
-		select m.* from GIANG_VIEN m
+		select m.* from GIANG_VIEN m where m.TRANGTHAI=1
 	</select>
 
 	<select id="getTeacherByDepartmentId" resultMap="teacherResult"
 		resultType="java.util.List" parameterType="long">
 		select * from GIANG_VIEN
-		where MABOMON = #{departmentId}
+		where MABOMON = #{departmentId} and TRANGTHAI=1
 	</select>
 	<select id="getRoleOfUserByEmail" resultType="java.lang.String"
 		statementType="CALLABLE" parameterType="java.lang.String">

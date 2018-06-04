@@ -23,6 +23,6 @@ public class QuestionRest {
 			@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(name = "size", required = false, defaultValue = "10") int size) {
 		Optional<?> optional = this.questionService.getListQuestionByChapterIdPaging(chapterId, page, size);
-		return new ResponseEntity<>(optional.get(), HttpStatus.OK);
+		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
 }

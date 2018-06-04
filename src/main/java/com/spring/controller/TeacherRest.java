@@ -43,7 +43,7 @@ public class TeacherRest {
 		Optional<Teacher> optional = teacherService
 				.getTeacherByEmail(this.jwtService.getEmailFromToKen(this.jwtService.getToken(request)));
 		if (optional.isPresent()) {
-			return new ResponseEntity<>(optional.get(), HttpStatus.OK);
+			return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 		}
 		ApiMessage apiMessage = new ApiMessage(HttpStatus.CONFLICT, "Lỗi");
 		return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
@@ -63,20 +63,20 @@ public class TeacherRest {
 		Optional<?> optional = this.subjectService.getListSubjectOfTeacherPaging(
 				this.jwtService.getEmailFromToKen(this.jwtService.getToken(request)), page, size);
 
-		return new ResponseEntity<>(optional.get(), HttpStatus.OK);
+		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/departments")
 	public ResponseEntity<?> getListFacultyOfTeacher(HttpServletRequest request) {
 		String email = this.jwtService.getEmailFromToKen(this.jwtService.getToken(request));
 		Optional<?> optional = this.teacherService.getListDepartmentyByTeacherEmail(email);
-		return new ResponseEntity<>(optional.get(), HttpStatus.OK);
+		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{teacherId}")
 	public ResponseEntity<?> getTeacherNoCollectionByTeacherId(@PathVariable long teacherId) {
 		Optional<?> optional = this.teacherService.getTeacherNoCollectionByTeacherId(teacherId);
-		return new ResponseEntity<>(optional.get(), HttpStatus.OK);
+		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/jobs")
@@ -87,7 +87,7 @@ public class TeacherRest {
 		try {
 			Optional<Teacher> teacher = teacherService.getTeacherByEmail(email);
 			Optional<?> optional = jobService.getJobsByTeacherIdPaging(teacher.get().getTeacherId(), page, size);
-			return new ResponseEntity<>(optional.get(), HttpStatus.OK);
+			return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 		} catch (Exception e) {
 			ApiMessage apiMessage = new ApiMessage(HttpStatus.FORBIDDEN, e.getMessage());
 			return new ResponseEntity<Object>(apiMessage, apiMessage.getStatusCode());
