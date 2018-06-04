@@ -7,4 +7,5 @@ public interface ExamTestDetailService {
 	public List<?> getAllRecord();
 
 	public Optional<?> getExamTestDetailById(long examTestId);
+
 }
