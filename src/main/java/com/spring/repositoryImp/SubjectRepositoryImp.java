@@ -38,6 +38,11 @@ public class SubjectRepositoryImp implements SubjectRepository {
 
 	@Override
 	public Optional<?> getListSubjectOfTeacherPaging(String email, int page, int size) {
+		return getListSubjectOfTeacherPaging(email, true, page, size);
+	}
+
+	@Override
+	public Optional<?> getListSubjectOfTeacherPaging(String email, boolean status, int page, int size) {
 		SqlSession session = sessionFactory.openSession();
 		List<Subject> list = null;
 		Map<String, Object> param = new HashMap<>();
@@ -45,6 +50,7 @@ public class SubjectRepositoryImp implements SubjectRepository {
 		param.put("page", page);
 		param.put("size", size);
 		param.put("email", email);
+		param.put("status", status);
 		try {
 			list = session.selectList("com.spring.mapper.SubjectMapper.getListSubjectOfTeacherPaging", param);
 			int numberOfPage = (int) param.get("sumPage");
