@@ -1,6 +1,7 @@
 package com.spring.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.spring.mapper.entities.Job;
@@ -15,5 +16,8 @@ public interface JobService {
 	public String addStructureTest(Job job);
 
 	public Job addQuestionJob(Job job);
+
+	public Map<String, Object> getJobByManageTeacher(long teacherId, long jobTypeId, boolean status, int page,
+			int size);
 
 }

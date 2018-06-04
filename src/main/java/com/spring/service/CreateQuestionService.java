@@ -8,4 +8,6 @@ public interface CreateQuestionService {
 	public List<?> getAllRecord();
 
 	public boolean insert(CreateQuestion createQuestion);
+
+	public List<CreateQuestion> getCreateQuestionByJobId(long jobId);
 }

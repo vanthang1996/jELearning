@@ -1,6 +1,7 @@
 package com.spring.repository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.spring.mapper.entities.Job;
@@ -21,5 +22,8 @@ public interface JobRepository {
 	Job addQuestionJob(Job job);
 
 	Job findById(long jobId);
+
+	public Map<String, Object> getJobByManageTeacher(long teacherId, long jobTypeId, boolean status, int page,
+			int size);
 
 }
