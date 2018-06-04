@@ -39,7 +39,8 @@ public class CreateQuestionRepositoryImp implements CreateQuestionRepository {
 		SqlSession session = this.sessionFactory.openSession();
 		boolean kq = false;
 		try {
-			int result = session.insert("com.spring.mapper.CreateQuestionMapper.addDetailCreateQuetionJob", createQuestion);
+			int result = session.insert("com.spring.mapper.CreateQuestionMapper.addDetailCreateQuetionJob",
+					createQuestion);
 			kq = (result > 0);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -48,5 +49,20 @@ public class CreateQuestionRepositoryImp implements CreateQuestionRepository {
 
 		}
 		return kq;
+	}
+
+	@Override
+	public List<CreateQuestion> getCreateQuestionByJobId(long jobId) {
+		SqlSession session = this.sessionFactory.openSession();
+		List<CreateQuestion> list = Collections.emptyList();
+		try {
+			list = session.selectList("com.spring.mapper.CreateQuestionMapper.getCreateQuestionByJobId", jobId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+
+		}
+		return list;
 	}
 }

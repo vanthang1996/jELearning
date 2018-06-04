@@ -23,5 +23,9 @@ public class CreateQuestionServiceImp implements CreateQuestionService {
 	public boolean insert(CreateQuestion createQuestion) {
 		return this.createQuestionRepository.addDetailCreateQuetionJob(createQuestion);
 	}
+	@Override
+	public List<CreateQuestion> getCreateQuestionByJobId(long jobId) {
+		return this.createQuestionRepository.getCreateQuestionByJobId(jobId);
+	}
 
 }
