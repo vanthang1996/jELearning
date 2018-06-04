@@ -93,4 +93,9 @@
 		and TRANGTHAI=0)
 	</select>
 
+	<select id="getListSubjectOfTeacher" resultType="java.util.List"
+		resultMap="subjectResult" parameterType="java.util.Map">
+		select * from MON_HOC where trangthai=#{status} and
+		mamon in (select mamon from QUAN_LY_MH where magv=#{teacherId})
+	</select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.spring.serviceImp;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,17 @@ public class JobServiceImp implements JobService {
 	@Override
 	public Job addQuestionJob(Job job) {
 		return this.jobRepository.addQuestionJob(job);
+	}
+
+	@Override
+	public Map<String, Object> getJobByManageTeacher(long teacherId, long jobTypeId, boolean status, int page,
+			int size) {
+		return this.jobRepository.getJobByManageTeacher(teacherId, jobTypeId, status, page, size);
+	}
+
+	@Override
+	public Map<String, Object> getJobsOfTeacher(long teacherId, int page, int size) {
+		return this.jobRepository.getJobsOfTeacherByTeacherId(teacherId, false, page, size);
 	}
 
 }

@@ -8,4 +8,6 @@ public interface CreateQuestionRepository {
 	public List<?> getAllRecord();
 
 	boolean addDetailCreateQuetionJob(CreateQuestion createQuestion);
+
+	List<CreateQuestion> getCreateQuestionByJobId(long jobId);
 }
