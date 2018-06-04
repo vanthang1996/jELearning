@@ -1,6 +1,7 @@
 package com.spring.serviceImp;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,12 @@ public class ExamTestDetailServiceImp implements ExamTestDetailService {
 	public List<?> getAllRecord() {
 		// TODO Auto-generated method stub
 		return this.examTestDetailRepositpory.getAllRecord();
+	}
+
+	@Override
+	public Optional<?> getExamTestDetailById(long examTestId) {
+		// TODO Auto-generated method stub
+		return this.examTestDetailRepositpory.getExamTestDetailById(examTestId);
 	}
 
 }
