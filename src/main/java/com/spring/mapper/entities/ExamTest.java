@@ -9,6 +9,7 @@ public class ExamTest {
 	private Date testDay;
 	private int timeDo;
 	private int status;
+	private Subject subject;
 
 	public ExamTest() {
 	}
@@ -61,10 +62,18 @@ public class ExamTest {
 		this.status = status;
 	}
 
+	public Subject getSubject() {
+		return subject;
+	}
+
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
+
 	@Override
 	public String toString() {
 		return "ExamTest [examTestId=" + examTestId + ", subjectId=" + subjectId + ", createTime=" + createTime
-				+ ", testDay=" + testDay + ", timeDo=" + timeDo + ", status=" + status + "]";
+				+ ", testDay=" + testDay + ", timeDo=" + timeDo + ", status=" + status + ", subject=" + subject + "]";
 	}
 
 }
