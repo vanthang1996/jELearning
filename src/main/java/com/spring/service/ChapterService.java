@@ -7,12 +7,14 @@ import com.spring.mapper.entities.Chapter;
 
 public interface ChapterService {
 
-	 List<?> getAllRecord();
+	List<?> getAllRecord();
 
-	 Optional<?> getChapterBySubjectId(long subjectId, int page, int size);
+	Optional<?> getChapterBySubjectId(long subjectId, int page, int size);
 
 	Optional<?> getListChapterBySubjectId(long subjectId);
 
 	int createChapter(Chapter chapter);
+
+	Optional<Chapter> getChapterByChapterIdNoCollect(long chapterId);
 
 }

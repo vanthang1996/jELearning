@@ -34,5 +34,9 @@ public class ChapterServiceImp implements ChapterService {
 	public int createChapter(Chapter chapter) {
 		return this.chapterRepository.createChapter(chapter);
 	}
+	@Override
+	public Optional<Chapter> getChapterByChapterIdNoCollect(long chapterId) {
+		return this.chapterRepository.getChapterByChapterIdNoCollect(chapterId);
+	}
 
 }

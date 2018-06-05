@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.spring.mapper.entities.Question;
+
 public interface QuestionRepository {
 	public List<?> getAllRecord();
 
@@ -19,4 +21,6 @@ public interface QuestionRepository {
 	 * @return
 	 */
 	Map<String, Object> getQuestionOfTeacherCompile(long subjectId, long teacherId, boolean status, int page, int size);
+
+	public Question addQuestion(Question question);
 }

@@ -89,7 +89,33 @@
 		jdbcType=INTEGER},
 		#{sumRecord,
 		mode=OUT,jdbcType=INTEGER},'select * from CAU_HOI where
-		MAMON=''${subjectId}'' and TRANGTHAI=''${status}'' and MAGV=''${teacherId}''')}
+		MAMON=''${subjectId}'' and TRANGTHAI=''${status}'' and
+		MAGV=''${teacherId}''')}
 	</select>
-
+	<select id="findByIdNoCollection" parameterType="long"
+		resultMap="questionResult_no_collection">
+		select * from CAU_HOI where
+		MACH=#{questionId}
+	</select>
+	<select id="insertQuestion" parameterType="java.util.Map"
+		statementType="CALLABLE">
+		{ call proc_add_cauhoi(#{question.content},
+		#{question.chapterId},
+		#{question.subjectId}, #{question.levelId},
+		#{question.teacherCreateId}, #{questionId, mode=OUT, jdbcType=BIGINT})
+		}
+	</select>
+	<update id="updateQuestion"
+		parameterType="com.spring.mapper.entities.Question">
+		UPDATE CAU_HOI
+		SET NOIDUNG = #{content}
+		,MACHUONG =
+		#{chapterId}
+		,MAMON = #{subjectId}
+		,MADOKHO = #{levelId}
+		,MAGV =
+		#{teacherCreateId}
+		,TRANGTHAI = #{status}
+		WHERE MACH=#{questionId}
+	</update>
 </mapper>

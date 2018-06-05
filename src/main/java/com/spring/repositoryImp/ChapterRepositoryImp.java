@@ -90,4 +90,17 @@ public class ChapterRepositoryImp implements ChapterRepository {
 		return rowNum;
 	}
 
+	@Override
+	public Optional<Chapter> getChapterByChapterIdNoCollect(long chapterId) {
+		SqlSession session = sessionFactory.openSession();
+		Chapter list = null;
+		try {
+			list = session.selectOne("com.spring.mapper.ChapterMapper.getChapterByChapterId", chapterId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(list);
+	}
 }
