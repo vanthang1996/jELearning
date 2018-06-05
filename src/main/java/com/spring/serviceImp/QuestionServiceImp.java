@@ -1,6 +1,7 @@
 package com.spring.serviceImp;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class QuestionServiceImp implements QuestionService {
 	@Override
 	public Optional<?> getListQuestionByChapterIdPaging(long chapterId, int page, int size) {
 		return this.questionRepository.getListQuestionByChapterIdPaging(chapterId, page, size);
+	}
+
+	@Override
+	public Map<String, Object> getQuestionOfTeacherCompile(long subjectId, long teacherId, int page, int size) {
+		return this.questionRepository.getQuestionOfTeacherCompile(subjectId, teacherId, false, page, size);
 	}
 
 }
