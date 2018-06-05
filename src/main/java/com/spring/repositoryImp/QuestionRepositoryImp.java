@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.mapper.entities.Answer;
+import com.spring.mapper.entities.Question;
 import com.spring.mapper.entities.Subject;
 import com.spring.repository.QuestionRepository;
 
@@ -91,6 +93,35 @@ public class QuestionRepositoryImp implements QuestionRepository {
 			session.close();
 		}
 		return result;
+	}
 
+	@Override
+	public Question addQuestion(Question question) {
+		SqlSession session = sessionFactory.openSession();
+		long questionId = 0;
+		Map<String, Object> param = new HashMap<>();
+		param.put("question", question);
+		try {
+			session.update("com.spring.mapper.QuestionMapper.insertQuestion", param);
+			questionId = (long) param.get("questionId");
+		} catch (Exception e) {
+			logger.error("addQuestion(Question question)" + e.getMessage());
+		} finally {
+			session.close();
+		}
+		return questionId != 0 ? finById(questionId) : null;
+	}
+
+	public Question finById(long questionId) {
+		SqlSession session = this.sessionFactory.openSession();
+		Question question = null;
+		try {
+			question = session.selectOne("com.spring.mapper.QuestionMapper.findByIdNoCollection", questionId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return question;
 	}
 }
