@@ -15,4 +15,6 @@ public interface ChapterRepository {
 
 	int createChapter(Chapter chapter);
 
+	Optional<Chapter> getChapterByChapterIdNoCollect(long chapterId);
+
 }

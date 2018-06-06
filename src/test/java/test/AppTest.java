@@ -17,7 +17,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.config.jwt.ConfigVariable;
+import com.spring.mapper.entities.Answer;
 import com.spring.mapper.entities.Job;
+import com.spring.repository.AnswerRepository;
 import com.spring.repository.JobRepository;
 import com.spring.service.AnswerService;
 import com.spring.service.ChapterService;
@@ -257,5 +259,17 @@ public class AppTest {
 		job.setEndTime(new Date(2018, 12, 12));
 		job.setTeacherId(2);
 		System.out.println(this.jobRepository.addStructureTest(job));
+	}
+
+	@Autowired
+	private AnswerRepository answerRepository;
+
+	@Test
+	public void testAddAnswer() {
+		Answer answer = new Answer();
+		answer.setContent("Đáp án");
+		answer.setCorrectAnswer(true);
+		answer.setQuestionId(247);
+		System.out.println(this.answerRepository.addAnswer(answer));
 	}
 }
