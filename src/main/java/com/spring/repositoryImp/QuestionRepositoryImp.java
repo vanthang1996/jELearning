@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.spring.mapper.entities.Answer;
 import com.spring.mapper.entities.Question;
 import com.spring.mapper.entities.Subject;
 import com.spring.repository.QuestionRepository;
@@ -123,5 +122,49 @@ public class QuestionRepositoryImp implements QuestionRepository {
 			session.close();
 		}
 		return question;
+	}
+
+	@Override
+	public Optional<Question> getQuestionByQuestionId(long questionId, boolean status) {
+		SqlSession session = this.sessionFactory.openSession();
+		Question question = null;
+		Map<String, Object> param = new HashMap<>();
+		param.put("questionId", questionId);
+		param.put("status", status);
+		try {
+			question = session.selectOne("com.spring.mapper.QuestionMapper.getQuestionByQuestionIdAndStatus", param);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(question);
+	}
+
+	@Override
+	public boolean deleteQuestion(long questionId) {
+		SqlSession session = this.sessionFactory.openSession();
+		int row = 0;
+		try {
+			row = session.delete("com.spring.mapper.QuestionMapper.deleteQuestionById", questionId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return row > 0;
+	}
+
+	public boolean updateQuestion(Question question) {
+		SqlSession session = this.sessionFactory.openSession();
+		int row = 0;
+		try {
+			row = session.update("com.spring.mapper.QuestionMapper.updateQuestion", question);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return row > 0;
 	}
 }

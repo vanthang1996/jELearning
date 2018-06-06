@@ -52,4 +52,33 @@ public class QuestionServiceImp implements QuestionService {
 		return question2;
 	}
 
+	@Override
+	public Optional<Question> getQuestionByQuestionId(long questionId) {
+		return this.questionRepository.getQuestionByQuestionId(questionId, false);
+	}
+
+	@Override
+	public boolean deleteQuestion(long questionId) {
+		Question question = getQuestionByQuestionId(questionId).orElse(null);
+		if (question == null)
+			return false;
+		List<Answer> answers = question.getAnswers();
+		for (Answer answer : answers)
+			this.answerRepository.deleteAnswer(answer.getAnswerId());
+		return this.questionRepository.deleteQuestion(questionId);
+	}
+
+	@Override
+	public boolean updateQuestion(Question question) {
+		if (question == null)
+			return false;
+		if (question.getAnswers() != null) {
+			List<Answer> answers = question.getAnswers();
+			for (Answer answer : answers)
+				this.answerRepository.updateAnswer(answer);
+		}
+		return this.questionRepository.updateQuestion(question);
+
+	}
+
 }

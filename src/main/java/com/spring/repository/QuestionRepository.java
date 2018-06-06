@@ -23,4 +23,10 @@ public interface QuestionRepository {
 	Map<String, Object> getQuestionOfTeacherCompile(long subjectId, long teacherId, boolean status, int page, int size);
 
 	public Question addQuestion(Question question);
+
+	public Optional<Question> getQuestionByQuestionId(long questionId, boolean status);
+
+	public boolean deleteQuestion(long questionId);
+
+	public boolean updateQuestion(Question question);
 }

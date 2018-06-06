@@ -65,4 +65,32 @@ public class AnswerRepositoryImp implements AnswerRepository {
 		}
 		return answer;
 	}
+
+	@Override
+	public boolean deleteAnswer(long answerId) {
+		SqlSession session = this.sessionFactory.openSession();
+		int row = 0;
+		try {
+			row = session.delete("com.spring.mapper.AnswerMapper.deleteAnswerById", answerId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		System.out.println(row);
+		return row > 0;
+	}
+
+	public boolean updateAnswer(Answer answer) {
+		SqlSession session = this.sessionFactory.openSession();
+		int row = 0;
+		try {
+			row = session.update("com.spring.mapper.AnswerMapper.updateAnswer", answer);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return row > 0;
+	}
 }

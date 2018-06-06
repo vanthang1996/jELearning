@@ -5,8 +5,11 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Param;
+import org.junit.experimental.theories.suppliers.TestedOn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonAppend.Attr;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.spring.config.jwt.JwtService;
 import com.spring.domain.ApiMessage;
 import com.spring.mapper.entities.Chapter;
@@ -83,4 +90,51 @@ public class QuestionRest {
 		Question question2 = this.questionService.addQuestion(question);
 		return new ResponseEntity<>(question2, HttpStatus.OK);
 	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> deleteQuestion(HttpServletRequest request, @RequestBody Map<String, Long> json) {
+		long questionId = json.get("questionId").longValue();
+		Optional<Teacher> optional = teacherService
+				.getTeacherByEmail(this.jwtService.getEmailFromToKen(this.jwtService.getToken(request)));
+		Optional<Question> optional2 = questionService.getQuestionByQuestionId(questionId);
+		if (!optional.isPresent() || !optional2.isPresent()) {
+			ApiMessage apiMessage = new ApiMessage(HttpStatus.NOT_FOUND, "Lỗi");
+			return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
+		}
+		if (optional2.get().getTeacherCreateId() != optional.get().getTeacherId()) {
+			ApiMessage apiMessage = new ApiMessage(HttpStatus.FORBIDDEN, "Lỗi");
+			return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
+		}
+		boolean result = this.questionService.deleteQuestion(questionId);
+		ApiMessage apiMessage;
+		if (result)
+			apiMessage = new ApiMessage(HttpStatus.OK, "OK");
+		else
+			apiMessage = new ApiMessage(HttpStatus.CONFLICT, "FAILED!");
+		return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
+	}
+
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public ResponseEntity<?> updateQuestion(HttpServletRequest request, @RequestBody Question question) {
+		Optional<Teacher> optional = teacherService
+				.getTeacherByEmail(this.jwtService.getEmailFromToKen(this.jwtService.getToken(request)));
+		Optional<Question> optional2 = questionService.getQuestionByQuestionId(question.getQuestionId());
+		if (!optional.isPresent() || !optional2.isPresent()) {
+			ApiMessage apiMessage = new ApiMessage(HttpStatus.NOT_FOUND, "Lỗi");
+			return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
+		}
+		if (optional2.get().getTeacherCreateId() != optional.get().getTeacherId()) {
+			ApiMessage apiMessage = new ApiMessage(HttpStatus.FORBIDDEN, "Lỗi");
+			return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
+		}
+		boolean result = this.questionService.updateQuestion(question);
+		ApiMessage apiMessage;
+		if (result)
+			apiMessage = new ApiMessage(HttpStatus.OK, "OK");
+		else
+			apiMessage = new ApiMessage(HttpStatus.CONFLICT, "FAILED!");
+		return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
+		// return new ResponseEntity<>(question, HttpStatus.OK);
+	}
+
 }

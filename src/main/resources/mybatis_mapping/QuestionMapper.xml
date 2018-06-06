@@ -118,4 +118,15 @@
 		,TRANGTHAI = #{status}
 		WHERE MACH=#{questionId}
 	</update>
+
+	<select id="getQuestionByQuestionIdAndStatus"
+		parameterType="java.util.Map" resultMap="questionResult">
+		select * from CAU_HOI where
+		MACH=#{questionId} and
+		TRANGTHAI=#{status}
+	</select>
+	<delete id="deleteQuestionById" parameterType="long">
+		delete from CAU_HOI where MACH=#{questionId}
+	</delete>
+
 </mapper>
