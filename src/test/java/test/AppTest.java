@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -112,6 +113,12 @@ public class AppTest {
 		this.createQuestionService.getAllRecord().stream().forEach(x -> {
 			System.out.println(x);
 		});
+	}
+
+	@Test
+	public void deleteQuesionById() {
+		boolean kq = this.questionService.deleteQuestion(248);
+		assertTrue(kq);
 	}
 
 	@Autowired

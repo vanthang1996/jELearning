@@ -43,6 +43,9 @@
 		#{correctAnswer}
 		WHERE MADAPAN=#{answerId}
 	</update>
+	<delete id="deleteAnswerById" parameterType="long">
+		delete from DAP_AN where MADAPAN=#{answerId}
+	</delete>
 
 
 </mapper>

@@ -14,4 +14,10 @@ public interface QuestionService {
 	public Map<String, Object> getQuestionOfTeacherCompile(long subjectId, long teacherId, int page, int size);
 
 	public Question addQuestion(Question question);
+
+	public Optional<Question> getQuestionByQuestionId(long questionId);
+
+	public boolean deleteQuestion(long questionId);
+
+	public boolean updateQuestion(Question question);
 }
