@@ -32,16 +32,18 @@ public class StrucTestDetailRest {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public ResponseEntity<?> editStructureTestDetailByChapterId(@RequestBody StrucTestDetail strucTestDetail) {
 		int result = this.strucTestDetailService.editStructureTestDetailByChapterId(strucTestDetail);
+		System.out.println(strucTestDetail);
 		if (result > 0)
 			return new ResponseEntity<>(result, HttpStatus.CREATED);
 		return new ResponseEntity<>(result, HttpStatus.CONFLICT);
+		// return new ResponseEntity<>(strucTestDetail, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ResponseEntity<?> createStrureTestDetail(@RequestBody StrucTestDetail strucTestDetail) {
-//			throws JsonProcessingException {
-//		ObjectMapper mapper = new ObjectMapper();
-//		System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(strucTestDetail));
+		// throws JsonProcessingException {
+		// ObjectMapper mapper = new ObjectMapper();
+		// System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(strucTestDetail));
 		int result = this.strucTestDetailService.editStructureTestDetailByChapterId(strucTestDetail);
 		if (result > 0)
 			return new ResponseEntity<>(result, HttpStatus.CREATED);

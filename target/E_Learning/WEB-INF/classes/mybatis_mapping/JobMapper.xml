@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.JobMapper">
+	<resultMap type="com.spring.mapper.entities.Job"
+		id="jobResult">
+		<id column="MACV" property="jobId" />
+		<result column="MAMON" property="subjectId" />
+		<result column="MAGV" property="teacherId" />
+		<result column="MALOAICV" property="jobTypeId" />
+		<result column="TGBATDAU" property="startTime" />
+		<result column="TGKETTHUC" property="endTime" />
+		<result column="NOIDUNGCV" property="jobContent" />
+		<result column="TRANGTHAI" property="status" />
+		<association column="MAMON" property="subject"
+			select="com.spring.mapper.SubjectMapper.getSubjectBySubjectId_no_collection" />
+		<association column="MAGV" property="teacher"
+			select="com.spring.mapper.TeacherMapper.getTeacherByTeacherManagementId" />
+		<association column="MALOAICV" property="jobType"
+			select="com.spring.mapper.JobTypeMapper.getJobTypeByJobTypeId" />
+	</resultMap>
+	<resultMap type="com.spring.mapper.entities.Job"
+		id="jobResult_no_collection">
+		<id column="MACV" property="jobId" />
+		<result column="MAMON" property="subjectId" />
+		<result column="MAGV" property="teacherId" />
+		<result column="MALOAICV" property="jobTypeId" />
+		<result column="TGBATDAU" property="startTime" />
+		<result column="TGKETTHUC" property="endTime" />
+		<result column="NOIDUNGCV" property="jobContent" />
+		<result column="TRANGTHAI" property="status" />
+	</resultMap>
+
+	<select id="getAllRecord" resultMap="jobResult"
+		resultType="java.util.List">
+		select k.* from CONG_VIEC k
+	</select>
+
+	<select id="getJobByTeacherId" resultMap="jobResult"
+		resultType="java.util.List" parameterType="long">
+		select * from CONG_VIEC
+		where MAGV = #{teacherId}
+	</select>
+
+	<select id="getJobsByTeacherIdPaging" resultMap="jobResult"
+		statementType="CALLABLE" parameterType="java.util.Map">
+		{ call
+		proc_paging_query(#{page}, #{size}, #{sumPage,
+		mode=OUT,
+		jdbcType=INTEGER},
+		#{sumRecord,
+		mode=OUT,jdbcType=INTEGER},'select *
+		from CONG_VIEC where MAGV =''${teacherId}''')}
+	</select>
+
+	<select id="addOutLine" statementType="CALLABLE"
+		parameterType="com.spring.mapper.entities.Job">
+		{ call
+		p_themCongViec_CONG_VIEC(#{subjectId},
+		#{teacherId}, '1',
+		#{startTime, mode=IN , jdbcType=DATE}, #{endTime,
+		mode=IN , jdbcType=DATE}, #{jobContent, mode=IN ,
+		jdbcType=LONGVARCHAR})}
+	</select>
+	<select id="addStructureTest" statementType="CALLABLE"
+		parameterType="com.spring.mapper.entities.Job">
+		{ call
+		p_themCongViec2_CONG_VIEC(
+		#{subjectId},
+		#{teacherId},
+		3,
+		#{startTime, mode=IN , jdbcType=DATE},
+		#{endTime,
+		mode=IN, jdbcType=DATE},
+		#{jobContent, mode=IN, jdbcType=LONGVARCHAR},
+		0)}
+	</select>
+	<select id="addQuestionJob" statementType="CALLABLE"
+		parameterType="com.spring.mapper.entities.Job" resultType="long">
+		{ call
+		p_themCongViec_CAUHOI_CONG_VIEC(
+		#{subjectId},
+		#{teacherId},
+		2,
+		#{startTime, mode=IN , jdbcType=DATE},
+		#{endTime,
+		mode=IN,
+		jdbcType=DATE},
+		#{jobContent, mode=IN, jdbcType=LONGVARCHAR})}
+	</select>
+	<select id="findById" parameterType="long" resultMap="jobResult">
+		select *
+		from CONG_VIEC where MACV=#{jobId}
+	</select>
+	<!-- association createQuestion -->
+	<select id="finById_no_collection" parameterType="long"
+		resultMap="jobResult_no_collection">select * from CONG_VIEC where MACV=#{jobId}</select>
+
+	<select id="getJobByManageTeacher" parameterType="java.util.Map"
+		statementType="CALLABLE" resultMap="jobResult">
+		{ call
+		proc_paging_query(#{page}, #{size}, #{sumPage,
+		mode=OUT,
+		jdbcType=INTEGER},
+		#{sumRecord,
+		mode=OUT,jdbcType=INTEGER},'select *
+		from CONG_VIEC where
+		<if test="jobTypeId != 0">
+			MALOAICV=''${jobTypeId}'' and
+		</if>
+		TRANGTHAI=''${status}'' and MAMON in
+		(select mamon from MON_HOC where
+		MABOMON
+		in (select MABOMON from
+		BO_MON where MAGV =''${teacherId}''))')}
+	</select>
+	<select id="getJobsOfTeacherByTeacherIdAndStatus"
+		parameterType="java.util.Map" statementType="CALLABLE"
+		resultMap="jobResult">
+		{ call
+		proc_paging_query(#{page}, #{size}, #{sumPage,
+		mode=OUT,
+		jdbcType=INTEGER},
+		#{sumRecord,
+		mode=OUT,jdbcType=INTEGER},'select * from cong_viec where
+		MAGV=''${teacherId}'' and TRANGTHAI=''${status}''')}
+	</select>
+
+</mapper>

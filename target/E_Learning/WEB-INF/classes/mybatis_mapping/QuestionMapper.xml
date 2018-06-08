@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.QuestionMapper">
+	<resultMap type="com.spring.mapper.entities.Question"
+		id="questionResult">
+		<id column="MACH" property="questionId" />
+		<result column="NOIDUNG" property="content" />
+		<result column="MACHUONG" property="chapterId" />
+		<result column="MAMON" property="subjectId" />
+		<result column="MADOKHO" property="levelId" />
+		<result column="MAGV" property="teacherCreateId" />
+		<result column="TRANGTHAI" property="status" />
+		<association column="MACHUONG" property="chapter"
+			select="com.spring.mapper.ChapterMapper.getChapterByChapterId" />
+		<association column="MAMON" property="subject"
+			select="com.spring.mapper.SubjectMapper.getSubjectBySubjectId_no_collection" />
+		<association column="MADOKHO" property="level"
+			select="com.spring.mapper.LevelMapper.getLevelByLevelId" />
+		<association column="MAGV" property="teacher"
+			select="com.spring.mapper.TeacherMapper.getTeacherByTeacherManagementId" />
+		<collection column="MACH"
+			select="com.spring.mapper.AnswerMapper.getAnswerByQuestionId"
+			property="answers" />
+	</resultMap>
+	<resultMap type="com.spring.mapper.entities.Question"
+		id="questionResult_no_collection">
+		<id column="MACH" property="questionId" />
+		<result column="NOIDUNG" property="content" />
+		<result column="MACHUONG" property="chapterId" />
+		<result column="MAMON" property="subjectId" />
+		<result column="MADOKHO" property="levelId" />
+		<result column="MAGV" property="teacherCreateId" />
+		<result column="TRANGTHAI" property="status" />
+	</resultMap>
+	<resultMap type="com.spring.mapper.entities.Question"
+		id="questionResul_print">
+		<id column="MACH" property="questionId" />
+		<result column="NOIDUNG" property="content" />
+		<result column="MACHUONG" property="chapterId" />
+		<result column="MAMON" property="subjectId" />
+		<result column="MADOKHO" property="levelId" />
+		<result column="MAGV" property="teacherCreateId" />
+		<result column="TRANGTHAI" property="status" />
+		<collection column="MACH"
+			select="com.spring.mapper.AnswerMapper.getAnswerByQuestionId"
+			property="answers" />
+	</resultMap>
+
+	<select id="getAllRecord" resultMap="questionResult"
+		resultType="java.util.List">
+		select k.* from CAU_HOI k
+	</select>
+
+	<select id="getQuestionByChapterId" resultType="java.util.List"
+		parameterType="long" resultMap="questionResult_no_collection">
+		select * from CAU_HOI where MACHUONG
+		=#{chapterId}
+	</select>
+	<select id="getQuestionBySubjectId" resultType="java.util.List"
+		parameterType="long" resultMap="questionResult_no_collection">
+		select * from CAU_HOI where MAMON
+		=#{subjectId}
+	</select>
+
+	<select id="getListQuestionByChapterIdPaging"
+		resultMap="questionResult" statementType="CALLABLE"
+		parameterType="java.util.Map">
+		{ call
+		proc_paging_query(#{page}, #{size}, #{sumPage,
+		mode=OUT,
+		jdbcType=INTEGER},
+		#{sumRecord,
+		mode=OUT,jdbcType=INTEGER},'SELECT *
+		FROM CAU_HOI WHERE
+		MACHUONG=''${chapterId}''')}
+	</select>
+	<!-- association exam test detail -->
+	<select id="getQuestionByQuestionId" parameterType="long"
+		resultMap="questionResul_print">
+		select * from CAU_HOI where MACH=#{questionId}
+	</select>
+
+	<select id="getQuestionOfTeacherCompile"
+		statementType="CALLABLE" parameterType="java.util.Map"
+		resultMap="questionResult">
+		{ call
+		proc_paging_query(#{page}, #{size}, #{sumPage,
+		mode=OUT,
+		jdbcType=INTEGER},
+		#{sumRecord,
+		mode=OUT,jdbcType=INTEGER},'select * from CAU_HOI where
+		MAMON=''${subjectId}'' and TRANGTHAI=''${status}'' and
+		MAGV=''${teacherId}''')}
+	</select>
+	<select id="findByIdNoCollection" parameterType="long"
+		resultMap="questionResult_no_collection">
+		select * from CAU_HOI where
+		MACH=#{questionId}
+	</select>
+	<select id="insertQuestion" parameterType="java.util.Map"
+		statementType="CALLABLE">
+		{ call proc_add_cauhoi(#{question.content},
+		#{question.chapterId},
+		#{question.subjectId}, #{question.levelId},
+		#{question.teacherCreateId}, #{questionId, mode=OUT, jdbcType=BIGINT})
+		}
+	</select>
+	<update id="updateQuestion"
+		parameterType="com.spring.mapper.entities.Question">
+		UPDATE CAU_HOI
+		SET NOIDUNG = #{content}
+		,MACHUONG =
+		#{chapterId}
+		,MAMON = #{subjectId}
+		,MADOKHO = #{levelId}
+		,MAGV =
+		#{teacherCreateId}
+		,TRANGTHAI = #{status}
+		WHERE MACH=#{questionId}
+	</update>
+
+	<select id="getQuestionByQuestionIdAndStatus"
+		parameterType="java.util.Map" resultMap="questionResult">
+		select * from CAU_HOI where
+		MACH=#{questionId} and
+		TRANGTHAI=#{status}
+	</select>
+	<delete id="deleteQuestionById" parameterType="long">
+		delete from CAU_HOI where MACH=#{questionId}
+	</delete>
+
+</mapper>

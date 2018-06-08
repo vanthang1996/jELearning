@@ -21,8 +21,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+<<<<<<< HEAD
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+=======
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+>>>>>>> master
 
 import com.google.api.services.drive.model.File;
 import com.spring.config.jwt.JwtService;
@@ -115,26 +119,40 @@ public class TeacherRest {
 	}
 
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public ResponseEntity<?> uploadAvatar(@RequestParam("file") List<MultipartFile> listFile) {
+	public ResponseEntity<?> uploadAvatar(@RequestParam("file[]") List<MultipartFile> file) {
 		List<Map<String, Object>> result = new ArrayList<>();
+<<<<<<< HEAD
+		System.out.println(file);
+=======
 		System.out.println(listFile);
+>>>>>>> master
 		try {
-			for (MultipartFile f : listFile) {
+			for (MultipartFile f : file) {
 				Map<String, Object> temp = new HashMap<>();
 				String uploadFolder = this.context.getRealPath("/") + java.io.File.separator;
+<<<<<<< HEAD
+				java.io.File newFile = new java.io.File(uploadFolder + f.getOriginalFilename());
+				f.transferTo(newFile);
+				File fileUpload = driveService.uploadFile(newFile.getName(), newFile.getPath(), f.getContentType());
+=======
 				java.io.File file = new java.io.File(uploadFolder + f.getOriginalFilename());
 				f.transferTo(file);
 				File fileUpload = driveService.uploadFile(file.getName(), file.getPath(), f.getContentType());
+>>>>>>> master
 				temp.put("fileProperties", fileUpload.toPrettyString());
 				result.add(temp);
-				file.delete();
+				newFile.delete();
 			}
 		} catch (Exception e) {
 			ApiMessage apiMessage = new ApiMessage(HttpStatus.CONFLICT, e.getMessage());
 			return new ResponseEntity<Object>(apiMessage, apiMessage.getStatusCode());
 		}
+		System.out.println(result);
 		return new ResponseEntity<Object>(result, HttpStatus.OK);
 	}
+<<<<<<< HEAD
+
+=======
 	@Bean
 	public MultipartResolver multipartResolver() {
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
@@ -142,5 +160,6 @@ public class TeacherRest {
 		multipartResolver.setMaxUploadSizePerFile(1048576000); // 1MB
 		return multipartResolver;
 	}
+>>>>>>> master
 	
 }

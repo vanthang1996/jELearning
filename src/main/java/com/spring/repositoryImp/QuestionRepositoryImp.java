@@ -167,4 +167,18 @@ public class QuestionRepositoryImp implements QuestionRepository {
 		}
 		return row > 0;
 	}
+
+	@Override
+	public Optional<?> getQuestionByTeacherId(long teacherId) {
+		SqlSession session = sessionFactory.openSession();
+		List<Object> list = Collections.emptyList();
+		try {
+			list = session.selectList("com.spring.mapper.QuestionMapper.getQuestionByTeacherId", teacherId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(list);
+	}
 }

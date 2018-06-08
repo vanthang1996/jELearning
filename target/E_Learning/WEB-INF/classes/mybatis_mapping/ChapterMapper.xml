@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.ChapterMapper">
+	<resultMap type="com.spring.mapper.entities.Chapter"
+		id="chapterResult">
+		<id column="MACHUONG" property="chapterId" />
+		<result column="TIEUDE" property="chapterName" />
+		<result column="MOTA" property="describe" />
+		<result column="MAMON" property="subjectId" />
+		<collection column="MACHUONG"
+			select="com.spring.mapper.QuestionMapper.getQuestionByChapterId"
+			property="questions" />
+	</resultMap>
+	<resultMap type="com.spring.mapper.entities.Chapter"
+		id="chapterResult_no_collection">
+		<id column="MACHUONG" property="chapterId" />
+		<result column="TIEUDE" property="chapterName" />
+		<result column="MOTA" property="describe" />
+		<result column="MAMON" property="subjectId" />
+	</resultMap>
+
+	<select id="getAllRecord" resultMap="chapterResult"
+		resultType="java.util.List">
+		select k.* from CHUONG_MUC k
+	</select>
+
+	<select id="getChapterBySubjectId"
+		resultMap="chapterResult_no_collection" resultType="java.util.List">
+		select * from
+		CHUONG_MUC where
+		MAMON = #{subjectId}
+	</select>
+	<select id="getChapterBySubjectIdPaging"
+		resultMap="chapterResult" resultType="java.util.List"
+		parameterType="java.util.Map" statementType="CALLABLE">
+		{ call
+		proc_paging_query(#{page}, #{size}, #{sumPage,
+		mode=OUT,
+		jdbcType=INTEGER},
+		#{sumRecord, mode=OUT,jdbcType=INTEGER},'select *
+		from
+		CHUONG_MUC where MAMON = ''${subjectId}''')}
+	</select>
+	<!-- association of structureTestDetail -->
+	<select id="getChapterByChapterId"
+		resultMap="chapterResult_no_collection" parameterType="long">
+		select * from
+		CHUONG_MUC where MACHUONG=#{chapterId}
+	</select>
+	<select id="createChapter" parameterType="com.spring.mapper.entities.Chapter">
+		INSERT INTO CHUONG_MUC (TIEUDE, MOTA, MAMON)
+		VALUES (#{chapterName}, #{describe}, #{subjectId})
+	</select>
+</mapper>

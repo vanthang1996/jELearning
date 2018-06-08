@@ -155,6 +155,10 @@ public class JobRest {
 	}
 	// xác nhận công việc hoàn thành@preauthor là người quản lý bộ môn theo mã công việc
 	
-	
+	@RequestMapping(value = "/teacher/{teacherId}", method = RequestMethod.GET)
+	public ResponseEntity<?> getJobByTeacherId(@PathVariable long teacherId) {
+		Optional<?> optional = this.jobService.getJobByTeacherId(teacherId);
+		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
+	}
 
 }

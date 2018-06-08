@@ -7,6 +7,7 @@ public class Chapter {
 	private String chapterName;
 	private String describe;
 	private long subjectId;
+	private Subject subject;
 	private List<Question> questions;
 
 	public Chapter() {
@@ -44,6 +45,14 @@ public class Chapter {
 		this.subjectId = subjectId;
 	}
 
+	public Subject getSubject() {
+		return subject;
+	}
+
+	public void setSubject(Subject subject) {
+		this.subject = subject;
+	}
+
 	public List<Question> getQuestions() {
 		return questions;
 	}
@@ -55,8 +64,7 @@ public class Chapter {
 	@Override
 	public String toString() {
 		return "Chapter [chapterId=" + chapterId + ", chapterName=" + chapterName + ", describe=" + describe
-				+ ", subjectId=" + subjectId + ", questions=" + questions + "]";
+				+ ", subjectId=" + subjectId + ", subject=" + subject + ", questions=" + questions + "]";
 	}
 
-	
 }

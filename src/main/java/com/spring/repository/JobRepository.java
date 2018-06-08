@@ -28,4 +28,6 @@ public interface JobRepository {
 
 	Map<String, Object> getJobsOfTeacherByTeacherId(long teacherId, boolean status, int page, int size);
 
+	public Optional<?> getJobByTeacherId(long teacherId);
+
 }
