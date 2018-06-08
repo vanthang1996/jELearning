@@ -11,4 +11,6 @@ public interface DepartmentRepository {
 
 	public Optional<?> getAllDepartment();
 
+	public int createDepartment(Department department);
+
 }

@@ -21,4 +21,8 @@ public interface TeacherService {
 	public Optional<?> getListDepartmentyByTeacherEmail(String email);
 
 	public Optional<?> getTeacherNoCollectionByTeacherId(long teacherId);
+
+	public Optional<?> getAllTeacher();
+
+//	public int saveAvatar(String fileName,int teacherID);
 }

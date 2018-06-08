@@ -26,4 +26,9 @@ public class DepartmentServiceImp implements DepartmentService {
 		// TODO Auto-generated method stub
 		return this.departmentRepository.getAllDepartment();
 	}
+
+	@Override
+	public int createDepartment(Department department) {
+		return this.departmentRepository.createDepartment(department);
+	}
 }

@@ -25,4 +25,6 @@ public interface SubjectRepository {
 	List<Subject> getListSubjectOfTeacher(long teacherId, boolean status);
 
 	Optional<?> getListSubjectOfTeacherPaging(String email, boolean status, int page, int size);
+
+	int createSubject(Subject subject);
 }

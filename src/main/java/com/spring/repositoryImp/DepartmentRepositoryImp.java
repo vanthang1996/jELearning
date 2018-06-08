@@ -49,4 +49,18 @@ public class DepartmentRepositoryImp implements DepartmentRepository {
 		return Optional.ofNullable(list);
 	}
 
+	@Override
+	public int createDepartment(Department department) {
+		SqlSession session = this.sessionFactory.openSession();
+		int rowNum = -1;
+		try {
+			rowNum = session.insert("com.spring.mapper.DepartmentMapper.createDepartment", department);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return rowNum;
+	}
+
 }

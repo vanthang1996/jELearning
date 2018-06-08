@@ -17,4 +17,6 @@ public interface SubjectService {
 	Optional<?> getSubjectAddOutLineOrStructureTest(long departmentId, long jobTypeId);
 
 	public List<Subject> getSubjectOfTeacherByTeacherId(long teacherId);
+
+	public int createSubject(Subject subject);
 }

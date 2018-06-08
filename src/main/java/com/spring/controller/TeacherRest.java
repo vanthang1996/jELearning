@@ -1,9 +1,13 @@
 
 package com.spring.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.google.api.services.drive.model.File;
 import com.spring.config.jwt.JwtService;
 import com.spring.domain.ApiMessage;
 import com.spring.mapper.entities.Teacher;
+import com.spring.service.GoogleDriveService;
 import com.spring.service.JobService;
 import com.spring.service.SubjectService;
 import com.spring.service.TeacherService;
@@ -37,7 +44,17 @@ public class TeacherRest {
 	private JwtService jwtService;
 	@Autowired
 	private JobService jobService;
+	@Autowired
+	private ServletContext context;
+	@Autowired
+	private GoogleDriveService driveService;
 
+	@RequestMapping(value = "/all-teacher", method = RequestMethod.GET)
+	public ResponseEntity<?> getAllTeacher() {
+		Optional<?> optional = this.teacherService.getAllTeacher();
+		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
 	public ResponseEntity<?> getTeacherInfo(HttpServletRequest request, Device device) {
 		Optional<Teacher> optional = teacherService
@@ -92,5 +109,27 @@ public class TeacherRest {
 			ApiMessage apiMessage = new ApiMessage(HttpStatus.FORBIDDEN, e.getMessage());
 			return new ResponseEntity<Object>(apiMessage, apiMessage.getStatusCode());
 		}
+	}
+	
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	public ResponseEntity<?> uploadAvatar(@RequestParam("file") List<MultipartFile> listFile) {
+		List<Map<String, Object>> result = new ArrayList<>();
+		try {
+			for (MultipartFile f : listFile) {
+				Map<String, Object> temp = new HashMap<>();
+				String uploadFolder = this.context.getRealPath("/") + java.io.File.separator;
+				java.io.File file = new java.io.File(uploadFolder + f.getOriginalFilename());
+				f.transferTo(file);
+				File fileUpload = driveService.uploadFile(file.getName(), file.getPath(),
+						f.getContentType());
+				temp.put("fileProperties", fileUpload.toPrettyString());
+				result.add(temp);
+				file.delete();
+			}
+		} catch (Exception e) {
+			ApiMessage apiMessage = new ApiMessage(HttpStatus.CONFLICT, e.getMessage());
+			return new ResponseEntity<Object>(apiMessage, apiMessage.getStatusCode());
+		}
+		return new ResponseEntity<Object>(result, HttpStatus.OK);
 	}
 }

@@ -17,6 +17,7 @@
 			<list>
 				<value>classpath:/datasource.properties</value>
 				<value>classpath:/jwt.properties</value>
+				<value>classpath:/google.properties</value>
 			</list>
 		</property>
 		<property name="ignoreUnresolvablePlaceholders" value="true" />

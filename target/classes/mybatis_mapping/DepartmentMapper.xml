@@ -41,5 +41,11 @@
 		=#{email}) 
 	</select>
 
+	<select id="createDepartment" parameterType="com.spring.mapper.entities.Department">
+		{
+			call 
+			p_them_department(#{departmentName}, #{facultyId}, #{teacherManagementId})
+		}
+	</select>
 
 </mapper>
