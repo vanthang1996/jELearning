@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.mapper.SubjectMapper">
-	<resultMap type="com.spring.mapper.entities.Subject"
-		id="subjectResult">
+	<resultMap type="com.spring.mapper.entities.Subject" id="subjectResult">
 		<id column="MAMON" property="subjectId" />
 		<result column="TENMON" property="subjectName" />
 		<result column="MABOMON" property="departmentId" />
@@ -28,8 +27,7 @@
 			property="teachers" />
 
 	</resultMap>
-	<resultMap type="com.spring.mapper.entities.Subject"
-		id="subjectResult_no_collection">
+	<resultMap type="com.spring.mapper.entities.Subject" id="subjectResult_no_collection">
 		<id column="MAMON" property="subjectId" />
 		<result column="TENMON" property="subjectName" />
 		<result column="MABOMON" property="departmentId" />
@@ -39,8 +37,7 @@
 			select="com.spring.mapper.TeacherMapper.getTeacherByTeacherManagementId"
 			property="teacherManagement"></association>
 	</resultMap>
-		<resultMap type="com.spring.mapper.entities.Subject"
-		id="subjectResult_view">
+	<resultMap type="com.spring.mapper.entities.Subject" id="subjectResult_view">
 		<id column="MAMON" property="subjectId" />
 		<result column="TENMON" property="subjectName" />
 		<result column="MABOMON" property="departmentId" />
@@ -53,15 +50,16 @@
 			select="com.spring.mapper.ChapterMapper.getChapterBySubjectId"
 			property="chapters" />
 	</resultMap>
-	<select id="getSubjectByTeacherId"
-		resultMap="subjectResult_no_collection" parameterType="long">
+	<select id="getSubjectByTeacherId" resultMap="subjectResult_no_collection"
+		parameterType="long">
 		select MON_HOC.*
-		from QUAN_LY_MH join MON_HOC on MON_HOC.MAMON= QUAN_LY_MH.MAMON where
-		QUAN_LY_MH.MAGV =#{teacherId} and MON_HOC.TRANGTHAI=1
+		from QUAN_LY_MH join MON_HOC on
+		MON_HOC.MAMON= QUAN_LY_MH.MAMON where
+		QUAN_LY_MH.MAGV =#{teacherId} and
+		MON_HOC.TRANGTHAI=1
 	</select>
 
-	<select id="getAllRecord" resultMap="subjectResult"
-		resultType="java.util.List">
+	<select id="getAllRecord" resultMap="subjectResult" resultType="java.util.List">
 		select m.* from MON_HOC m
 	</select>
 	<select id="getSubjectByDepartmentId" resultMap="subjectResult"
@@ -69,18 +67,21 @@
 		select * from MON_HOC where
 		MABOMON = #{departmentId} and TRANGTHAI=1
 	</select>
-	<select id="getListSubjectOfTeacherPaging"
-		resultMap="subjectResult_no_collection" statementType="CALLABLE"
-		parameterType="java.util.Map">
-		{ call proc_paging_query(#{page}, #{size}, #{sumPage,
+	<select id="getListSubjectOfTeacherPaging" resultMap="subjectResult_no_collection"
+		statementType="CALLABLE" parameterType="java.util.Map">
+		{ call
+		proc_paging_query(#{page}, #{size}, #{sumPage,
 		mode=OUT,
 		jdbcType=INTEGER},
 		#{sumRecord,
-		mode=OUT,jdbcType=INTEGER},'select * from MON_HOC where
+		mode=OUT,jdbcType=INTEGER},'select *
+		from MON_HOC where
 		TRANGTHAI=''${status}'' and MAMON
-		in(SELECT MAMON FROM QUAN_LY_MH WHERE
+		in(SELECT MAMON
+		FROM QUAN_LY_MH WHERE
 		MAGV = (SELECT MAGV FROM
-		GIANG_VIEN WHERE EMAIL=''${email}'' ))')}
+		GIANG_VIEN WHERE
+		EMAIL=''${email}'' ))')}
 	</select>
 	<select id="getSubjectsDataByDepartmentId_no_collection"
 		resultType="java.util.List" resultMap="subjectResult_no_collection"
@@ -90,10 +91,10 @@
 	</select>
 	<!-- get subject by subjectId -->
 
-	<select id="getSubjectBySubjectId_no_collection"
-		resultType="java.util.List" resultMap="subjectResult_no_collection"
-		parameterType="long">
-		select * from MON_HOC where MAMON=#{subjectId} and
+	<select id="getSubjectBySubjectId_no_collection" resultType="java.util.List"
+		resultMap="subjectResult_no_collection" parameterType="long">
+		select * from
+		MON_HOC where MAMON=#{subjectId} and
 		TRANGTHAI=1
 	</select>
 	<select id="getSubjectBySubjectId" resultType="java.util.List"
@@ -101,21 +102,29 @@
 		select * from MON_HOC where
 		MAMON=#{subjectId} and TRANGTHAI=1
 	</select>
-	<select id="getSubjectAddOutLineOrStructureTest"
-		resultType="java.util.List" resultMap="subjectResult"
-		parameterType="java.util.Map">
+	<select id="getSubjectAddOutLineOrStructureTest" resultType="java.util.List"
+		resultMap="subjectResult" parameterType="java.util.Map">
 		select * from mon_hoc where
 		MABOMON=#{departmentId} and
-		mamon not in(select mamon from CONG_VIEC where
+		mamon not in(select mamon from CONG_VIEC
+		where
 		MALOAICV=#{jobTypeId}
 		and TRANGTHAI=0)
 	</select>
 
 	<select id="getListSubjectOfTeacher" resultType="java.util.List"
 		resultMap="subjectResult_view" parameterType="java.util.Map">
-		select * from MON_HOC where
+		select * from MON_HOC
+		where
 		trangthai=#{status} and
-		mamon in (select mamon from QUAN_LY_MH where
+		mamon in (select mamon from QUAN_LY_MH
+		where
 		magv=#{teacherId})
+	</select>
+
+	<select id="createSubject" resultMap="subjectResult_no_collection" parameterType="com.spring.mapper.entities.Subject">
+		{ call
+		p_them_subject (#{subjectName}, #{departmentId}, #{teacherManagementId}, 1)
+		}
 	</select>
 </mapper>

@@ -120,5 +120,19 @@ public class TeacherRepositoryImp implements TeacherRepository {
 		return Optional.ofNullable(teacher);
 	}
 
+	@Override
+	public Optional<?> getAllTeacher() {
+		SqlSession session = this.sessionFactory.openSession();
+		List<Teacher> list =null;
+		try {
+			list = session.selectList("com.spring.mapper.TeacherMapper.getAllRecord");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(list);
+	}
+
 	
 }

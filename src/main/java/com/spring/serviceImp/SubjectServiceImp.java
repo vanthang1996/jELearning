@@ -45,4 +45,9 @@ public class SubjectServiceImp implements SubjectService {
 	public List<Subject> getSubjectOfTeacherByTeacherId(long teacherId) {
 		return this.subjectRepository.getListSubjectOfTeacher(teacherId, true);
 	}
+
+	@Override
+	public int createSubject(Subject subject) {
+		return this.subjectRepository.createSubject(subject);
+	}
 }

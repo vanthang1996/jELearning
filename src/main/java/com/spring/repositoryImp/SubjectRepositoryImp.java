@@ -136,4 +136,19 @@ public class SubjectRepositoryImp implements SubjectRepository {
 		return list;
 	}
 
+	@Override
+	public int createSubject(Subject subject) {
+		SqlSession session = this.sessionFactory.openSession();
+		Map<String, Object> params = new HashMap<>();
+		int rowNum = -1;
+		try {
+			rowNum = session.insert("com.spring.mapper.SubjectMapper.createSubject", subject);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return rowNum;
+	}
+
 }

@@ -2,6 +2,7 @@ package com.spring.repositoryImp;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -30,5 +31,19 @@ public class FacultyRepositoryImp implements FacultyRepository {
 			session.close();
 		}
 		return faculties;
+	}
+
+	@Override
+	public Optional<?> getAllFaculty() {
+		SqlSession session = sqlSessionFactory.openSession();
+		List<Faculty> list = null;
+		try {
+			list = session.selectList("com.spring.mapper.FacultyMapper.getAllRecord");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(list);
 	}
 }
