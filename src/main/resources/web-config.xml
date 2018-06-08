@@ -40,4 +40,5 @@
 			class="org.springframework.mobile.device.site.SitePreferenceHandlerInterceptor" />
 
 	</mvc:interceptors>
+	
 </beans>

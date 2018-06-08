@@ -1,6 +1,7 @@
 package com.spring.serviceImp;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,12 @@ public class FacultyServiceImp implements FacultyService {
 	public List<?> getAllRecord() {
 		// TODO Auto-generated method stub
 		return this.facultyRepository.getAllRecord();
+	}
+
+	@Override
+	public Optional<?> getAllFaculty() {
+		// TODO Auto-generated method stub
+		return this.facultyRepository.getAllFaculty();
 	}
 
 }

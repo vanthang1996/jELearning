@@ -21,4 +21,6 @@ public interface TeacherRepository {
 	public Optional<?> getListDepartmentyByTeacherEmail(String email);
 
 	public Optional<?> getTeacherNoCollectionByTeacherId(long teacherId);
+
+	public Optional<?> getAllTeacher();
 }
