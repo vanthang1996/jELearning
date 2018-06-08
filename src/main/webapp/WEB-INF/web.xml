@@ -51,7 +51,6 @@
 		  <filter-name>noneSecurityFilter</filter-name> 
 		<url-pattern>/*</url-pattern>
 		 </filter-mapping> 
-
 </web-app>
 <!-- The front controller of this Spring Web application, responsible for 
 	handling all application requests -->

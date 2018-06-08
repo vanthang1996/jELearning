@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,8 +46,17 @@ public class SubjectRest {
 		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
 
+	@Autowired
+	private SimpMessagingTemplate messagingTemplate;
+
+	@MessageMapping("/chat")
+	public void send() {
+		this.messagingTemplate.convertAndSendToUser("quynhnhu@gmail.com", "/queue/message", "Ok");
+	}
+
 	@RequestMapping(value = "/{departmentId}/subjects")
 	public ResponseEntity<?> getSubjectsDataByDepartmentId(@PathVariable long departmentId) {
+		this.messagingTemplate.convertAndSendToUser("vanthang1996@gmail.com", "/queue/message", "Ok");
 		Optional<?> optional = this.subjectService.getSubjectsDataByDepartmentId(departmentId);
 		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
