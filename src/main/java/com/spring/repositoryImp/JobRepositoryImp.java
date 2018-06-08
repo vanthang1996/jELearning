@@ -182,4 +182,18 @@ public class JobRepositoryImp implements JobRepository {
 		return result;
 	}
 
+	@Override
+	public Optional<?> getJobByTeacherId(long teacherId) {
+		SqlSession session = sessionFactory.openSession();
+		Job job = null;
+		try {
+			job = session.selectOne("com.spring.mapper.JobMapper.getJobByTeacherIdAndTypeJob", teacherId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(job);
+	}
+
 }

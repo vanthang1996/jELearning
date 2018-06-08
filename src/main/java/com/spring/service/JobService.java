@@ -28,4 +28,6 @@ public interface JobService {
 	 */
 	public Map<String, Object> getJobsOfTeacher(long teacherId, int page, int size);
 
+	public Optional<?> getJobByTeacherId(long teacherId);
+
 }

@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ibatis.annotations.Param;
-import org.junit.experimental.theories.suppliers.TestedOn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,10 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonAppend.Attr;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.spring.config.jwt.JwtService;
 import com.spring.domain.ApiMessage;
 import com.spring.mapper.entities.Chapter;
@@ -137,4 +131,9 @@ public class QuestionRest {
 		// return new ResponseEntity<>(question, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/teacher/{teacherId}", method = RequestMethod.GET)
+	public ResponseEntity<?> getQuestionByTeacherId(@PathVariable long teacherId) {
+		Optional<?> optional = this.questionService.getQuestionByTeacherId(teacherId);
+		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
+	}
 }

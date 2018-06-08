@@ -29,4 +29,6 @@ public interface QuestionRepository {
 	public boolean deleteQuestion(long questionId);
 
 	public boolean updateQuestion(Question question);
+
+	public Optional<?> getQuestionByTeacherId(long teacherId);
 }

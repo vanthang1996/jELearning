@@ -81,4 +81,10 @@ public class QuestionServiceImp implements QuestionService {
 
 	}
 
+	@Override
+	public Optional<?> getQuestionByTeacherId(long teacherId) {
+		// TODO Auto-generated method stub
+		return this.questionRepository.getQuestionByTeacherId(teacherId);
+	}
+
 }

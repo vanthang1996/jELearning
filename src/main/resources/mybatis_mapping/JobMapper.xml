@@ -124,5 +124,9 @@
 		mode=OUT,jdbcType=INTEGER},'select * from cong_viec where
 		MAGV=''${teacherId}'' and TRANGTHAI=''${status}''')}
 	</select>
-
+	<select id="getJobByTeacherIdAndTypeJob" parameterType="long" resultMap="jobResult">
+		SELECT *
+		FROM CONG_VIEC
+		WHERE MALOAICV = 2 AND MAGV = #{teacherId}
+	</select>
 </mapper>

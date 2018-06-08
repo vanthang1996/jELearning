@@ -53,4 +53,10 @@ public class JobServiceImp implements JobService {
 		return this.jobRepository.getJobsOfTeacherByTeacherId(teacherId, false, page, size);
 	}
 
+	@Override
+	public Optional<?> getJobByTeacherId(long teacherId) {
+		// TODO Auto-generated method stub
+		return this.jobRepository.getJobByTeacherId(teacherId);
+	}
+
 }

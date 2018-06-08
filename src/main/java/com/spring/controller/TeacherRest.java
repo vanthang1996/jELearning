@@ -11,6 +11,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mobile.device.Device;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
 import com.google.api.services.drive.model.File;
 import com.spring.config.jwt.JwtService;
@@ -54,7 +56,7 @@ public class TeacherRest {
 		Optional<?> optional = this.teacherService.getAllTeacher();
 		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
 	public ResponseEntity<?> getTeacherInfo(HttpServletRequest request, Device device) {
 		Optional<Teacher> optional = teacherService
@@ -110,26 +112,29 @@ public class TeacherRest {
 			return new ResponseEntity<Object>(apiMessage, apiMessage.getStatusCode());
 		}
 	}
-	
+
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public ResponseEntity<?> uploadAvatar(@RequestParam("file") List<MultipartFile> listFile) {
+	public ResponseEntity<?> uploadAvatar(@RequestParam("file[]") List<MultipartFile> file) {
 		List<Map<String, Object>> result = new ArrayList<>();
+		System.out.println(file);
 		try {
-			for (MultipartFile f : listFile) {
+			for (MultipartFile f : file) {
 				Map<String, Object> temp = new HashMap<>();
 				String uploadFolder = this.context.getRealPath("/") + java.io.File.separator;
-				java.io.File file = new java.io.File(uploadFolder + f.getOriginalFilename());
-				f.transferTo(file);
-				File fileUpload = driveService.uploadFile(file.getName(), file.getPath(),
-						f.getContentType());
+				java.io.File newFile = new java.io.File(uploadFolder + f.getOriginalFilename());
+				f.transferTo(newFile);
+				File fileUpload = driveService.uploadFile(newFile.getName(), newFile.getPath(), f.getContentType());
 				temp.put("fileProperties", fileUpload.toPrettyString());
 				result.add(temp);
-				file.delete();
+				newFile.delete();
 			}
 		} catch (Exception e) {
 			ApiMessage apiMessage = new ApiMessage(HttpStatus.CONFLICT, e.getMessage());
 			return new ResponseEntity<Object>(apiMessage, apiMessage.getStatusCode());
 		}
+		System.out.println(result);
 		return new ResponseEntity<Object>(result, HttpStatus.OK);
 	}
+
+	
 }

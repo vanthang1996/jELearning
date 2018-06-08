@@ -44,7 +44,7 @@
 		SET MADOKHO = #{levelId}, SLCAUHOI = #{numberOfQuestion}, TONGDIEM = #{totalScore}
 		WHERE MACHUONG = #{chapterId} AND MACTDT = #{structureTestId} -->
 		{ call
-		p_addStructureTestDetail(#{structureTestId}, #{chapterId}, #{levelId}, #{numberOfQuestion}, #{totalScore})
+			p_addStructureTestDetail(#{structureTestId}, #{chapterId}, #{levelId}, #{numberOfQuestion}, #{totalScore})
 		}
 	</select>
 </mapper>

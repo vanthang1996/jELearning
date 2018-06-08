@@ -290,8 +290,8 @@ public class AppTest {
 	
 	@Test
 	public void testUploadFile() {
-		File file = new File("C:\\Users\\Phat\\Pictures\\1.png");
-		com.google.api.services.drive.model.File file2 = driveService.uploadFile(file.getName(), file.getAbsolutePath(), "upload/png" );
+		File file = new File("D:\\B.jpg");
+		com.google.api.services.drive.model.File file2 = driveService.uploadFile(file.getName(), file.getAbsolutePath(), "upload/*" );
 		try {
 			System.err.println(file2.toPrettyString());
 		} catch (IOException e) {

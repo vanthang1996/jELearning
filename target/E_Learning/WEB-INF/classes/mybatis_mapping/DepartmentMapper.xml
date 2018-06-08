@@ -30,7 +30,7 @@
 		resultMap="departmentResult_no_collection" resultType="java.util.List">
 		select * from
 		BO_MON where
-		MAKHOA = #{facultyId};
+		MAKHOA = #{facultyId} 
 	</select>
 	<!-- TeacherRest -->
 	<select id="getListDepartmentyByTeacherEmail"
@@ -38,8 +38,14 @@
 		select * from BO_MON where
 		MAGV is not null and
 		MAGV=(select MAGV from giang_vien where email
-		=#{email})
+		=#{email}) 
 	</select>
 
+	<select id="createDepartment" parameterType="com.spring.mapper.entities.Department">
+		{
+			call 
+			p_them_department(#{departmentName}, #{facultyId}, #{teacherManagementId})
+		}
+	</select>
 
 </mapper>
