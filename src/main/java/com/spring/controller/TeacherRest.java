@@ -11,6 +11,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mobile.device.Device;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.google.api.services.drive.model.File;
 import com.spring.config.jwt.JwtService;
@@ -54,7 +57,7 @@ public class TeacherRest {
 		Optional<?> optional = this.teacherService.getAllTeacher();
 		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/info", method = RequestMethod.GET)
 	public ResponseEntity<?> getTeacherInfo(HttpServletRequest request, Device device) {
 		Optional<Teacher> optional = teacherService
@@ -110,18 +113,18 @@ public class TeacherRest {
 			return new ResponseEntity<Object>(apiMessage, apiMessage.getStatusCode());
 		}
 	}
-	
+
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public ResponseEntity<?> uploadAvatar(@RequestParam("file") List<MultipartFile> listFile) {
 		List<Map<String, Object>> result = new ArrayList<>();
+		System.out.println(listFile);
 		try {
 			for (MultipartFile f : listFile) {
 				Map<String, Object> temp = new HashMap<>();
 				String uploadFolder = this.context.getRealPath("/") + java.io.File.separator;
 				java.io.File file = new java.io.File(uploadFolder + f.getOriginalFilename());
 				f.transferTo(file);
-				File fileUpload = driveService.uploadFile(file.getName(), file.getPath(),
-						f.getContentType());
+				File fileUpload = driveService.uploadFile(file.getName(), file.getPath(), f.getContentType());
 				temp.put("fileProperties", fileUpload.toPrettyString());
 				result.add(temp);
 				file.delete();
@@ -132,4 +135,12 @@ public class TeacherRest {
 		}
 		return new ResponseEntity<Object>(result, HttpStatus.OK);
 	}
+	@Bean
+	public MultipartResolver multipartResolver() {
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setMaxUploadSize(1048576000); // 10MB
+		multipartResolver.setMaxUploadSizePerFile(1048576000); // 1MB
+		return multipartResolver;
+	}
+	
 }
