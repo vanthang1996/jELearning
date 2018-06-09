@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.LevelMapper">
+	<resultMap type="com.spring.mapper.entities.Level"
+		id="levelResult">
+		<id column="MADOKHO" property="levelId" />
+		<result column="TENDOKHO" property="levelName" />
+	</resultMap>
+	<select id="getAllRecord" resultMap="levelResult">
+		select d.* from do_kho d
+	</select>
+	<!-- association of StructureTestDetail -->
+	<select id="getLevelByLevelId" parameterType="long"
+		resultMap="levelResult">
+		Select * from do_kho where madokho=#{levelId}
+	</select>
+</mapper>
