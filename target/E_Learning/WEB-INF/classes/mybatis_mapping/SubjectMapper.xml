@@ -122,9 +122,16 @@
 		magv=#{teacherId})
 	</select>
 
-	<select id="createSubject" resultMap="subjectResult_no_collection" parameterType="com.spring.mapper.entities.Subject">
+	<select id="createSubject" resultMap="subjectResult_no_collection"
+		parameterType="com.spring.mapper.entities.Subject">
 		{ call
-		p_them_subject (#{subjectName}, #{departmentId}, #{teacherManagementId}, 1)
+		p_them_subject (#{subjectName}, #{departmentId},
+		#{teacherManagementId}, 1)
 		}
+	</select>
+	<!-- assosiasion -->
+	<select id="getSubjectBySujectIdAssociation" resultMap="subjectResult_no_collection"
+		parameterType="long">select * from
+		MON_HOC where MAMON=#{subjectId}
 	</select>
 </mapper>

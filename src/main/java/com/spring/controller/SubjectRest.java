@@ -46,17 +46,18 @@ public class SubjectRest {
 		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
 
-	@Autowired
-	private SimpMessagingTemplate messagingTemplate;
-
-	@MessageMapping("/chat")
-	public void send() {
-		this.messagingTemplate.convertAndSendToUser("quynhnhu@gmail.com", "/queue/message", "Ok");
-	}
+	// @Autowired
+	// private SimpMessagingTemplate messagingTemplate;
+	//
+	// @MessageMapping("/chat")
+	// public void send() {
+	// this.messagingTemplate.convertAndSendToUser("quynhnhu@gmail.com",
+	// "/queue/message", "Ok");
+	// }
 
 	@RequestMapping(value = "/{departmentId}/subjects")
 	public ResponseEntity<?> getSubjectsDataByDepartmentId(@PathVariable long departmentId) {
-		this.messagingTemplate.convertAndSendToUser("vanthang1996@gmail.com", "/queue/message", "Ok");
+//		this.messagingTemplate.convertAndSendToUser("vanthang1996@gmail.com", "/queue/message", "Ok");
 		Optional<?> optional = this.subjectService.getSubjectsDataByDepartmentId(departmentId);
 		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
