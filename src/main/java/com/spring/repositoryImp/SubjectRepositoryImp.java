@@ -150,4 +150,21 @@ public class SubjectRepositoryImp implements SubjectRepository {
 		return rowNum;
 	}
 
+	@Override
+	public int deleteTeacherOfSubject(long subjectId, long teacherManagementId) {
+		SqlSession session = sessionFactory.openSession();
+		Map<String, Object> params = new HashMap<>();
+		params.put("subjectId", subjectId);
+		params.put("teacherManagementId", teacherManagementId);
+		int rowNum = 0;
+		try {
+			rowNum = session.delete("com.spring.mapper.SubjectMapper.deleteTeacherOfSubject", params);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return rowNum;
+	}
+
 }

@@ -26,5 +26,7 @@ public interface TeacherService {
 
 	public boolean createTeacher(Teacher teacher);
 
+	public Optional<?> getTeacherByDepartmentId(long departmentId);
+
 //	public int saveAvatar(String fileName,int teacherID);
 }

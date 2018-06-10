@@ -19,4 +19,6 @@ public interface SubjectService {
 	public List<Subject> getSubjectOfTeacherByTeacherId(long teacherId);
 
 	public int createSubject(Subject subject);
+
+	public boolean deleteTeacherOfSubject(long subjectId, long teacherManagementId);
 }

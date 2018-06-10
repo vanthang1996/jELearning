@@ -11,7 +11,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mobile.device.Device;
@@ -22,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.google.api.services.drive.model.File;
 import com.spring.config.jwt.JwtService;
@@ -146,12 +143,10 @@ public class TeacherRest {
 		return new ResponseEntity<Object>(result, HttpStatus.CONFLICT);
 	}
 	
-	
-	@Bean
-	public MultipartResolver multipartResolver() {
-		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-		multipartResolver.setMaxUploadSize(1048576000); // 10MB
-		multipartResolver.setMaxUploadSizePerFile(1048576000); // 1MB
-		return multipartResolver;
+	@RequestMapping(value = "department/{departmentId}", method = RequestMethod.GET)
+	public ResponseEntity<?> getTeacherByDepartmentId(@PathVariable long departmentId) {
+		Optional<?> optional = this.teacherService.getTeacherByDepartmentId(departmentId);
+		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
+	
 }

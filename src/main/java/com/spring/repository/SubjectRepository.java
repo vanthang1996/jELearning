@@ -27,4 +27,6 @@ public interface SubjectRepository {
 	Optional<?> getListSubjectOfTeacherPaging(String email, boolean status, int page, int size);
 
 	int createSubject(Subject subject);
+
+	int deleteTeacherOfSubject(long subjectId, long teacherManagementId);
 }

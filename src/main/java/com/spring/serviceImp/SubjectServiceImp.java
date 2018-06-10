@@ -50,4 +50,11 @@ public class SubjectServiceImp implements SubjectService {
 	public int createSubject(Subject subject) {
 		return this.subjectRepository.createSubject(subject);
 	}
+
+	@Override
+	public boolean deleteTeacherOfSubject(long subjectId, long teacherManagementId) {
+		if (this.subjectRepository.deleteTeacherOfSubject(subjectId, teacherManagementId) > 0)
+			return true;
+		return false;
+	}
 }

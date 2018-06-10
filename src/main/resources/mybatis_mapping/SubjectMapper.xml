@@ -124,13 +124,20 @@
 
 	<select id="createSubject" resultMap="subjectResult_no_collection">
 		{ call
-		p_themMonHoc (#{subjectName}, #{departmentId}, #{teacherManagementId}, 1)
+		p_themMonHoc
+		(#{subjectName}, #{departmentId}, #{teacherManagementId}, 1)
 		}
 	</select>
-	
+
 	<!-- assosiasion -->
 	<select id="getSubjectBySujectIdAssociation" resultMap="subjectResult_no_collection"
-		parameterType="long">select * from
+		parameterType="long">
+		select * from
 		MON_HOC where MAMON=#{subjectId}
 	</select>
+
+	<delete id="deleteTeacherOfSubject" parameterType="long">
+		DELETE FROM MON_HOC
+		WHERE MAMON = #{subjectId} AND MAGV = #{teacherManagementId}
+	</delete>
 </mapper>

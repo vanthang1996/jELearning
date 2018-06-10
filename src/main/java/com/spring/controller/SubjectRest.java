@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -99,6 +97,14 @@ public class SubjectRest {
 		int result = this.subjectService.createSubject(subject);
 		if (result > 0)
 			return new ResponseEntity<>(result, HttpStatus.CREATED);
+		return new ResponseEntity<>(result, HttpStatus.CONFLICT);
+	}
+	
+	@RequestMapping(value = "/delete/{subjectId}/{teacherManagementId}", method = RequestMethod.GET)
+	public ResponseEntity<?> deleteTeacherOfSubject(@PathVariable("subjectId") long subjectId, @PathVariable("teacherManagementId") long teacherManagementId) {
+		boolean result = this.subjectService.deleteTeacherOfSubject(subjectId, teacherManagementId);
+		if (result)
+			return new ResponseEntity<>(result, HttpStatus.OK);
 		return new ResponseEntity<>(result, HttpStatus.CONFLICT);
 	}
 }
