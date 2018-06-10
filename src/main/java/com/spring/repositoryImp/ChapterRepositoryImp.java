@@ -79,7 +79,7 @@ public class ChapterRepositoryImp implements ChapterRepository {
 	@Override
 	public int createChapter(Chapter chapter) {
 		SqlSession session = sessionFactory.openSession();
-		int rowNum = -1;
+		int rowNum = 0;
 		try {
 			rowNum = session.insert("com.spring.mapper.ChapterMapper.createChapter", chapter);
 		} catch (Exception e) {
@@ -102,5 +102,22 @@ public class ChapterRepositoryImp implements ChapterRepository {
 			session.close();
 		}
 		return Optional.ofNullable(list);
+	}
+
+	@Override
+	public int deleteChapterByChapterId(long subjectId, long chapterId) {
+		SqlSession session = sessionFactory.openSession();
+		int rowNum = 0;
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("subjectId", subjectId);
+		params.put("chapterId", chapterId);
+		try {
+			rowNum = session.delete("com.spring.mapper.ChapterMapper.deleteChapterByChapterId", params);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return rowNum;
 	}
 }

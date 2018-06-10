@@ -293,6 +293,8 @@ public class AppTest {
 		com.google.api.services.drive.model.File file2 = driveService.uploadFile(file.getName(), file.getAbsolutePath(),
 				"upload/txt");
 		System.err.println(file2.toPrettyString());
+<<<<<<< HEAD
+=======
 	}
 
 	@Autowired
@@ -301,5 +303,6 @@ public class AppTest {
 	@Test
 	public void testGetNotifyMessage() {
 		System.out.println(this.messageService.getNotifyMessage(2, 2, 2));
+>>>>>>> master
 	}
 }

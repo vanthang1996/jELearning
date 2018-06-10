@@ -34,4 +34,12 @@ public class ChapterRest {
 			return new ResponseEntity<>(result, HttpStatus.CREATED);
 		return new ResponseEntity<>(result, HttpStatus.CONFLICT);
 	}
+	
+	@RequestMapping(value = "/delete/{subjectId}/{chapterId}", method = RequestMethod.GET)
+	public ResponseEntity<?> deleteChapterByChapterId(@PathVariable("subjectId") long subjectId, @PathVariable("chapterId") long chapterId) {
+		boolean result = this.chapterService.deleteChapterByChapterId(subjectId, chapterId);
+		if (result)
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		return new ResponseEntity<>(result, HttpStatus.CONFLICT);
+	}
 }

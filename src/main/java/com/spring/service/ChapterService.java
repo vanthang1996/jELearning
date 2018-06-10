@@ -17,4 +17,6 @@ public interface ChapterService {
 
 	Optional<Chapter> getChapterByChapterIdNoCollect(long chapterId);
 
+	boolean deleteChapterByChapterId(long subjectId, long chapterId);
+
 }
