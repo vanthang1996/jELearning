@@ -58,4 +58,11 @@ public class TeacherServiceImp implements TeacherService {
 		return this.teacherRepository.getAllTeacher();
 	}
 
+	@Override
+	public boolean createTeacher(Teacher teacher) {
+		if (this.teacherRepository.createTeacher(teacher) > 0)
+			return true;
+		return false;
+	}
+
 }

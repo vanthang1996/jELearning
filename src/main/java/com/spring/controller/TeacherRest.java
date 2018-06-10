@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mobile.device.Device;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -115,26 +116,17 @@ public class TeacherRest {
 	}
 
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public ResponseEntity<?> uploadAvatar(@RequestParam("file[]") List<MultipartFile> listFile) {
+	public ResponseEntity<?> uploadAvatar(@RequestParam("file") List<MultipartFile> listFile) {
 		List<Map<String, Object>> result = new ArrayList<>();
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 		try {
+
 			for (MultipartFile f : listFile) {
 				Map<String, Object> temp = new HashMap<>();
 				String uploadFolder = this.context.getRealPath("/") + java.io.File.separator;
-<<<<<<< HEAD
-				java.io.File newFile = new java.io.File(uploadFolder + f.getOriginalFilename());
-				f.transferTo(newFile);
-				File fileUpload = driveService.uploadFile(newFile.getName(), newFile.getPath(), f.getContentType());
-=======
 
 				java.io.File file = new java.io.File(uploadFolder + f.getOriginalFilename());
 				f.transferTo(file);
 				File fileUpload = driveService.uploadFile(file.getName(), file.getPath(), f.getContentType());
->>>>>>> master
 				temp.put("fileProperties", fileUpload.toPrettyString());
 				result.add(temp);
 				file.delete();
@@ -143,10 +135,18 @@ public class TeacherRest {
 			ApiMessage apiMessage = new ApiMessage(HttpStatus.CONFLICT, e.getMessage());
 			return new ResponseEntity<Object>(apiMessage, apiMessage.getStatusCode());
 		}
-		System.out.println(result);
 		return new ResponseEntity<Object>(result, HttpStatus.OK);
 	}
-
+	
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	public ResponseEntity<?> createTeacher(@RequestBody Teacher teacher) {
+		boolean result = this.teacherService.createTeacher(teacher);
+		if (result)
+			return new ResponseEntity<Object>(result, HttpStatus.CREATED);
+		return new ResponseEntity<Object>(result, HttpStatus.CONFLICT);
+	}
+	
+	
 	@Bean
 	public MultipartResolver multipartResolver() {
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
@@ -154,9 +154,4 @@ public class TeacherRest {
 		multipartResolver.setMaxUploadSizePerFile(1048576000); // 1MB
 		return multipartResolver;
 	}
-<<<<<<< HEAD
-	
-=======
-
->>>>>>> master
 }

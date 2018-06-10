@@ -13,7 +13,7 @@ public interface ChapterService {
 
 	Optional<?> getListChapterBySubjectId(long subjectId);
 
-	int createChapter(Chapter chapter);
+	boolean createChapter(Chapter chapter);
 
 	Optional<Chapter> getChapterByChapterIdNoCollect(long chapterId);
 

@@ -31,8 +31,10 @@ public class ChapterServiceImp implements ChapterService {
 	}
 
 	@Override
-	public int createChapter(Chapter chapter) {
-		return this.chapterRepository.createChapter(chapter);
+	public boolean createChapter(Chapter chapter) {
+		if(this.chapterRepository.createChapter(chapter) > 0)
+			return true;
+		return false;
 	}
 	@Override
 	public Optional<Chapter> getChapterByChapterIdNoCollect(long chapterId) {
