@@ -39,4 +39,11 @@ public class ChapterServiceImp implements ChapterService {
 		return this.chapterRepository.getChapterByChapterIdNoCollect(chapterId);
 	}
 
+	@Override
+	public boolean deleteChapterByChapterId(long subjectId, long chapterId) {
+		if (this.chapterRepository.deleteChapterByChapterId(subjectId, chapterId) > 0)
+			return true;
+		return false;
+	}
+
 }

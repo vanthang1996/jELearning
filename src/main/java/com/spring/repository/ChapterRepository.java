@@ -17,4 +17,6 @@ public interface ChapterRepository {
 
 	Optional<Chapter> getChapterByChapterIdNoCollect(long chapterId);
 
+	int deleteChapterByChapterId(long subjectId, long chapterId);
+
 }

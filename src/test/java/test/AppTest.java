@@ -285,23 +285,11 @@ public class AppTest {
 	ConfigVariable configVariable;
 
 	@Test
-<<<<<<< HEAD
-	public void testUploadFile() {
-		File file = new File("D:\\B.jpg");
-		com.google.api.services.drive.model.File file2 = driveService.uploadFile(file.getName(), file.getAbsolutePath(), "upload/*" );
-		try {
-			System.err.println(file2.toPrettyString());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-=======
 	public void testUploadFile() throws IOException {
 		System.out.println(configVariable);
 		File file = new File("C:\\Users\\vanth\\OneDrive\\Desktop\\mail.txt");
 		com.google.api.services.drive.model.File file2 = driveService.uploadFile(file.getName(), file.getAbsolutePath(),
 				"upload/txt");
 		System.err.println(file2.toPrettyString());
->>>>>>> master
 	}
 }
