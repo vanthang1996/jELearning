@@ -83,5 +83,4 @@
 			p_themGiangVien(#{firstName}, #{lastName}, #{birthDay}, #{email}, #{password}, #{avatar}, #{address}, #{phoneNumber}, #{sex}, #{departmentId}, 1)		
 		}
 	</select>
-
 </mapper>

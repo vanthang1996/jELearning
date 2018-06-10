@@ -153,5 +153,19 @@ public class TeacherRepositoryImp implements TeacherRepository {
 		return rowNum;
 	}
 
+	@Override
+	public Optional<?> getTeacherByDepartmentId(long departmentId) {
+		SqlSession session = sessionFactory.openSession();
+		List<Teacher> list = Collections.emptyList();
+		try {
+			list = session.selectList("com.spring.mapper.TeacherMapper.getTeacherByDepartmentId", departmentId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(list);
+	}
+
 	
 }

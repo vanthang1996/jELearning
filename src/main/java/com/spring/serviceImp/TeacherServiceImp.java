@@ -65,4 +65,10 @@ public class TeacherServiceImp implements TeacherService {
 		return false;
 	}
 
+	@Override
+	public Optional<?> getTeacherByDepartmentId(long departmentId) {
+		// TODO Auto-generated method stub
+		return this.teacherRepository.getTeacherByDepartmentId(departmentId);
+	}
+
 }
