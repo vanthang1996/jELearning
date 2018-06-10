@@ -24,5 +24,7 @@ public interface TeacherService {
 
 	public Optional<?> getAllTeacher();
 
+	public boolean createTeacher(Teacher teacher);
+
 //	public int saveAvatar(String fileName,int teacherID);
 }

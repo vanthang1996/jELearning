@@ -52,7 +52,7 @@ public class DepartmentRepositoryImp implements DepartmentRepository {
 	@Override
 	public int createDepartment(Department department) {
 		SqlSession session = this.sessionFactory.openSession();
-		int rowNum = -1;
+		int rowNum = 0;
 		try {
 			rowNum = session.insert("com.spring.mapper.DepartmentMapper.createDepartment", department);
 		} catch (Exception e) {

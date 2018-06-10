@@ -139,8 +139,7 @@ public class SubjectRepositoryImp implements SubjectRepository {
 	@Override
 	public int createSubject(Subject subject) {
 		SqlSession session = this.sessionFactory.openSession();
-		Map<String, Object> params = new HashMap<>();
-		int rowNum = -1;
+		int rowNum = 0;
 		try {
 			rowNum = session.insert("com.spring.mapper.SubjectMapper.createSubject", subject);
 		} catch (Exception e) {

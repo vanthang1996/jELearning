@@ -14,6 +14,7 @@ public class Teacher {
 	private String phoneNumber;
 	private boolean sex;
 	private long departmentId;
+	private String password;
 	private List<Job> jobs;
 	private List<Subject> subjects;
 
@@ -100,6 +101,13 @@ public class Teacher {
 		this.departmentId = departmentId;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public List<Job> getJobs() {
 		return jobs;
@@ -121,8 +129,8 @@ public class Teacher {
 	public String toString() {
 		return "Teacher [teacherId=" + teacherId + ", firstName=" + firstName + ", lastName=" + lastName + ", birthDay="
 				+ birthDay + ", email=" + email + ", avatar=" + avatar + ", address=" + address + ", phoneNumber="
-				+ phoneNumber + ", sex=" + sex + ", departmentId=" + departmentId + ", jobs=" + jobs + ", subjects="
-				+ subjects + "]";
+				+ phoneNumber + ", sex=" + sex + ", departmentId=" + departmentId + ", password=" + password + ", jobs="
+				+ jobs + ", subjects=" + subjects + "]";
 	}
 
 }

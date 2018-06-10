@@ -33,6 +33,20 @@
 		<result column="GIOITINH" property="sex" />
 		<result column="MABOMON" property="departmentId" />
 	</resultMap>
+	<resultMap type="com.spring.mapper.entities.Teacher"
+		id="teacherResult_add">
+		<id column="MAGV" property="teacherId" />
+		<result column="HOGV" property="firstName" />
+		<result column="TENGV" property="lastName" />
+		<result column="NGAYSINH" property="birthDay" />
+		<result column="EMAIL" property="email" />
+		<result column="ANHGV" property="avatar" />
+		<result column="DIACHI" property="address" />
+		<result column="DIENTHOAI" property="phoneNumber" />
+		<result column="GIOITINH" property="sex" />
+		<result column="MABOMON" property="departmentId" />
+		<result column="MATKHAU"  property="password"/>
+	</resultMap>
 
 	<select id="getTeacherBySubjectId" parameterType="long"
 		resultMap="teacherResult_no_collection">
@@ -64,6 +78,10 @@
 		resultMap="teacherResult_no_collection" parameterType="long">
 		select * from giang_vien where magv=#{teacherId}
 	</select>
-
+	<select id="createTeacher" resultMap="teacherResult_no_collection" parameterType="com.spring.mapper.entities.Teacher">
+		{ call
+			p_themGiangVien(#{firstName}, #{lastName}, #{birthDay}, #{email}, #{password}, #{avatar}, #{address}, #{phoneNumber}, #{sex}, #{departmentId}, 1)		
+		}
+	</select>
 
 </mapper>

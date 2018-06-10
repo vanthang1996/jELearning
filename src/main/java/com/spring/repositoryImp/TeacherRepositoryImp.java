@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.spring.mapper.entities.Department;
@@ -20,8 +21,10 @@ import com.spring.repository.TeacherRepository;
 public class TeacherRepositoryImp implements TeacherRepository {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 	@Autowired
-
 	private SqlSessionFactory sessionFactory;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public List<Teacher> getAllRecord() {
@@ -132,6 +135,22 @@ public class TeacherRepositoryImp implements TeacherRepository {
 			session.close();
 		}
 		return Optional.ofNullable(list);
+	}
+
+	@Override
+	public int createTeacher(Teacher teacher) {
+		SqlSession session = sessionFactory.openSession();
+		int rowNum = 0;
+		String newPassword = this.passwordEncoder.encode(teacher.getPassword());
+		teacher.setPassword(newPassword);
+		try {
+			rowNum = session.insert("com.spring.mapper.TeacherMapper.createTeacher", teacher);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return rowNum;
 	}
 
 	

@@ -29,8 +29,8 @@ public class ChapterRest {
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ResponseEntity<?> createChapter(@RequestBody Chapter chapter) {
-		int result = this.chapterService.createChapter(chapter);
-		if (result > 0)
+		boolean result = this.chapterService.createChapter(chapter);
+		if (result)
 			return new ResponseEntity<>(result, HttpStatus.CREATED);
 		return new ResponseEntity<>(result, HttpStatus.CONFLICT);
 	}
