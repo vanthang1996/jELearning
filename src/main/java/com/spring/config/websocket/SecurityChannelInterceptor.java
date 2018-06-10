@@ -17,7 +17,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.spring.config.jwt.JwtService;
-import com.spring.service.TeacherService;
 
 import io.jsonwebtoken.ExpiredJwtException;
 

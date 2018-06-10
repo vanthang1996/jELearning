@@ -115,18 +115,29 @@ public class TeacherRest {
 	}
 
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public ResponseEntity<?> uploadAvatar(@RequestParam("file[]") List<MultipartFile> file) {
+	public ResponseEntity<?> uploadAvatar(@RequestParam("file[]") List<MultipartFile> listFile) {
 		List<Map<String, Object>> result = new ArrayList<>();
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 		try {
-			for (MultipartFile f : file) {
+			for (MultipartFile f : listFile) {
 				Map<String, Object> temp = new HashMap<>();
 				String uploadFolder = this.context.getRealPath("/") + java.io.File.separator;
+<<<<<<< HEAD
 				java.io.File newFile = new java.io.File(uploadFolder + f.getOriginalFilename());
 				f.transferTo(newFile);
 				File fileUpload = driveService.uploadFile(newFile.getName(), newFile.getPath(), f.getContentType());
+=======
+
+				java.io.File file = new java.io.File(uploadFolder + f.getOriginalFilename());
+				f.transferTo(file);
+				File fileUpload = driveService.uploadFile(file.getName(), file.getPath(), f.getContentType());
+>>>>>>> master
 				temp.put("fileProperties", fileUpload.toPrettyString());
 				result.add(temp);
-				newFile.delete();
+				file.delete();
 			}
 		} catch (Exception e) {
 			ApiMessage apiMessage = new ApiMessage(HttpStatus.CONFLICT, e.getMessage());
@@ -143,5 +154,9 @@ public class TeacherRest {
 		multipartResolver.setMaxUploadSizePerFile(1048576000); // 1MB
 		return multipartResolver;
 	}
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> master
 }

@@ -3,6 +3,7 @@ package test;
 import java.io.File;
 import java.io.IOException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.spring.config.jwt.ConfigVariable;
 import com.spring.service.GoogleDriveService;
+import com.spring.service.NotifyMessageService;
 
 //@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -291,5 +293,16 @@ public class AppTest {
 		com.google.api.services.drive.model.File file2 = driveService.uploadFile(file.getName(), file.getAbsolutePath(),
 				"upload/txt");
 		System.err.println(file2.toPrettyString());
+<<<<<<< HEAD
+=======
+	}
+
+	@Autowired
+	private NotifyMessageService messageService;
+
+	@Test
+	public void testGetNotifyMessage() {
+		System.out.println(this.messageService.getNotifyMessage(2, 2, 2));
+>>>>>>> master
 	}
 }
