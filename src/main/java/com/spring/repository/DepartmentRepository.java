@@ -13,4 +13,6 @@ public interface DepartmentRepository {
 
 	public int createDepartment(Department department);
 
+	public Department getDepartmentById(long departmentId);
+
 }
