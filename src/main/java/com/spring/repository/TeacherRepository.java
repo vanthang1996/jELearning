@@ -27,4 +27,6 @@ public interface TeacherRepository {
 	public int createTeacher(Teacher teacher);
 
 	public Optional<?> getTeacherByDepartmentId(long departmentId);
+
+	public int updateTeacher(Teacher teacher);
 }
