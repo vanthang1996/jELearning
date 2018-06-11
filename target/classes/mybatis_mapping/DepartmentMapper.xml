@@ -47,5 +47,10 @@
 			p_themBoMon(#{departmentName}, #{facultyId}, #{teacherManagementId})
 		}
 	</select>
+	<select id="getDepartmentById" resultMap="departmentResult">
+		SELECT *
+		FROM BO_MON
+		WHERE MABOMON = #{departmentId}
+	</select>
 
 </mapper>

@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,6 +33,12 @@ public class DepartmentRest {
 		if (result > 0)
 			return new ResponseEntity<>(result, HttpStatus.CREATED);
 		return new ResponseEntity<>(result, HttpStatus.CONFLICT);
+	}
+	
+	@RequestMapping(value = "/{departmentId}", method = RequestMethod.GET)
+	public ResponseEntity<?> getDepartmentById(@PathVariable long departmentId) {
+		Department department = this.departmentService.getDepartmentById(departmentId);
+		return new ResponseEntity<>(department, HttpStatus.OK);
 	}
 
 }

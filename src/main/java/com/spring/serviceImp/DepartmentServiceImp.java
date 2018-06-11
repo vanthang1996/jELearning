@@ -31,4 +31,10 @@ public class DepartmentServiceImp implements DepartmentService {
 	public int createDepartment(Department department) {
 		return this.departmentRepository.createDepartment(department);
 	}
+
+	@Override
+	public Department getDepartmentById(long departmentId) {
+		// TODO Auto-generated method stub
+		return this.departmentRepository.getDepartmentById(departmentId);
+	}
 }
