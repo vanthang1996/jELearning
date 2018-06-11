@@ -167,5 +167,19 @@ public class TeacherRepositoryImp implements TeacherRepository {
 		return Optional.ofNullable(list);
 	}
 
+	@Override
+	public int updateTeacher(Teacher teacher) {
+		SqlSession session = sessionFactory.openSession();
+		int rowNum = 0;
+		try {
+			rowNum = session.update("com.spring.mapper.TeacherMapper.updateTeacher", teacher);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return rowNum;
+	}
+
 	
 }
