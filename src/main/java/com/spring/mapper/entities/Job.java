@@ -19,6 +19,7 @@ public class Job implements Serializable {
 	private Date endTime;
 	private String jobContent;
 	private int status;
+	private StructureTest strucTest;
 
 	public Job() {
 	}
@@ -111,11 +112,20 @@ public class Job implements Serializable {
 		this.status = status;
 	}
 
+	public StructureTest getStrucTest() {
+		return strucTest;
+	}
+
+	public void setStrucTest(StructureTest strucTest) {
+		this.strucTest = strucTest;
+	}
+
 	@Override
 	public String toString() {
 		return "Job [jobId=" + jobId + ", subjectId=" + subjectId + ", subject=" + subject + ", teacherId=" + teacherId
 				+ ", teacher=" + teacher + ", jobTypeId=" + jobTypeId + ", jobType=" + jobType + ", startTime="
-				+ startTime + ", endTime=" + endTime + ", jobContent=" + jobContent + ", status=" + status + "]";
+				+ startTime + ", endTime=" + endTime + ", jobContent=" + jobContent + ", status=" + status
+				+ ", strucTest=" + strucTest + "]";
 	}
 
 }

@@ -10,4 +10,6 @@ public interface StructureTestRepository {
 
 	public int createStructureTest(StructureTest structureTest);
 
+	public boolean updateStatusStrucBySubjectId(long subjectId, boolean status);
+
 }

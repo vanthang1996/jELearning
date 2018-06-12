@@ -32,4 +32,10 @@ public class StrucTestDetailServiceImp implements StrucTestDetailService {
 		return this.strucTestDetailRepository.editStructureTestDetailByChapterId(strucTestDetail);
 	}
 
+	@Override
+	public Optional<?> showStrucDetailBySubjectId(long subjectId) {
+		// TODO Auto-generated method stub
+		return this.strucTestDetailRepository.getListStrucTestDetailBySubjectIdAndStatus(subjectId, false);
+	}
+
 }

@@ -1,7 +1,9 @@
 package com.spring.repositoryImp;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.apache.ibatis.session.SqlSession;
@@ -39,7 +41,8 @@ public class StrucTestDetailRepositoryImp implements StrucTestDetailRepository {
 		SqlSession session = sessionFactory.openSession();
 		List<StrucTestDetail> list = Collections.emptyList();
 		try {
-			list = session.selectList("com.spring.mapper.StrucTestDetailMapper.getListStrucTestDetailBySubjectId",subjectId);
+			list = session.selectList("com.spring.mapper.StrucTestDetailMapper.getListStrucTestDetailBySubjectId",
+					subjectId);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		} finally {
@@ -53,7 +56,8 @@ public class StrucTestDetailRepositoryImp implements StrucTestDetailRepository {
 		SqlSession session = sessionFactory.openSession();
 		int rowNum = -1;
 		try {
-			rowNum = session.insert("com.spring.mapper.StrucTestDetailMapper.editStructureTestDetailByChapterId", strucTestDetail);
+			rowNum = session.insert("com.spring.mapper.StrucTestDetailMapper.editStructureTestDetailByChapterId",
+					strucTestDetail);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		} finally {
@@ -62,4 +66,21 @@ public class StrucTestDetailRepositoryImp implements StrucTestDetailRepository {
 		return rowNum;
 	}
 
+	@Override
+	public Optional<?> getListStrucTestDetailBySubjectIdAndStatus(long subjectId, boolean status) {
+		SqlSession session = sessionFactory.openSession();
+		List<StrucTestDetail> list = Collections.emptyList();
+		Map<String, Object> param = new HashMap<>();
+		param.put("subjectId", subjectId);
+		param.put("status", status);
+		try {
+			list = session.selectList(
+					"com.spring.mapper.StrucTestDetailMapper.getListStrucTestDetailBySubjectIdAndStatus", param);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(list);
+	}
 }

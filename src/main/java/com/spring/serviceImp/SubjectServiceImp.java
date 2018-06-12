@@ -59,6 +59,7 @@ public class SubjectServiceImp implements SubjectService {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public List<Subject> getSubjectsByDepartmentId(long departmentId) {
 		// TODO Auto-generated method stub
 		return this.subjectRepository.getSubjectsByDepartmentId(departmentId);
@@ -68,5 +69,15 @@ public class SubjectServiceImp implements SubjectService {
 	public Optional<?> getSubjectInfoBySubjectId(long subjectId) {
 		// TODO Auto-generated method stub
 		return this.subjectRepository.getSubjectInfoBySubjectId(subjectId);
+=======
+	public Optional<?> getSubjectBySubjectIdAllStatus(long subjectId) {
+		return this.subjectRepository.getSubjectBySubjectIdAllStatus(subjectId);
+	}
+
+	@Override
+	public boolean updateStatus(long subjectId, boolean status) {
+
+		return this.subjectRepository.updateStatus(subjectId, status);
+>>>>>>> master
 	}
 }

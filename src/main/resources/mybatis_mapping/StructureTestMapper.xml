@@ -27,10 +27,16 @@
 		parameterType="long">
 		select * from CAU_TRUC_DE_THI where MAMON = #{subjectId}
 	</select>
-	
-	<select id="createStructureTest" parameterType="com.spring.mapper.entities.StructureTest">
+
+	<select id="createStructureTest"
+		parameterType="com.spring.mapper.entities.StructureTest">
 		UPDATE CAU_TRUC_DE_THI
-		SET NGAYCAPNHAT = #{updateTime}, MAGV = #{teacherManagementId}, TRANGTHAI = #{status}, SLDETOIDA = #{maxStructure}
+		SET NGAYCAPNHAT = #{updateTime},
+		MAGV = #{teacherManagementId}, TRANGTHAI = #{status}, SLDETOIDA =
+		#{maxStructure}
 		WHERE MAMON = #{subjectId}
 	</select>
+	<update id="updateStatus" parameterType="java.util.Map">
+		update CAU_TRUC_DE_THI set TRANGTHAI=#{status} where MAMON=#{subjectId}
+	</update>
 </mapper>

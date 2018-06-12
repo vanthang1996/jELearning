@@ -25,5 +25,8 @@ public class StructureTestServiceImp implements StructureTestService {
 		return this.structureTestRepository.createStructureTest(structureTest);
 	}
 
-
+	@Override
+	public boolean updateStatus(long subjectId) {
+		return this.structureTestRepository.updateStatusStrucBySubjectId(subjectId, true);
+	}
 }
