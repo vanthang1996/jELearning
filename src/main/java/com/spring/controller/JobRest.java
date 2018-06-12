@@ -170,6 +170,7 @@ public class JobRest {
 			result = this.jobService.updateStatusJob(jobId, true);
 		else
 			result = this.jobService.reviewQuestion(jobId);
+		System.out.println(result);
 		if (result) {
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		}

@@ -31,4 +31,6 @@ public interface QuestionRepository {
 	public boolean updateQuestion(Question question);
 
 	public Optional<?> getQuestionByTeacherId(long teacherId);
+
+	Optional<?> getListQuestionByChapterIdAndStatusPaging(long chapterId, boolean status, int page, int size);
 }
