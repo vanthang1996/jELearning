@@ -13,7 +13,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.spring.config.jwt.ConfigVariable;
-import com.spring.mapper.entities.StrucTestDetail;
 import com.spring.service.GoogleDriveService;
 import com.spring.service.JobService;
 import com.spring.service.NotifyMessageService;

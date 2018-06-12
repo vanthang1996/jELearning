@@ -1,10 +1,12 @@
 package com.spring.serviceImp;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.dao.ExamDao;
 import com.spring.mapper.entities.StructureTest;
 import com.spring.repository.StructureTestRepository;
 import com.spring.service.StructureTestService;
@@ -28,5 +30,11 @@ public class StructureTestServiceImp implements StructureTestService {
 	@Override
 	public boolean updateStatus(long subjectId) {
 		return this.structureTestRepository.updateStatusStrucBySubjectId(subjectId, true);
+	}
+
+	@Override
+	public ExamDao getExamByStrucId(long strucTestDetailId) throws SQLException {
+		// TODO Auto-generated method stub
+		return this.structureTestRepository.getDeThiByIdMaCtdt(strucTestDetailId);
 	}
 }

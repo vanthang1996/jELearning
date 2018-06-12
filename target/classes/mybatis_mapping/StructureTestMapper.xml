@@ -9,6 +9,7 @@
 		<result column="MAGV" property="teacherManagementId" />
 		<result column="TRANGTHAI" property="status" />
 		<result column="SLDETOIDA" property="maxStructure" />
+		<!-- <collection column="MACTDT" property="strucTestDetails"  select="com.spring.mapper.StrucTestDetailMapper.getListStrucDetalByStrucId"></collection> -->
 	</resultMap>
 
 	<select id="getAllRecord" resultMap="structureTestResult"

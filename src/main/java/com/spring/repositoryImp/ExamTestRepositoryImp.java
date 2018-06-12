@@ -2,7 +2,6 @@ package com.spring.repositoryImp;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -36,16 +35,16 @@ public class ExamTestRepositoryImp implements ExamTestRepository {
 	}
 
 	@Override
-	public Optional<?> getExamTestById(long examTestId) {
+	public ExamTest getExamTestById(long examTestId) {
 		SqlSession session = sessionFactory.openSession();
-		List<ExamTest> list = null;
+		ExamTest exam = null;
 		try {
-			list = session.selectList("com.spring.mapper.ExamTestMapper.getExamTestById", examTestId);
+			exam = session.selectOne("com.spring.mapper.ExamTestMapper.getExamTestById", examTestId);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		} finally {
 			session.close();
 		}
-		return Optional.ofNullable(list);
+		return exam;
 	}
 }

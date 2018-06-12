@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.mapper.entities.ExamTest;
 import com.spring.service.ExamTestDetailService;
 import com.spring.service.ExamTestService;
 
@@ -25,8 +26,8 @@ public class ExamTestRest {
 	
 	@RequestMapping(value = "/{examTestId}", method = RequestMethod.GET)
 	public ResponseEntity<?> getExamTestById(@PathVariable long examTestId) {
-		Optional<?> optional = this.examTestService.getExamTestById(examTestId);
-		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
+		ExamTest examTest = this.examTestService.getExamTestById(examTestId);
+		return new ResponseEntity<>(examTest, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/detail/{examTestId}", method = RequestMethod.GET)
