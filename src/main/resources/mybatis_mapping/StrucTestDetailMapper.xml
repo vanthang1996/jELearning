@@ -15,8 +15,7 @@
 			select="com.spring.mapper.ChapterMapper.getChapterByChapterId"
 			property="chapter" />
 		<association column="MADOKHO"
-			select="com.spring.mapper.LevelMapper.getLevelByLevelId"
-			property="level"></association>
+			select="com.spring.mapper.LevelMapper.getLevelByLevelId" property="level"></association>
 	</resultMap>
 	<resultMap type="com.spring.mapper.entities.StrucTestDetail"
 		id="strucTestDetailResult_no_collection">
@@ -32,25 +31,31 @@
 		select k.* from CHI_TIET_CTDT k
 	</select>
 
-	<select id="getListStrucTestDetailBySubjectId"
-		resultMap="strucTestDetailResult" resultType="java.util.List"
-		parameterType="long">
-		select * from CHI_TIET_CTDT where MACTDT = (select
-		MACTDT from CAU_TRUC_DE_THI where MAMON=#{subjectId} and TRANGTHAI=1 )
+	<select id="getListStrucTestDetailBySubjectId" resultMap="strucTestDetailResult"
+		resultType="java.util.List" parameterType="long">
+		select * from CHI_TIET_CTDT
+		where MACTDT = (select
+		MACTDT from CAU_TRUC_DE_THI where
+		MAMON=#{subjectId} and TRANGTHAI=1 )
 	</select>
 
 	<select id="editStructureTestDetailByChapterId" parameterType="com.spring.mapper.entities.StrucTestDetail">
-		<!-- UPDATE CHI_TIET_CTDT
-		SET MADOKHO = #{levelId}, SLCAUHOI = #{numberOfQuestion}, TONGDIEM = #{totalScore}
-		WHERE MACHUONG = #{chapterId} AND MACTDT = #{structureTestId} -->
+		<!-- UPDATE CHI_TIET_CTDT SET MADOKHO = #{levelId}, SLCAUHOI = #{numberOfQuestion}, 
+			TONGDIEM = #{totalScore} WHERE MACHUONG = #{chapterId} AND MACTDT = #{structureTestId} -->
 		{ call
-			p_addStructureTestDetail(#{structureTestId}, #{chapterId}, #{levelId}, #{numberOfQuestion}, #{totalScore})
+		p_addStructureTestDetail(#{structureTestId}, #{chapterId}, #{levelId}, #{numberOfQuestion}, #{totalScore})
 		}
 	</select>
 	<select id="getListStrucTestDetailBySubjectIdAndStatus"
 		resultMap="strucTestDetailResult" resultType="java.util.List"
 		parameterType="java.util.Map">
 		select * from CHI_TIET_CTDT where MACTDT = (select
-		MACTDT from CAU_TRUC_DE_THI where MAMON=#{subjectId} and TRANGTHAI=#{status} )
+		MACTDT from CAU_TRUC_DE_THI where MAMON=#{subjectId} and
+		TRANGTHAI=#{status} )
+	</select>
+	<select id="getListStrucDetalByStrucId" parameterType="long"
+		resultMap="strucTestDetailResult">
+	 select * from CHI_TIET_CTDT where MACTDT=#{strucTestId}
+
 	</select>
 </mapper>

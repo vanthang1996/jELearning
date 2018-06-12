@@ -1,6 +1,7 @@
 package com.spring.mapper.entities;
 
 import java.util.Date;
+import java.util.List;
 
 public class StructureTest {
 	private long structureTestId;
@@ -9,6 +10,7 @@ public class StructureTest {
 	private long teacherManagementId;
 	private int status;
 	private int maxStructure;
+	private List<StrucTestDetail> strucTestDetails;
 
 	public StructureTest() {
 	}
@@ -61,11 +63,19 @@ public class StructureTest {
 		this.maxStructure = maxStructure;
 	}
 
+	public List<StrucTestDetail> getStrucTestDetails() {
+		return strucTestDetails;
+	}
+
+	public void setStrucTestDetails(List<StrucTestDetail> strucTestDetails) {
+		this.strucTestDetails = strucTestDetails;
+	}
+
 	@Override
 	public String toString() {
 		return "StructureTest [structureTestId=" + structureTestId + ", subjectId=" + subjectId + ", updateTime="
-				+ updateTime.toString() + ", teacherManagementId=" + teacherManagementId + ", status=" + status + ", maxStructure="
-				+ maxStructure + "]";
+				+ updateTime + ", teacherManagementId=" + teacherManagementId + ", status=" + status + ", maxStructure="
+				+ maxStructure + ", strucTestDetails=" + strucTestDetails + "]";
 	}
 
 }

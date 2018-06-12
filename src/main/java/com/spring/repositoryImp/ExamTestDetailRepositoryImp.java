@@ -52,7 +52,7 @@ public class ExamTestDetailRepositoryImp implements ExamTestDetailRepositpory {
 	@Override
 	public Optional<?> getExamTestBySubjectId(long subjectId) {
 		SqlSession session = this.sessionFactory.openSession();
-		List<Object> list = Collections.emptyList();
+		List<ExamTest> list = Collections.emptyList();
 		try {
 			list = session.selectList("com.spring.mapper.ExamTestDetailMapper.getExamTestBySubjectIdTT", subjectId);
 		} catch (Exception e) {

@@ -1,12 +1,13 @@
 package com.spring.repository;
 
 import java.util.List;
-import java.util.Optional;
+
+import com.spring.mapper.entities.ExamTest;
 
 public interface ExamTestRepository {
 
 	public List<?> getAllRecord();
 
-	public Optional<?> getExamTestById(long examTestId);
+	public ExamTest getExamTestById(long examTestId);
 
 }
