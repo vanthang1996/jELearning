@@ -30,5 +30,11 @@ public interface TeacherService {
 
 	public boolean updateTeacher(Teacher teacher);
 
+	public Optional<?> getTeacherInDepartmentNotInSubject(long departmentId, long subjectId);
+
+	public boolean insertQLMH(long teacherId, long subjectId);
+
+	public boolean deleteQLMH(long teacherId, long subjectId);
+
 //	public int saveAvatar(String fileName,int teacherID);
 }

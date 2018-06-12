@@ -26,5 +26,11 @@
 		FROM DE_THI
 		WHERE MADETHI = #{examTestId}
 	</select>
+	
+	<select id="getExamTestBySubjectIdTT" resultMap="examTestResult">
+		SELECT *
+		FROM DE_THI
+		WHERE MAMON = #{subjectId} AND TRANGTHAI = 1
+	</select>
 
 </mapper>

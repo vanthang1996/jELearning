@@ -168,15 +168,36 @@ public class SubjectRepositoryImp implements SubjectRepository {
 	}
 
 	@Override
+<<<<<<< HEAD
+	public List<Subject> getSubjectsByDepartmentId(long departmentId) {
+		SqlSession session = this.sessionFactory.openSession();
+		List<Subject> list = Collections.emptyList();
+		try {
+			list = session.selectList("com.spring.mapper.SubjectMapper.getSubjectsByDepartmentId", departmentId);
+=======
 	public Optional<?> getSubjectBySubjectIdAllStatus(long subjectId) {
 		SqlSession session = sessionFactory.openSession();
 		Subject list = null;
 		try {
 			list = session.selectOne("com.spring.mapper.SubjectMapper.getSubjectBySubjectIdAllStatus", subjectId);
+>>>>>>> master
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		} finally {
 			session.close();
+<<<<<<< HEAD
+
+		}
+		return list;
+	}
+
+	@Override
+	public Optional<?> getSubjectInfoBySubjectId(long subjectId) {
+		SqlSession session = sessionFactory.openSession();
+		Subject list = null;
+		try {
+			list = session.selectOne("com.spring.mapper.SubjectMapper.getSubjectInfoBySubjectId", subjectId);
+=======
 		}
 		return Optional.ofNullable(list);
 	}
@@ -190,11 +211,18 @@ public class SubjectRepositoryImp implements SubjectRepository {
 		param.put("status", status);
 		try {
 			row = session.update("com.spring.mapper.SubjectMapper.updateStatus", param);
+>>>>>>> master
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		} finally {
 			session.close();
 		}
+<<<<<<< HEAD
+		return Optional.ofNullable(list);
+	}
+
+=======
 		return row > 0;
 	}
+>>>>>>> master
 }

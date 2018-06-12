@@ -38,4 +38,6 @@ public interface JobRepository {
 
 	boolean reviewQuestion(long jobId);
 
+	public Job geJobByJobId(long jobId);
+
 }

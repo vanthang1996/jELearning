@@ -78,4 +78,24 @@ public class TeacherServiceImp implements TeacherService {
 		return false;
 	}
 
+	@Override
+	public Optional<?> getTeacherInDepartmentNotInSubject(long departmentId, long subjectId) {
+		// TODO Auto-generated method stub
+		return this.teacherRepository.getTeacherInDepartmentNotInSubject(departmentId, subjectId);
+	}
+
+	@Override
+	public boolean insertQLMH(long teacherId, long subjectId) {
+		if (this.teacherRepository.insertQLMH(teacherId, subjectId) > 0)
+			return true;
+		return false;
+	}
+
+	@Override
+	public boolean deleteQLMH(long teacherId, long subjectId) {
+		if (this.teacherRepository.deleteQLMH(teacherId, subjectId) > 0)
+			return true;
+		return false;
+	}
+
 }

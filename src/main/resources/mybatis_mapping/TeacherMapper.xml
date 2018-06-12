@@ -56,11 +56,23 @@
 		select m.* from GIANG_VIEN m where m.TRANGTHAI=1
 	</select>
 
+	<select id="getAllRecordNoStatus" resultMap="teacherResult"
+		resultType="java.util.List">
+		select m.* from GIANG_VIEN m
+	</select>
+
 	<select id="getTeacherByDepartmentId" resultMap="teacherResult"
 		resultType="java.util.List" parameterType="long">
 		select * from GIANG_VIEN
 		where MABOMON = #{departmentId} and TRANGTHAI=1
 	</select>
+
+	<select id="getTeacherByDepartmentIdNoStatus" resultMap="teacherResult"
+		resultType="java.util.List" parameterType="long">
+		select * from GIANG_VIEN
+		where MABOMON = #{departmentId}
+	</select>
+
 	<select id="getRoleOfUserByEmail" resultType="java.lang.String"
 		statementType="CALLABLE" parameterType="java.lang.String">
 		select * from
@@ -77,16 +89,35 @@
 	<select id="createTeacher" resultMap="teacherResult_no_collection"
 		parameterType="com.spring.mapper.entities.Teacher">
 		{ call
-		p_themGiangVien(#{firstName}, #{lastName}, #{birthDay}, #{email}, #{password}, #{avatar},
-		#{address}, #{phoneNumber}, #{sex}, #{departmentId}, 1)
+		p_themGiangVien(#{firstName}, #{lastName},
+		#{birthDay}, #{email}, #{password}, #{avatar},
+		#{address},
+		#{phoneNumber}, #{sex}, #{departmentId}, 1)
 		}
 	</select>
 	<update id="updateTeacher">
 		UPDATE GIANG_VIEN
 		SET HOGV = #{firstName}, TENGV =
-		#{lastName}, NGAYSINH = #{birthDay}, EMAIL = #{email}, ANHGV = #{avatar}, DIACHI = #{address}, DIENTHOAI =
-		#{phoneNumber}, GIOITINH = #{sex}
+		#{lastName}, NGAYSINH = #{birthDay}, EMAIL = #{email}, ANHGV =
+		#{avatar}, DIACHI = #{address}, DIENTHOAI =
+		#{phoneNumber}, GIOITINH =
+		#{sex}
 		WHERE MAGV = #{teacherId} AND MABOMON
-		= #{departmentId} AND TRANGTHAI = 1
+		= #{departmentId} AND
+		TRANGTHAI = 1
 	</update>
+
+	<insert id="insertQLMH">
+		insert into
+		QUAN_LY_MH(MAGV, MAMON) values (#{teacherId}, #{subjectId});
+	</insert>
+	<delete id="deleteQLMH">
+		delete from QUAN_LY_MH
+		where MAGV=#{teacherId} and MAMON=#{subjectId}
+	</delete>
+	<select id="getTeacherInDepartmentNotInSubject" resultMap="teacherResult_no_collection">
+		declare @departmentId int = #{departmentId}, @subjectId  int =#{subjectId};
+		<!-- select magv from QUAN_LY_MH where MAMON=@subjectId; -->
+		select * from GIANG_VIEN where MABOMON = @departmentId and  magv  not in (select magv from QUAN_LY_MH where MAMON=@subjectId);
+	</select>
 </mapper>

@@ -8,4 +8,6 @@ public interface ExamTestDetailRepositpory {
 
 	public Optional<?> getExamTestDetailById(long examTestId);
 
+	public Optional<?> getExamTestBySubjectId(long subjectId);
+
 }

@@ -40,7 +40,7 @@ public class DepartmentRepositoryImp implements DepartmentRepository {
 		SqlSession session = this.sessionFactory.openSession();
 		List<Department> list = Collections.emptyList();
 		try {
-			list = session.selectList("com.spring.mapper.DepartmentMapper.getAllRecord");
+			list = session.selectList("com.spring.mapper.DepartmentMapper.getAllRecordNoStatus");
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		} finally {
