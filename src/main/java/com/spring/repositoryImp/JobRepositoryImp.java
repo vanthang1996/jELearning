@@ -196,4 +196,62 @@ public class JobRepositoryImp implements JobRepository {
 		return Optional.ofNullable(job);
 	}
 
+	@Override
+	public boolean updateStatusJobByJobId(long jobId, boolean status) {
+		SqlSession session = sessionFactory.openSession();
+		int rows = 0;
+		Map<String, Object> param = new HashMap<>();
+		param.put("jobId", jobId);
+		param.put("status", status);
+		try {
+			rows = session.update("com.spring.mapper.JobMapper.updateStatusJobByJobId", param);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return rows > 0;
+	}
+
+	@Override
+	public boolean progressOutLine(long jobId) {
+		SqlSession session = sessionFactory.openSession();
+		int rows = 0;
+		try {
+			rows = session.update("com.spring.mapper.JobMapper.progressOutLine", jobId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return rows > 0;
+	}
+
+	@Override
+	public boolean progressStruc(long jobId) {
+		SqlSession session = sessionFactory.openSession();
+		int rows = 0;
+		try {
+			rows = session.update("com.spring.mapper.JobMapper.progressStruc", jobId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return rows > 0;
+	}
+	@Override
+	public boolean reviewQuestion(long jobId) {
+		SqlSession session = sessionFactory.openSession();
+		int rows = 0;
+		try {
+			rows = session.update("com.spring.mapper.JobMapper.reviewQuestion", jobId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return rows > 0;
+	}
+
 }

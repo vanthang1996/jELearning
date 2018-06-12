@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.print.attribute.standard.JobName;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,8 +57,31 @@ public class JobServiceImp implements JobService {
 
 	@Override
 	public Optional<?> getJobByTeacherId(long teacherId) {
-		// TODO Auto-generated method stub
 		return this.jobRepository.getJobByTeacherId(teacherId);
 	}
 
+	@Override
+	public Job getJobByJobId(long jobId) {
+		return this.jobRepository.findById(jobId);
+	}
+
+	@Override
+	public boolean updateStatusJob(long jobId, boolean status) {
+		return this.jobRepository.updateStatusJobByJobId(jobId, status);
+	}
+
+	@Override
+	public boolean reviewQuestion(long jobId) {
+		return this.jobRepository.reviewQuestion(jobId);
+	}
+
+	@Override
+	public boolean submitOutLine(long jobId) {
+		return this.jobRepository.progressOutLine(jobId);
+	}
+
+	@Override
+	public boolean submitStruc(long jobId) {
+		return this.jobRepository.progressStruc(jobId);
+	}
 }

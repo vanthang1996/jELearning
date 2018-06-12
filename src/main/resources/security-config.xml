@@ -38,7 +38,7 @@
 
 
 	<http pattern="/auth/login" security="none" />
-	<http pattern="/chat/**" security="none" />
+	<http pattern="/notify/**" security="none" />
 	<http auto-config="false" entry-point-ref="entryPoint"
 		use-expressions="true" create-session="stateless">
 		<cors configuration-source-ref="corsFilter" />
