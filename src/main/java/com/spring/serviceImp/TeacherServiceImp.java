@@ -71,4 +71,11 @@ public class TeacherServiceImp implements TeacherService {
 		return this.teacherRepository.getTeacherByDepartmentId(departmentId);
 	}
 
+	@Override
+	public boolean updateTeacher(Teacher teacher) {
+		if (this.teacherRepository.updateTeacher(teacher) > 0)
+			return true;
+		return false;
+	}
+
 }

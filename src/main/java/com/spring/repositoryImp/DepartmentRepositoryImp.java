@@ -63,4 +63,18 @@ public class DepartmentRepositoryImp implements DepartmentRepository {
 		return rowNum;
 	}
 
+	@Override
+	public Department getDepartmentById(long departmentId) {
+		SqlSession session = sessionFactory.openSession();
+		Department department = new Department();
+		try {
+			department = session.selectOne("com.spring.mapper.DepartmentMapper.getDepartmentById", departmentId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return department;
+	}
+
 }

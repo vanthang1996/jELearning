@@ -149,4 +149,11 @@ public class TeacherRest {
 		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public ResponseEntity<?> updateTeacher(@RequestBody Teacher teacher) {
+		boolean result = this.teacherService.updateTeacher(teacher);
+		if (result)
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		return new ResponseEntity<>(result, HttpStatus.CONFLICT);
+	}
 }
