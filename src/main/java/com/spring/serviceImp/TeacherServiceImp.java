@@ -98,4 +98,9 @@ public class TeacherServiceImp implements TeacherService {
 		return false;
 	}
 
+	@Override
+	public Teacher findById(long teacherReceiveId) {
+		return this.teacherRepository.findById(teacherReceiveId);
+	}
+
 }

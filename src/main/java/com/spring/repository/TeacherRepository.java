@@ -35,4 +35,6 @@ public interface TeacherRepository {
 	public int insertQLMH(long teacherId, long subjectId);
 
 	public int deleteQLMH(long teacherId, long subjectId);
+
+	public Teacher findById(long teacherReceiveId);
 }

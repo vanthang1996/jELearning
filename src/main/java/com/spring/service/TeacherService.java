@@ -36,5 +36,7 @@ public interface TeacherService {
 
 	public boolean deleteQLMH(long teacherId, long subjectId);
 
-//	public int saveAvatar(String fileName,int teacherID);
+	public Teacher findById(long teacherReceiveId);
+
+	// public int saveAvatar(String fileName,int teacherID);
 }
