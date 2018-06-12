@@ -11,4 +11,6 @@ public interface DepartmentService {
 	public Optional<?> getAllDepartment();
 
 	public int createDepartment(Department department);
+
+	public Department getDepartmentById(long departmentId);
 }
