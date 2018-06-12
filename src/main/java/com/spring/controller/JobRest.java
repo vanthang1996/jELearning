@@ -22,9 +22,14 @@ import com.spring.config.jwt.JwtService;
 import com.spring.domain.ApiMessage;
 import com.spring.mapper.entities.CreateQuestion;
 import com.spring.mapper.entities.Job;
+import com.spring.mapper.entities.NotifyMessage;
+import com.spring.mapper.entities.Subject;
 import com.spring.mapper.entities.Teacher;
 import com.spring.service.CreateQuestionService;
 import com.spring.service.JobService;
+import com.spring.service.NotifyMessageService;
+import com.spring.service.StructureTestService;
+import com.spring.service.SubjectService;
 import com.spring.service.TeacherService;
 
 /**
@@ -42,28 +47,71 @@ public class JobRest {
 	private TeacherService teacherService;
 	@Autowired
 	private JwtService jwtService;
+	@Autowired
+	private SubjectService subjectService;
+	@Autowired
+	private NotifyMessageService messageService;
+	@Autowired
+	private StructureTestService structureTestService;
 
 	@RequestMapping(value = "/add-out-line", method = RequestMethod.POST)
-	public ResponseEntity<?> addOutLine(@RequestBody Job job) throws JsonProcessingException {
+	public ResponseEntity<?> addOutLine(@RequestBody Job job, HttpServletRequest request)
+			throws JsonProcessingException {
 		Date startTime = new Date();
+		System.out.println(job);
 		ObjectMapper mapper = new ObjectMapper();
 		String message;
 		if (job.getEndTime().after(startTime)) {
 			job.setStartTime(startTime);
 			message = this.jobService.addOutLine(job);
+			Optional<Teacher> optional = teacherService
+					.getTeacherByEmail(this.jwtService.getEmailFromToKen(this.jwtService.getToken(request)));
+			if (!optional.isPresent()) {
+				ApiMessage apiMessage = new ApiMessage(HttpStatus.CONFLICT, "Lỗi");
+				return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
+			}
+			Teacher teacher = optional.get();
+			long teacherId = teacher.getTeacherId();
+			Optional<?> subject = this.subjectService.getSubjectBySubjectIdAllStatus(job.getSubjectId());
+			NotifyMessage notifyMsg = new NotifyMessage();
+			notifyMsg.setTitle("Phân công:");
+			notifyMsg.setBody("Bạn được giao Tạo đề cương! Môn: " + ((Subject) subject.get()).getSubjectName());
+			notifyMsg.setDateTo(new Date());
+			notifyMsg.setStatus(0);
+			notifyMsg.setTeacherSendId(teacherId);
+			notifyMsg.setTeacherReceiveId(job.getTeacherId());
+			this.messageService.insert(notifyMsg);
 		} else
 			message = "Invalid end date!";
 		return new ResponseEntity<>(mapper.writeValueAsString(message), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/add-structure-test", method = RequestMethod.POST)
-	public ResponseEntity<?> addStructureTest(@RequestBody Job job) throws JsonProcessingException {
+	public ResponseEntity<?> addStructureTest(@RequestBody Job job, HttpServletRequest request)
+			throws JsonProcessingException {
 		Date startTime = new Date();
 		ObjectMapper mapper = new ObjectMapper();
 		String message;
 		if (job.getEndTime().after(startTime)) {
 			job.setStartTime(startTime);
 			message = this.jobService.addStructureTest(job);
+			Optional<Teacher> optional = teacherService
+					.getTeacherByEmail(this.jwtService.getEmailFromToKen(this.jwtService.getToken(request)));
+			if (!optional.isPresent()) {
+				ApiMessage apiMessage = new ApiMessage(HttpStatus.CONFLICT, "Lỗi");
+				return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
+			}
+			Teacher teacher = optional.get();
+			long teacherId = teacher.getTeacherId();
+			Optional<?> subject = this.subjectService.getSubjectBySubjectIdAllStatus(job.getSubjectId());
+			NotifyMessage notifyMsg = new NotifyMessage();
+			notifyMsg.setTitle("Phân công:");
+			notifyMsg.setBody("Bạn được giao Tạo cấu trúc đề thi! Môn: " + ((Subject) subject.get()).getSubjectName());
+			notifyMsg.setDateTo(new Date());
+			notifyMsg.setStatus(0);
+			notifyMsg.setTeacherSendId(teacherId);
+			notifyMsg.setTeacherReceiveId(job.getTeacherId());
+			this.messageService.insert(notifyMsg);
 		} else
 			message = "Invalid end date!";
 		return new ResponseEntity<>(mapper.writeValueAsString(message), HttpStatus.OK);
@@ -71,7 +119,7 @@ public class JobRest {
 
 	@RequestMapping(value = "/add-question", method = RequestMethod.POST)
 	public ResponseEntity<?> addQuestion(@RequestBody Job job, @RequestParam long[] listChapter,
-			@RequestParam int numberQuestion) throws JsonProcessingException {
+			@RequestParam int numberQuestion, HttpServletRequest request) throws JsonProcessingException {
 		Date startTime = new Date();
 		ObjectMapper mapper = new ObjectMapper();
 		String message;
@@ -90,6 +138,23 @@ public class JobRest {
 				}
 				System.out.println(job2);
 				message = "Add success!";
+				Optional<Teacher> optional = teacherService
+						.getTeacherByEmail(this.jwtService.getEmailFromToKen(this.jwtService.getToken(request)));
+				if (!optional.isPresent()) {
+					ApiMessage apiMessage = new ApiMessage(HttpStatus.CONFLICT, "Lỗi");
+					return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
+				}
+				Teacher teacher = optional.get();
+				long teacherId = teacher.getTeacherId();
+				Optional<?> subject = this.subjectService.getSubjectBySubjectIdAllStatus(job.getSubjectId());
+				NotifyMessage notifyMsg = new NotifyMessage();
+				notifyMsg.setTitle("Phân công:");
+				notifyMsg.setBody("Bạn được giao Thêm câu hỏi! Môn: " + ((Subject) subject.get()).getSubjectName());
+				notifyMsg.setDateTo(new Date());
+				notifyMsg.setStatus(0);
+				notifyMsg.setTeacherSendId(teacherId);
+				notifyMsg.setTeacherReceiveId(job.getTeacherId());
+				this.messageService.insert(notifyMsg);
 			}
 
 		} else
@@ -163,15 +228,43 @@ public class JobRest {
 
 	// duyệt công việc
 	@RequestMapping(value = "/review-job/{jobId}")
-	public ResponseEntity<?> reviewOutLine(@PathVariable long jobId) {
+	public ResponseEntity<?> reviewOutLine(@PathVariable long jobId, HttpServletRequest request) {
 		Job job = this.jobService.getJobByJobId(jobId);
 		boolean result = false;
-		if (job.getJobId() == 1 || job.getJobId() == 3)
+		Optional<Teacher> optional = teacherService
+				.getTeacherByEmail(this.jwtService.getEmailFromToKen(this.jwtService.getToken(request)));
+		if (!optional.isPresent()) {
+			ApiMessage apiMessage = new ApiMessage(HttpStatus.CONFLICT, "Lỗi");
+			return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
+		}
+		Teacher teacher = optional.get();
+		long teacherId = teacher.getTeacherId();
+		Optional<?> subject = this.subjectService.getSubjectBySubjectIdAllStatus(job.getSubjectId());
+		NotifyMessage notifyMsg = new NotifyMessage();
+		notifyMsg.setTitle("Xác nhận hoàn tất:");
+		notifyMsg.setDateTo(new Date());
+		notifyMsg.setStatus(0);
+		notifyMsg.setTeacherSendId(teacherId);
+		notifyMsg.setTeacherReceiveId(job.getTeacherId());
+
+		if (job.getJobTypeId() == 1 || job.getJobTypeId() == 3) {
+			if (job.getJobTypeId() == 1) {
+				this.subjectService.updateStatus(job.getSubjectId(), true);
+				notifyMsg.setBody("Công việc Tạo đề cương! Môn: " + ((Subject) subject.get()).getSubjectName());
+			}
+			if (job.getJobTypeId() == 3) {
+				this.structureTestService.updateStatus(job.getSubjectId());
+				notifyMsg.setBody("Công việc Tạo cấu trúc đề thi! Môn: " + ((Subject) subject.get()).getSubjectName());
+			}
 			result = this.jobService.updateStatusJob(jobId, true);
-		else
+
+		} else {
 			result = this.jobService.reviewQuestion(jobId);
+			notifyMsg.setBody("Công việc Thêm câu hỏi! Môn: " + ((Subject) subject.get()).getSubjectName());
+		}
 		System.out.println(result);
 		if (result) {
+			this.messageService.insert(notifyMsg);
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		}
 		ApiMessage apiMessage = new ApiMessage(HttpStatus.NOT_FOUND, "Lỗi");
@@ -193,7 +286,7 @@ public class JobRest {
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/{jobId}", method = RequestMethod.GET)
 	public ResponseEntity<?> geJobByJobId(@PathVariable long jobId) {
 		Job job = this.jobService.geJobByJobId(jobId);

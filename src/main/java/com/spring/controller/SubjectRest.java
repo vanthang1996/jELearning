@@ -1,5 +1,6 @@
 package com.spring.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,9 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.config.jwt.JwtService;
 import com.spring.domain.ApiMessage;
+import com.spring.mapper.entities.Department;
+import com.spring.mapper.entities.NotifyMessage;
 import com.spring.mapper.entities.Subject;
 import com.spring.mapper.entities.Teacher;
 import com.spring.service.ChapterService;
+import com.spring.service.DepartmentService;
+import com.spring.service.NotifyMessageService;
 import com.spring.service.SubjectService;
 import com.spring.service.TeacherService;
 
@@ -35,6 +40,10 @@ public class SubjectRest {
 	private TeacherService teacherService;
 	@Autowired
 	private JwtService jwtService;
+	@Autowired
+	private DepartmentService departmentService;
+	@Autowired
+	private NotifyMessageService messageService;
 
 	@RequestMapping(value = "/{subjectId}/chapter")
 	public ResponseEntity<?> getChapterBySubjectId(@PathVariable long subjectId,
@@ -129,9 +138,32 @@ public class SubjectRest {
 	}
 
 	@RequestMapping(value = "/{subjectId}/submit-subject")
-	public ResponseEntity<?> updateStatus(@PathVariable long subjectId) {
+	public ResponseEntity<?> updateStatus(@PathVariable long subjectId, HttpServletRequest request) {
 		boolean result = this.subjectService.updateStatus(subjectId, true);
+
 		if (result) {
+			Optional<Teacher> optional = teacherService
+					.getTeacherByEmail(this.jwtService.getEmailFromToKen(this.jwtService.getToken(request)));
+			if (!optional.isPresent()) {
+				ApiMessage apiMessage = new ApiMessage(HttpStatus.CONFLICT, "Lỗi");
+				return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
+			}
+			Teacher teacher = optional.get();
+			long teacherId = teacher.getTeacherId();
+			Optional<?> subject = this.subjectService.getSubjectBySubjectId(subjectId);
+			Department department = this.departmentService.getDepartmentById(teacher.getDepartmentId());
+			NotifyMessage message = new NotifyMessage();
+			message.setTitle("Nộp bài");
+			message.setBody("Hoàn thành công việc Tạo đề cương! Môn: " + ((Subject) subject.get()).getSubjectName());
+			message.setDateTo(new Date());
+			message.setStatus(0);
+			message.setTeacherSendId(teacherId);
+			message.setTeacherReceiveId(department.getTeacherManagementId());
+			
+			this.messageService.insert(message);
+
+			// tạo thông báo đến tbm
+
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		}
 		ApiMessage apiMessage = new ApiMessage(HttpStatus.CONFLICT, "Lỗi");

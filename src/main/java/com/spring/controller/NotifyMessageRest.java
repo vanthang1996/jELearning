@@ -55,4 +55,28 @@ public class NotifyMessageRest {
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/number-notify")
+	public ResponseEntity<?> numberNotify(HttpServletRequest request) {
+		Optional<Teacher> optional = teacherService
+				.getTeacherByEmail(this.jwtService.getEmailFromToKen(this.jwtService.getToken(request)));
+		if (!optional.isPresent()) {
+			ApiMessage apiMessage = new ApiMessage(HttpStatus.NOT_FOUND, "Lỗi");
+			return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
+		}
+		long teacherId = optional.get().getTeacherId();
+		return new ResponseEntity<>(this.messageService.numberNotify(teacherId), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/reset-notify")
+	public ResponseEntity<?> resetNotify(HttpServletRequest request) {
+		Optional<Teacher> optional = teacherService
+				.getTeacherByEmail(this.jwtService.getEmailFromToKen(this.jwtService.getToken(request)));
+		if (!optional.isPresent()) {
+			ApiMessage apiMessage = new ApiMessage(HttpStatus.NOT_FOUND, "Lỗi");
+			return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
+		}
+		long teacherId = optional.get().getTeacherId();
+		return new ResponseEntity<>(this.messageService.resetNotify(teacherId), HttpStatus.OK);
+	}
+
 }

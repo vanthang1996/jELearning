@@ -26,8 +26,26 @@
 		mode=OUT,
 		jdbcType=INTEGER},
 		#{sumRecord,
-		mode=OUT,jdbcType=INTEGER},#{tableName}, #{orderByQuery}, #{whereQuery})}
+		mode=OUT,jdbcType=INTEGER},#{tableName}, #{orderByQuery},
+		#{whereQuery})}
 
 	</select>
-
+	<insert id="insertNotifyMessage"
+		parameterType="com.spring.mapper.entities.NotifyMessage">
+		insert into NOTIFY_MESSAGE(TITLE, BODY, DATETO,
+		DATEVIEW, USERSEND,
+		USERRECEIVE, STATUS) values (#{title}, #{body},
+		#{dateTo}, #{dateView}, #{teacherSendId}, #{teacherReceiveId},
+		#{status})
+	</insert>
+	<select id="numberNotifyCurrent" parameterType="long" resultType="int">
+		select count(MESSAGEID) from NOTIFY_MESSAGE where STATUS=0 and USERRECEIVE
+		=#{teacherReceiveId};
+	</select>
+	<update id="updateStatusByTeacherId"  parameterType="long">
+	update NOTIFY_MESSAGE set status=1  where STATUS=0 and USERRECEIVE
+		=#{teacherReceiveId};
+	
+	</update>
+	
 </mapper>
