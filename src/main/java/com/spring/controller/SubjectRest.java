@@ -55,7 +55,8 @@ public class SubjectRest {
 
 	@RequestMapping(value = "/{departmentId}/subjects")
 	public ResponseEntity<?> getSubjectsDataByDepartmentId(@PathVariable long departmentId) {
-//		this.messagingTemplate.convertAndSendToUser("vanthang1996@gmail.com", "/queue/message", "Ok");
+		// this.messagingTemplate.convertAndSendToUser("vanthang1996@gmail.com",
+		// "/queue/message", "Ok");
 		Optional<?> optional = this.subjectService.getSubjectsDataByDepartmentId(departmentId);
 		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
@@ -63,6 +64,12 @@ public class SubjectRest {
 	@RequestMapping(value = "/{subjectId}")
 	public ResponseEntity<?> getSubjectBySubjectId(@PathVariable long subjectId) {
 		Optional<?> optional = this.subjectService.getSubjectBySubjectId(subjectId);
+		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/{subjectId}/all-status")
+	public ResponseEntity<?> getSubjectBySubjectIdAllStatus(@PathVariable long subjectId) {
+		Optional<?> optional = this.subjectService.getSubjectBySubjectIdAllStatus(subjectId);
 		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
 
@@ -91,7 +98,7 @@ public class SubjectRest {
 		System.out.println(list);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ResponseEntity<?> createSubject(@RequestBody Subject subject) {
 		int result = this.subjectService.createSubject(subject);
@@ -99,12 +106,23 @@ public class SubjectRest {
 			return new ResponseEntity<>(result, HttpStatus.CREATED);
 		return new ResponseEntity<>(result, HttpStatus.CONFLICT);
 	}
-	
+
 	@RequestMapping(value = "/delete/{subjectId}/{teacherManagementId}", method = RequestMethod.GET)
-	public ResponseEntity<?> deleteTeacherOfSubject(@PathVariable("subjectId") long subjectId, @PathVariable("teacherManagementId") long teacherManagementId) {
+	public ResponseEntity<?> deleteTeacherOfSubject(@PathVariable("subjectId") long subjectId,
+			@PathVariable("teacherManagementId") long teacherManagementId) {
 		boolean result = this.subjectService.deleteTeacherOfSubject(subjectId, teacherManagementId);
 		if (result)
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		return new ResponseEntity<>(result, HttpStatus.CONFLICT);
+	}
+
+	@RequestMapping(value = "/{subjectId}/submit-subject")
+	public ResponseEntity<?> updateStatus(@PathVariable long subjectId) {
+		boolean result = this.subjectService.updateStatus(subjectId, true);
+		if (result) {
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		}
+		ApiMessage apiMessage = new ApiMessage(HttpStatus.CONFLICT, "Lỗi");
+		return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
 	}
 }

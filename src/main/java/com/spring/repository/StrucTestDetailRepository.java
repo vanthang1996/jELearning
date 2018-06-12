@@ -12,4 +12,6 @@ public interface StrucTestDetailRepository {
 	public Optional<?> getListStrucTestDetailBySubjectId(long subjectId);
 
 	public int editStructureTestDetailByChapterId(StrucTestDetail strucTestDetail);
+
+	Optional<?> getListStrucTestDetailBySubjectIdAndStatus(long subjectId, boolean status);
 }

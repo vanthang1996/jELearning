@@ -47,4 +47,10 @@
 			p_addStructureTestDetail(#{structureTestId}, #{chapterId}, #{levelId}, #{numberOfQuestion}, #{totalScore})
 		}
 	</select>
+	<select id="getListStrucTestDetailBySubjectIdAndStatus"
+		resultMap="strucTestDetailResult" resultType="java.util.List"
+		parameterType="java.util.Map">
+		select * from CHI_TIET_CTDT where MACTDT = (select
+		MACTDT from CAU_TRUC_DE_THI where MAMON=#{subjectId} and TRANGTHAI=#{status} )
+	</select>
 </mapper>

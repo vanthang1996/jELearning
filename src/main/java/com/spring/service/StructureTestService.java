@@ -10,4 +10,6 @@ public interface StructureTestService {
 
 	public int createStructureTest(StructureTest structureTest);
 
+	public boolean updateStatus(long subjectId);
+
 }

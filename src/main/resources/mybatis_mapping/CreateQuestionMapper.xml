@@ -18,6 +18,7 @@
 		parameterType="com.spring.mapper.entities.CreateQuestion"  resultType="long">
 		{ call p_them_cauhoi_congviec2(#{jobId}, #{chapterId}, #{amount}) }
 	</select>
+	
 	<select id="getCreateQuestionByJobId" resultMap="createQuestionResult"
 		resultType="java.util.List">
 		select k.* from CT_TAO_CAU_HOI k  where k.MACV=#{jobId}

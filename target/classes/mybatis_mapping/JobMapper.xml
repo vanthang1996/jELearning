@@ -12,11 +12,13 @@
 		<result column="NOIDUNGCV" property="jobContent" />
 		<result column="TRANGTHAI" property="status" />
 		<association column="MAMON" property="subject"
-			select="com.spring.mapper.SubjectMapper.getSubjectBySubjectId_no_collection" />
+			select="com.spring.mapper.SubjectMapper.getSubjectBySujectIdAssociation" />
 		<association column="MAGV" property="teacher"
 			select="com.spring.mapper.TeacherMapper.getTeacherByTeacherManagementId" />
 		<association column="MALOAICV" property="jobType"
 			select="com.spring.mapper.JobTypeMapper.getJobTypeByJobTypeId" />
+		<association column="MAMON" property="strucTest"
+			select="com.spring.mapper.StructureTestMapper.getStructureTestBySubjectId"></association>
 	</resultMap>
 	<resultMap type="com.spring.mapper.entities.Job"
 		id="jobResult_no_collection">

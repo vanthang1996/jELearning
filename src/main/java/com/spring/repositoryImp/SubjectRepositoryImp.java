@@ -167,4 +167,34 @@ public class SubjectRepositoryImp implements SubjectRepository {
 		return rowNum;
 	}
 
+	@Override
+	public Optional<?> getSubjectBySubjectIdAllStatus(long subjectId) {
+		SqlSession session = sessionFactory.openSession();
+		Subject list = null;
+		try {
+			list = session.selectOne("com.spring.mapper.SubjectMapper.getSubjectBySubjectIdAllStatus", subjectId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(list);
+	}
+
+	@Override
+	public boolean updateStatus(long subjectId, boolean status) {
+		SqlSession session = sessionFactory.openSession();
+		int row = 0;
+		Map<String, Object> param = new HashMap<>();
+		param.put("subjectId", subjectId);
+		param.put("status", status);
+		try {
+			row = session.update("com.spring.mapper.SubjectMapper.updateStatus", param);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return row > 0;
+	}
 }

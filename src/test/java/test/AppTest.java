@@ -13,10 +13,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.spring.config.jwt.ConfigVariable;
+import com.spring.mapper.entities.StrucTestDetail;
 import com.spring.service.GoogleDriveService;
+import com.spring.service.JobService;
 import com.spring.service.NotifyMessageService;
+import com.spring.service.StrucTestDetailService;
 
-@Ignore
+//@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/root-context.xml")
 @WebAppConfiguration
@@ -301,5 +304,20 @@ public class AppTest {
 	@Test
 	public void testGetNotifyMessage() {
 		System.out.println(this.messageService.getNotifyMessage(2, 2, 2));
+	}
+
+	@Autowired
+	private JobService jobService;
+
+	@Test
+	public void testGetJobManage() {
+		System.out.println(this.jobService.getJobByManageTeacher(2, 1, false, 1, 3));
+	}
+
+	@Autowired
+	private StrucTestDetailService strucTestDetailService;
+	@Test
+	public void testGetListStrucDetail() {
+		 System.out.println( this.strucTestDetailService.showStrucDetailBySubjectId(2));
 	}
 }
