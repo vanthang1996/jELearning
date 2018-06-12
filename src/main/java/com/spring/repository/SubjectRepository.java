@@ -30,13 +30,11 @@ public interface SubjectRepository {
 
 	int deleteTeacherOfSubject(long subjectId, long teacherManagementId);
 
-<<<<<<< HEAD
 	List<Subject> getSubjectsByDepartmentId(long departmentId);
 
 	Optional<?> getSubjectInfoBySubjectId(long subjectId);
-=======
+
 	Optional<?> getSubjectBySubjectIdAllStatus(long subjectId);
 
 	boolean updateStatus(long subjectId, boolean status);
->>>>>>> master
 }

@@ -115,19 +115,18 @@ public class SubjectRest {
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		return new ResponseEntity<>(result, HttpStatus.CONFLICT);
 	}
-<<<<<<< HEAD
-	
+
 	@RequestMapping(value = "department/{departmentId}", method = RequestMethod.GET)
 	public ResponseEntity<?> getSubjectsByDepartmentId(@PathVariable long departmentId) {
 		List<Subject> optional = this.subjectService.getSubjectsByDepartmentId(departmentId);
 		return new ResponseEntity<>(optional, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/{subjectId}/info", method = RequestMethod.GET)
 	public ResponseEntity<?> getSubjectInfoBySubjectId(@PathVariable long subjectId) {
 		Optional<?> optional = this.subjectService.getSubjectInfoBySubjectId(subjectId);
 		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
-=======
+	}
 
 	@RequestMapping(value = "/{subjectId}/submit-subject")
 	public ResponseEntity<?> updateStatus(@PathVariable long subjectId) {
@@ -137,6 +136,5 @@ public class SubjectRest {
 		}
 		ApiMessage apiMessage = new ApiMessage(HttpStatus.CONFLICT, "Lỗi");
 		return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
->>>>>>> master
 	}
 }
