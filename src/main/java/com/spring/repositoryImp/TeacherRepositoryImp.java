@@ -198,7 +198,7 @@ public class TeacherRepositoryImp implements TeacherRepository {
 		}
 		return rowNum;
 	}
-	
+
 	public int deleteQLMH(long teacherId, long subjectId) {
 		SqlSession session = sessionFactory.openSession();
 		int rowNum = 0;
@@ -214,7 +214,7 @@ public class TeacherRepositoryImp implements TeacherRepository {
 		}
 		return rowNum;
 	}
-	
+
 	public Optional<?> getTeacherInDepartmentNotInSubject(long departmentId, long subjectId) {
 		SqlSession session = sessionFactory.openSession();
 		List<Teacher> list = Collections.emptyList();
@@ -231,4 +231,17 @@ public class TeacherRepositoryImp implements TeacherRepository {
 		return Optional.ofNullable(list);
 	}
 
+	@Override
+	public Teacher findById(long teacherId) {
+		SqlSession session = sessionFactory.openSession();
+		Teacher rowNum = null;
+		try {
+			rowNum = session.selectOne("com.spring.mapper.TeacherMapper.findById", teacherId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return rowNum;
+	}
 }

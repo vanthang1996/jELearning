@@ -41,7 +41,8 @@ public class QuestionRest {
 	public ResponseEntity<?> getListQuestionByChapterIdPaging(@PathVariable("chapterId") long chapterId,
 			@RequestParam(name = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(name = "size", required = false, defaultValue = "10") int size) {
-		Optional<?> optional = this.questionService.getListQuestionByChapterIdPaging(chapterId, page, size);
+		Optional<?> optional = this.questionService.getListQuestionByChapterIdAndStatusPaging(chapterId, true, page,
+				size);
 		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
 

@@ -130,5 +130,15 @@
 		FROM CAU_HOI
 		WHERE TRANGTHAI=0 AND MAGV=#{teacherId}
 	</select>
-
+<select id="getListQuestionByChapterIdAndStatusPaging" resultMap="questionResult"
+		statementType="CALLABLE" parameterType="java.util.Map">
+		{ call
+		proc_paging_query(#{page}, #{size}, #{sumPage,
+		mode=OUT,
+		jdbcType=INTEGER},
+		#{sumRecord,
+		mode=OUT,jdbcType=INTEGER},'SELECT *
+		FROM CAU_HOI WHERE TRANGTHAI=''${status}'' and
+		MACHUONG=''${chapterId}''')}
+	</select>
 </mapper>

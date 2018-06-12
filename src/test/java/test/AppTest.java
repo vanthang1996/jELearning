@@ -17,8 +17,9 @@ import com.spring.service.GoogleDriveService;
 import com.spring.service.JobService;
 import com.spring.service.NotifyMessageService;
 import com.spring.service.StrucTestDetailService;
+import com.spring.service.TeacherService;
 
-@Ignore
+//@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/root-context.xml")
 @WebAppConfiguration
@@ -319,4 +320,10 @@ public class AppTest {
 	public void testGetListStrucDetail() {
 		 System.out.println( this.strucTestDetailService.showStrucDetailBySubjectId(2));
 	}
+	@Autowired
+	private TeacherService  service;
+	 @Test
+	 public void testFinById() {
+		  System.out.println(this.service.findById(2));
+	 }
 }

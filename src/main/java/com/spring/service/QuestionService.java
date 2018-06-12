@@ -22,4 +22,6 @@ public interface QuestionService {
 	public boolean updateQuestion(Question question);
 
 	public Optional<?> getQuestionByTeacherId(long teacherId);
+
+	public Optional<?> getListQuestionByChapterIdAndStatusPaging(long chapterId, boolean status, int page, int size);
 }

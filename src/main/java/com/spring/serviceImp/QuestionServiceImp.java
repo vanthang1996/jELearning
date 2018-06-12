@@ -87,4 +87,8 @@ public class QuestionServiceImp implements QuestionService {
 		return this.questionRepository.getQuestionByTeacherId(teacherId);
 	}
 
+	@Override
+	public Optional<?> getListQuestionByChapterIdAndStatusPaging(long chapterId, boolean status, int page, int size) {
+		return this.questionRepository.getListQuestionByChapterIdAndStatusPaging(chapterId, status, page, size);
+	}
 }

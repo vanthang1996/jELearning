@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.mapper.entities.NotifyMessage;
 import com.spring.mapper.entities.Subject;
 import com.spring.repository.NotifyMessageRepository;
 
@@ -47,4 +48,45 @@ public class NotifyMessageRepositoryImp implements NotifyMessageRepository {
 		return result;
 	}
 
+	@Override
+	public int insert(NotifyMessage message) {
+		SqlSession session = sessionFactory.openSession();
+		int row = 0;
+		try {
+			row = session.insert("com.spring.mapper.NotifyMessageMapper.insertNotifyMessage", message);
+		} catch (Exception e) {
+			logger.error("[ insert(NotifyMessage message)  is ERROR]" + e.getMessage());
+		} finally {
+			session.close();
+		}
+		return row;
+	}
+
+	@Override
+	public int numberNotifyCurrent(long teacherId) {
+		SqlSession session = sessionFactory.openSession();
+		int row = 0;
+		try {
+			row = session.selectOne("com.spring.mapper.NotifyMessageMapper.numberNotifyCurrent", teacherId);
+		} catch (Exception e) {
+			logger.error("[ insert(NotifyMessage message)  is ERROR]" + e.getMessage());
+		} finally {
+			session.close();
+		}
+		return row;
+	}
+
+	@Override
+	public int updateStatusByTeacherId(long teacherId) {
+		SqlSession session = sessionFactory.openSession();
+		int row = 0;
+		try {
+			row = session.selectOne("com.spring.mapper.NotifyMessageMapper.updateStatusByTeacherId", teacherId);
+		} catch (Exception e) {
+			logger.error("[  updateStatusByTeacherId(long teacherId)   is ERROR]" + e.getMessage());
+		} finally {
+			session.close();
+		}
+		return row;
+	}
 }
