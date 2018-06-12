@@ -167,39 +167,31 @@ public class SubjectRepositoryImp implements SubjectRepository {
 		return rowNum;
 	}
 
-	@Override
-<<<<<<< HEAD
-	public List<Subject> getSubjectsByDepartmentId(long departmentId) {
-		SqlSession session = this.sessionFactory.openSession();
-		List<Subject> list = Collections.emptyList();
-		try {
-			list = session.selectList("com.spring.mapper.SubjectMapper.getSubjectsByDepartmentId", departmentId);
-=======
 	public Optional<?> getSubjectBySubjectIdAllStatus(long subjectId) {
 		SqlSession session = sessionFactory.openSession();
 		Subject list = null;
 		try {
 			list = session.selectOne("com.spring.mapper.SubjectMapper.getSubjectBySubjectIdAllStatus", subjectId);
->>>>>>> master
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		} finally {
 			session.close();
-<<<<<<< HEAD
-
 		}
-		return list;
+		return Optional.ofNullable(list);
 	}
 
 	@Override
-	public Optional<?> getSubjectInfoBySubjectId(long subjectId) {
-		SqlSession session = sessionFactory.openSession();
-		Subject list = null;
+	public List<Subject> getSubjectsByDepartmentId(long departmentId) {
+		SqlSession session = this.sessionFactory.openSession();
+		List<Subject> list = Collections.emptyList();
 		try {
-			list = session.selectOne("com.spring.mapper.SubjectMapper.getSubjectInfoBySubjectId", subjectId);
-=======
+			list = session.selectList("com.spring.mapper.SubjectMapper.getSubjectsByDepartmentId", departmentId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
 		}
-		return Optional.ofNullable(list);
+		return list;
 	}
 
 	@Override
@@ -211,18 +203,25 @@ public class SubjectRepositoryImp implements SubjectRepository {
 		param.put("status", status);
 		try {
 			row = session.update("com.spring.mapper.SubjectMapper.updateStatus", param);
->>>>>>> master
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		} finally {
 			session.close();
 		}
-<<<<<<< HEAD
-		return Optional.ofNullable(list);
-	}
-
-=======
 		return row > 0;
 	}
->>>>>>> master
+
+	@Override
+	public Optional<?> getSubjectInfoBySubjectId(long subjectId) {
+		SqlSession session = sessionFactory.openSession();
+		Subject list = null;
+		try {
+			list = session.selectOne("com.spring.mapper.SubjectMapper.getSubjectInfoBySubjectId", subjectId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(list);
+	}
 }

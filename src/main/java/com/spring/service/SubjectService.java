@@ -22,13 +22,11 @@ public interface SubjectService {
 
 	public boolean deleteTeacherOfSubject(long subjectId, long teacherManagementId);
 
-<<<<<<< HEAD
 	public List<Subject> getSubjectsByDepartmentId(long departmentId);
 
 	public Optional<?> getSubjectInfoBySubjectId(long subjectId);
-=======
+
 	public Optional<?> getSubjectBySubjectIdAllStatus(long subjectId);
 
 	public boolean updateStatus(long subjectId, boolean status);
->>>>>>> master
 }

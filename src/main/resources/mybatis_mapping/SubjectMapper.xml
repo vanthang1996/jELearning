@@ -158,7 +158,6 @@
 		MON_HOC
 		WHERE MAMON = #{subjectId} AND MAGV = #{teacherManagementId}
 	</delete>
-<<<<<<< HEAD
 	
 	<select id="getSubjectsByDepartmentId" resultMap="subjectResult">
 		select * from MON_HOC where MABOMON =#{departmentId}
@@ -169,7 +168,6 @@
 		select * from MON_HOC where
 		MAMON=#{subjectId}
 	</select>
-=======
 	<select id="getSubjectBySubjectIdAllStatus"
 		resultType="java.util.List" resultMap="subjectResult"
 		parameterType="long">
@@ -181,5 +179,4 @@
 		update MON_HOC set TRANGTHAI=#{status} where MAMON=#{subjectId}
 
 	</update>
->>>>>>> master
 </mapper>

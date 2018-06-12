@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.ExamTestDetailMapper">
+	<resultMap type="com.spring.mapper.entities.ExamTestDetail"
+		id="examTestDetailResult">
+		<id column="MADETHI" property="examTestId" />
+		<id column="MACH" property="questionId" />
+		<result column="VITRIDAPANDUNG" property="correctLocation" />
+		<result column="DIEM" property="score" />
+		<association column="MACH"  property="question"  select="com.spring.mapper.QuestionMapper.getQuestionByQuestionId"/>
+	</resultMap>
+
+	<select id="getAllRecord" resultMap="examTestDetailResult"
+		resultType="java.util.List">
+		select k.* from CHI_TIET_DE_THI k
+	</select>
+	
+	<select id="getExamTestDetailById" resultMap="examTestDetailResult"
+		resultType="java.util.List">
+		SELECT *
+		FROM CHI_TIET_DE_THI
+		WHERE MADETHI = #{examTestId}
+	</select>
+
+</mapper>
