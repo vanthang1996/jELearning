@@ -43,6 +43,32 @@ public class QuestionRepositoryImp implements QuestionRepository {
 	}
 
 	@Override
+	public Optional<?> getListQuestionByChapterIdAndStatusPaging(long chapterId, boolean status, int page, int size) {
+		SqlSession session = sessionFactory.openSession();
+		List<Subject> list = null;
+		Map<String, Object> param = new HashMap<>();
+		Map<String, Object> result = new HashMap<>();
+		param.put("page", page);
+		param.put("size", size);
+		param.put("chapterId", chapterId);
+		param.put("status", status);
+		try {
+			list = session.selectList("com.spring.mapper.QuestionMapper.getListQuestionByChapterIdAndStatusPaging",
+					param);
+			int numberOfPage = (int) param.get("sumPage");
+			int numberOfRecord = (int) param.get("sumRecord");
+			result.put("listOfResult", list);
+			result.put("numberOfPage", numberOfPage);
+			result.put("numberOfRecord", numberOfRecord);
+		} catch (Exception e) {
+			logger.error("[getListQuestionByChapterIdPaging() is ERROR]" + e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(result);
+	}
+
+	@Override
 	public Optional<?> getListQuestionByChapterIdPaging(long chapterId, int page, int size) {
 		SqlSession session = sessionFactory.openSession();
 		List<Subject> list = null;
