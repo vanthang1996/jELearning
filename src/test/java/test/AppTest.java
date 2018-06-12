@@ -3,6 +3,7 @@ package test;
 import java.io.File;
 import java.io.IOException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import com.spring.config.jwt.ConfigVariable;
 import com.spring.service.GoogleDriveService;
 import com.spring.service.NotifyMessageService;
 
-//@Ignore
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/root-context.xml")
 @WebAppConfiguration

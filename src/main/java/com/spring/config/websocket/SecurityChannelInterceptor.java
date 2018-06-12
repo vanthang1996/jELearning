@@ -33,6 +33,7 @@ public class SecurityChannelInterceptor extends ChannelInterceptorAdapter {
 		if (StompCommand.CONNECT.equals(accessor.getCommand())) {
 			String userName = null;
 			List<String> token = accessor.getNativeHeader("Authorization");
+			logger.info("Token socket connect: " + token);
 			if (token != null && token.size() == 1) {
 				try {
 					userName = this.jwtService.getEmailFromToKen(token.get(0));

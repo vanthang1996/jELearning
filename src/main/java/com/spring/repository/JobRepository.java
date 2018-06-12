@@ -30,4 +30,12 @@ public interface JobRepository {
 
 	public Optional<?> getJobByTeacherId(long teacherId);
 
+	boolean updateStatusJobByJobId(long jobId, boolean status);
+
+	boolean progressOutLine(long jobId);
+
+	boolean progressStruc(long jobId);
+
+	boolean reviewQuestion(long jobId);
+
 }

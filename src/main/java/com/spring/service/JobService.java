@@ -30,4 +30,15 @@ public interface JobService {
 
 	public Optional<?> getJobByTeacherId(long teacherId);
 
+	public Job getJobByJobId(long jobId);
+
+	public boolean updateStatusJob(long jobId, boolean b);
+
+	public boolean reviewQuestion(long jobId);
+
+
+	public boolean submitOutLine(long jobId);
+
+	public boolean submitStruc(long jobId);
+
 }

@@ -1,5 +1,7 @@
 package com.spring.controller;
 
+import static org.hamcrest.CoreMatchers.both;
+
 import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -153,12 +156,42 @@ public class JobRest {
 		Map<String, Object> map = this.jobService.getJobsOfTeacher(teacherId, page, size);
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
-	// xác nhận công việc hoàn thành@preauthor là người quản lý bộ môn theo mã công việc
-	
+	// xác nhận công việc hoàn thành@preauthor là người quản lý bộ môn theo mã công
+	// việc
+
 	@RequestMapping(value = "/teacher/{teacherId}", method = RequestMethod.GET)
 	public ResponseEntity<?> getJobByTeacherId(@PathVariable long teacherId) {
 		Optional<?> optional = this.jobService.getJobByTeacherId(teacherId);
 		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/review-job/{jobId}")
+	public ResponseEntity<?> reviewOutLine(@PathVariable long jobId) {
+		Job job = this.jobService.getJobByJobId(jobId);
+		boolean result = false;
+		if (job.getJobId() == 1 || job.getJobId() == 3)
+			result = this.jobService.updateStatusJob(jobId, true);
+		else
+			result = this.jobService.reviewQuestion(jobId);
+		if (result) {
+			ApiMessage apiMessage = new ApiMessage(HttpStatus.NOT_FOUND, "Lỗi");
+			return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/submit-job/{jobId}")
+	public ResponseEntity<?> submitJob(@PathVariable long jobId) {
+		Job job = this.jobService.getJobByJobId(jobId);
+		boolean result = false;
+		if (job.getJobId() == 1)
+			result = this.jobService.submitOutLine(jobId);
+		if (job.getJobId() == 3)
+			result = this.jobService.submitStruc(jobId);
+		if (result) {
+			ApiMessage apiMessage = new ApiMessage(HttpStatus.NOT_FOUND, "Lỗi");
+			return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 }

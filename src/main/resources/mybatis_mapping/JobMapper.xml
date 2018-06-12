@@ -124,9 +124,28 @@
 		mode=OUT,jdbcType=INTEGER},'select * from cong_viec where
 		MAGV=''${teacherId}'' and TRANGTHAI=''${status}''')}
 	</select>
-	<select id="getJobByTeacherIdAndTypeJob" parameterType="long" resultMap="jobResult">
+	<select id="getJobByTeacherIdAndTypeJob" parameterType="long"
+		resultMap="jobResult">
 		SELECT *
 		FROM CONG_VIEC
-		WHERE MALOAICV = 2 AND MAGV = #{teacherId}
+		WHERE MALOAICV = 2 AND MAGV =
+		#{teacherId}
 	</select>
+	<update id="updateStatusJobByJobId"
+		parameterType="java.util.Map">
+		update CONG_VIEC set TRANGTHAI=#{status} where
+		MACV=#{jobId}
+	</update>
+	<update id="progressOutLine" parameterType="long"
+		statementType="CALLABLE">
+		{call proc_update_progress_outline(#{jobId})}
+	</update>
+	<update id="progressStruc" parameterType="long"
+		statementType="CALLABLE">
+		{call proc_update_progress_struc(#{jobId})}
+	</update>
+	<update id="reviewQuestion" statementType="CALLABLE"
+		parameterType="long">
+		{call proc_review_question(#{jobId})}
+	</update>
 </mapper>

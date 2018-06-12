@@ -56,4 +56,8 @@
 		VALUES (#{chapterName}, #{describe},
 		#{subjectId})
 	</select>
+	<delete id="deleteChapterByChapterId" parameterType="long">
+		DELETE FROM CHUONG_MUC
+		WHERE MAMON = #{subjectId} AND MACHUONG = #{chapterId}
+	</delete>
 </mapper>
