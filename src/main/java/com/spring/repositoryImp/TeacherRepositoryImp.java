@@ -1,7 +1,9 @@
 package com.spring.repositoryImp;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.apache.ibatis.session.SqlSession;
@@ -22,7 +24,7 @@ public class TeacherRepositoryImp implements TeacherRepository {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 	@Autowired
 	private SqlSessionFactory sessionFactory;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -126,7 +128,7 @@ public class TeacherRepositoryImp implements TeacherRepository {
 	@Override
 	public Optional<?> getAllTeacher() {
 		SqlSession session = this.sessionFactory.openSession();
-		List<Teacher> list =null;
+		List<Teacher> list = null;
 		try {
 			list = session.selectList("com.spring.mapper.TeacherMapper.getAllRecord");
 		} catch (Exception e) {
@@ -181,5 +183,52 @@ public class TeacherRepositoryImp implements TeacherRepository {
 		return rowNum;
 	}
 
+	public int insertQLMH(long teacherId, long subjectId) {
+		SqlSession session = sessionFactory.openSession();
+		int rowNum = 0;
+		Map<String, Object> param = new HashMap<>();
+		param.put("teacherId", teacherId);
+		param.put("subjectId", subjectId);
+		try {
+			rowNum = session.update("com.spring.mapper.TeacherMapper.insertQLMH", param);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return rowNum;
+	}
 	
+	public int deleteQLMH(long teacherId, long subjectId) {
+		SqlSession session = sessionFactory.openSession();
+		int rowNum = 0;
+		Map<String, Object> param = new HashMap<>();
+		param.put("teacherId", teacherId);
+		param.put("subjectId", subjectId);
+		try {
+			rowNum = session.update("com.spring.mapper.TeacherMapper.deleteQLMH", param);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return rowNum;
+	}
+	
+	public Optional<?> getTeacherInDepartmentNotInSubject(long departmentId, long subjectId) {
+		SqlSession session = sessionFactory.openSession();
+		List<Teacher> list = Collections.emptyList();
+		Map<String, Object> param = new HashMap<>();
+		param.put("departmentId", departmentId);
+		param.put("subjectId", subjectId);
+		try {
+			list = session.selectList("com.spring.mapper.TeacherMapper.getTeacherInDepartmentNotInSubject", param);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(list);
+	}
+
 }

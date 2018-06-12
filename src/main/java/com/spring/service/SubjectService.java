@@ -21,4 +21,8 @@ public interface SubjectService {
 	public int createSubject(Subject subject);
 
 	public boolean deleteTeacherOfSubject(long subjectId, long teacherManagementId);
+
+	public List<Subject> getSubjectsByDepartmentId(long departmentId);
+
+	public Optional<?> getSubjectInfoBySubjectId(long subjectId);
 }

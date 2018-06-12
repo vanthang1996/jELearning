@@ -27,4 +27,10 @@ public class ExamTestDetailServiceImp implements ExamTestDetailService {
 		return this.examTestDetailRepositpory.getExamTestDetailById(examTestId);
 	}
 
+	@Override
+	public Optional<?> getExamTestBySubjectId(long subjectId) {
+		// TODO Auto-generated method stub
+		return this.examTestDetailRepositpory.getExamTestBySubjectId(subjectId);
+	}
+
 }

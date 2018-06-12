@@ -62,6 +62,13 @@
 	<select id="getAllRecord" resultMap="subjectResult" resultType="java.util.List">
 		select m.* from MON_HOC m
 	</select>
+	
+	<select id="getSubjectByDepartmentIdNoStatus" resultMap="subjectResult"
+		resultType="java.util.List" parameterType="long">
+		select * from MON_HOC where
+		MABOMON = #{departmentId}
+	</select>
+	
 	<select id="getSubjectByDepartmentId" resultMap="subjectResult"
 		resultType="java.util.List" parameterType="long">
 		select * from MON_HOC where
@@ -140,4 +147,14 @@
 		DELETE FROM MON_HOC
 		WHERE MAMON = #{subjectId} AND MAGV = #{teacherManagementId}
 	</delete>
+	
+	<select id="getSubjectsByDepartmentId" resultMap="subjectResult">
+		select * from MON_HOC where MABOMON =#{departmentId}
+	</select>
+	
+	<select id="getSubjectInfoBySubjectId" resultType="java.util.List"
+		resultMap="subjectResult" parameterType="long">
+		select * from MON_HOC where
+		MAMON=#{subjectId}
+	</select>
 </mapper>

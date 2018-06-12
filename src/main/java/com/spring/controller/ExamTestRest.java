@@ -35,4 +35,9 @@ public class ExamTestRest {
 		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/subject/{subjectId}", method = RequestMethod.GET)
+	public ResponseEntity<?> getExamTestBySubjectId(@PathVariable long subjectId) {
+		Optional<?> optional = this.examTestDetailService.getExamTestBySubjectId(subjectId);
+		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
+	}
 }

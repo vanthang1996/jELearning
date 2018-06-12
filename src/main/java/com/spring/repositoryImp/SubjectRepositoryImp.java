@@ -167,4 +167,33 @@ public class SubjectRepositoryImp implements SubjectRepository {
 		return rowNum;
 	}
 
+	@Override
+	public List<Subject> getSubjectsByDepartmentId(long departmentId) {
+		SqlSession session = this.sessionFactory.openSession();
+		List<Subject> list = Collections.emptyList();
+		try {
+			list = session.selectList("com.spring.mapper.SubjectMapper.getSubjectsByDepartmentId", departmentId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+
+		}
+		return list;
+	}
+
+	@Override
+	public Optional<?> getSubjectInfoBySubjectId(long subjectId) {
+		SqlSession session = sessionFactory.openSession();
+		Subject list = null;
+		try {
+			list = session.selectOne("com.spring.mapper.SubjectMapper.getSubjectInfoBySubjectId", subjectId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(list);
+	}
+
 }

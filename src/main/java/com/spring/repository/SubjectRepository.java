@@ -29,4 +29,8 @@ public interface SubjectRepository {
 	int createSubject(Subject subject);
 
 	int deleteTeacherOfSubject(long subjectId, long teacherManagementId);
+
+	List<Subject> getSubjectsByDepartmentId(long departmentId);
+
+	Optional<?> getSubjectInfoBySubjectId(long subjectId);
 }

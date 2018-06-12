@@ -190,4 +190,10 @@ public class JobRest {
 		}
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/{jobId}", method = RequestMethod.GET)
+	public ResponseEntity<?> geJobByJobId(@PathVariable long jobId) {
+		Job job = this.jobService.geJobByJobId(jobId);
+		return new ResponseEntity<>(job, HttpStatus.OK);
+	}
 }

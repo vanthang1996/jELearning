@@ -41,4 +41,6 @@ public interface JobService {
 
 	public boolean submitStruc(long jobId);
 
+	public Job geJobByJobId(long jobId);
+
 }

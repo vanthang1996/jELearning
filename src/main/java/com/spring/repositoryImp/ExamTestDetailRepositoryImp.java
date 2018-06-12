@@ -48,4 +48,18 @@ public class ExamTestDetailRepositoryImp implements ExamTestDetailRepositpory {
 		}
 		return Optional.ofNullable(list);
 	}
+
+	@Override
+	public Optional<?> getExamTestBySubjectId(long subjectId) {
+		SqlSession session = this.sessionFactory.openSession();
+		List<Object> list = Collections.emptyList();
+		try {
+			list = session.selectList("com.spring.mapper.ExamTestDetailMapper.getExamTestBySubjectIdTT", subjectId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return Optional.ofNullable(list);
+	}
 }

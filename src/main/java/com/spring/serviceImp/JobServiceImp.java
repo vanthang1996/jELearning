@@ -82,4 +82,10 @@ public class JobServiceImp implements JobService {
 	public boolean submitStruc(long jobId) {
 		return this.jobRepository.progressStruc(jobId);
 	}
+
+	@Override
+	public Job geJobByJobId(long jobId) {
+		// TODO Auto-generated method stub
+		return this.jobRepository.geJobByJobId(jobId);
+	}
 }

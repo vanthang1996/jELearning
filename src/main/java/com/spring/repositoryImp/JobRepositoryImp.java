@@ -254,4 +254,17 @@ public class JobRepositoryImp implements JobRepository {
 		return rows > 0;
 	}
 
+	@Override
+	public Job geJobByJobId(long jobId) {
+		SqlSession session = sessionFactory.openSession();
+		Job result = null;
+		try {
+			result = session.selectOne("com.spring.mapper.JobMapper.findById", jobId);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return result;
+	}
 }

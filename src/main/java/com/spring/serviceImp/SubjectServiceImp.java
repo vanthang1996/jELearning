@@ -57,4 +57,16 @@ public class SubjectServiceImp implements SubjectService {
 			return true;
 		return false;
 	}
+
+	@Override
+	public List<Subject> getSubjectsByDepartmentId(long departmentId) {
+		// TODO Auto-generated method stub
+		return this.subjectRepository.getSubjectsByDepartmentId(departmentId);
+	}
+
+	@Override
+	public Optional<?> getSubjectInfoBySubjectId(long subjectId) {
+		// TODO Auto-generated method stub
+		return this.subjectRepository.getSubjectInfoBySubjectId(subjectId);
+	}
 }

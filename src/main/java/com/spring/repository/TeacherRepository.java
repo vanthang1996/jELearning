@@ -29,4 +29,10 @@ public interface TeacherRepository {
 	public Optional<?> getTeacherByDepartmentId(long departmentId);
 
 	public int updateTeacher(Teacher teacher);
+
+	public Optional<?> getTeacherInDepartmentNotInSubject(long departmentId, long subjectId);
+
+	public int insertQLMH(long teacherId, long subjectId);
+
+	public int deleteQLMH(long teacherId, long subjectId);
 }

@@ -156,5 +156,27 @@ public class TeacherRest {
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		return new ResponseEntity<>(result, HttpStatus.CONFLICT);
 	}
+	
+	@RequestMapping(value = "/department/{departmentId}/not-in-subject/{subjectId}", method = RequestMethod.GET)
+	public ResponseEntity<?> getTeacherInDepartmentNotInSubject(@PathVariable("departmentId") long departmentId, @PathVariable("subjectId") long subjectId) {
+		Optional<?> optional = this.teacherService.getTeacherInDepartmentNotInSubject(departmentId, subjectId);
+		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/add-teacher/{teacherId}/subject/{subjectId}", method = RequestMethod.GET)
+	public ResponseEntity<?> insertQLMH(@PathVariable("teacherId") long teacherId, @PathVariable("subjectId") long subjectId) {
+		boolean result = this.teacherService.insertQLMH(teacherId, subjectId);
+		if (result)
+			return new ResponseEntity<>(result, HttpStatus.CREATED);
+		return new ResponseEntity<>(result, HttpStatus.CONFLICT);
+	}
+	
+	@RequestMapping(value="/delete-teacher/{teacherId}/subject/{subjectId}", method = RequestMethod.GET)
+	public ResponseEntity<?> deleteQLMH(@PathVariable("teacherId") long teacherId, @PathVariable("subjectId") long subjectId) {
+		boolean result = this.teacherService.deleteQLMH(teacherId, subjectId);
+		if (result)
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		return new ResponseEntity<>(result, HttpStatus.CONFLICT);
+	}
 
 }
