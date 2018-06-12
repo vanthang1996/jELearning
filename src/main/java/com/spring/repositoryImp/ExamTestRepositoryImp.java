@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.spring.mapper.entities.Chapter;
 import com.spring.mapper.entities.ExamTest;
 import com.spring.repository.ExamTestRepository;
 
