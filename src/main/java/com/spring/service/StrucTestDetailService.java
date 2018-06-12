@@ -12,4 +12,6 @@ public interface StrucTestDetailService {
 	public Optional<?> getListStrucTestDetailBySubjectId(long subjectId);
 
 	public int editStructureTestDetailByChapterId(StrucTestDetail strucTestDetail);
+
+	public Optional<?> showStrucDetailBySubjectId(long subjectId);
 }

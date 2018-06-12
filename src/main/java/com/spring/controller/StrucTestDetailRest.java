@@ -27,6 +27,13 @@ public class StrucTestDetailRest {
 
 	}
 
+	@RequestMapping(value = "/{subjectId}/struc-detail")
+	public ResponseEntity<?> strucDetail(@PathVariable long subjectId) {
+		Optional<?> optional = this.strucTestDetailService.showStrucDetailBySubjectId(subjectId);
+		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
+
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public ResponseEntity<?> editStructureTestDetailByChapterId(@RequestBody StrucTestDetail strucTestDetail) {
 		int result = this.strucTestDetailService.editStructureTestDetailByChapterId(strucTestDetail);

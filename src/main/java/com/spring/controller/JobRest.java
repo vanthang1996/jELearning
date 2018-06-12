@@ -160,7 +160,8 @@ public class JobRest {
 		Optional<?> optional = this.jobService.getJobByTeacherId(teacherId);
 		return new ResponseEntity<>(optional.orElse(null), HttpStatus.OK);
 	}
-// duyệt công việc
+
+	// duyệt công việc
 	@RequestMapping(value = "/review-job/{jobId}")
 	public ResponseEntity<?> reviewOutLine(@PathVariable long jobId) {
 		Job job = this.jobService.getJobByJobId(jobId);
@@ -170,12 +171,13 @@ public class JobRest {
 		else
 			result = this.jobService.reviewQuestion(jobId);
 		if (result) {
-			ApiMessage apiMessage = new ApiMessage(HttpStatus.NOT_FOUND, "Lỗi");
-			return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
+			return new ResponseEntity<>(result, HttpStatus.OK);
 		}
-		return new ResponseEntity<>(result, HttpStatus.OK);
+		ApiMessage apiMessage = new ApiMessage(HttpStatus.NOT_FOUND, "Lỗi");
+		return new ResponseEntity<>(apiMessage, apiMessage.getStatusCode());
 	}
-// nộp công việc chuyển trạng thái tiến độ công việc
+
+	// nộp công việc chuyển trạng thái tiến độ công việc
 	@RequestMapping(value = "/submit-job/{jobId}")
 	public ResponseEntity<?> submitJob(@PathVariable long jobId) {
 		Job job = this.jobService.getJobByJobId(jobId);

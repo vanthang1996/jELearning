@@ -57,4 +57,15 @@ public class SubjectServiceImp implements SubjectService {
 			return true;
 		return false;
 	}
+
+	@Override
+	public Optional<?> getSubjectBySubjectIdAllStatus(long subjectId) {
+		return this.subjectRepository.getSubjectBySubjectIdAllStatus(subjectId);
+	}
+
+	@Override
+	public boolean updateStatus(long subjectId, boolean status) {
+
+		return this.subjectRepository.updateStatus(subjectId, status);
+	}
 }
