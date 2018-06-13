@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.dao.ChapterDao;
 import com.spring.dao.ExamDao;
 import com.spring.mapper.entities.StructureTest;
 import com.spring.repository.StructureTestRepository;
@@ -36,5 +37,10 @@ public class StructureTestServiceImp implements StructureTestService {
 	public ExamDao getExamByStrucId(long strucTestDetailId) throws SQLException {
 		// TODO Auto-generated method stub
 		return this.structureTestRepository.getDeThiByIdMaCtdt(strucTestDetailId);
+	}
+	@Override
+	public void addCauHoiIntoChuong(ChapterDao chapterDao) {
+	 this.structureTestRepository.addCauHoiIntoChuong(chapterDao);
+		
 	}
 }

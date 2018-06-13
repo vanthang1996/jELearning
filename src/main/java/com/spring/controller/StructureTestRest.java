@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.config.jwt.JwtService;
+import com.spring.dao.ChapterDao;
 import com.spring.domain.ApiMessage;
 import com.spring.mapper.entities.Department;
 import com.spring.mapper.entities.NotifyMessage;
@@ -78,5 +79,11 @@ public class StructureTestRest {
 			return new ResponseEntity<>(result, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(result, HttpStatus.CONFLICT);
+	}
+
+	@RequestMapping(value = "/chapter-dao", method = RequestMethod.POST)
+	public ResponseEntity<?> chapterDao(@RequestBody ChapterDao chapterDao) {
+		 this.structureTestService.addCauHoiIntoChuong(chapterDao);
+		return new ResponseEntity<>(chapterDao, HttpStatus.OK);
 	}
 }
