@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.AnswerMapper">
+	<resultMap type="com.spring.mapper.entities.Answer"
+		id="answerResult">
+		<id column="MADAPAN" property="answerId" />
+		<id column="MACH" property="questionId" />
+		<result column="NOIDUNG" property="content" />
+		<result column="DAPANDUNG" property="correctAnswer" />
+	</resultMap>
+
+
+	<select id="getAllRecord" resultMap="answerResult"
+		resultType="java.util.List">
+		select k.* from DAP_AN k
+	</select>
+
+
+	<select id="getAnswerByQuestionId" parameterType="long"
+		resultType="java.util.List" resultMap="answerResult">
+		select * from DAP_AN where MACH
+		= #{questionId}
+	</select>
+
+	<select id="addAnswer" statementType="CALLABLE"
+		parameterType="java.util.Map">
+		{ call proc_add_dapan(#{answer.questionId},
+		#{answer.content},
+		#{answer.correctAnswer}, #{answerId, mode=OUT,
+		jdbcType=BIGINT}) }
+	</select>
+	<select id="findById" parameterType="long"
+		resultMap="answerResult">
+		select * from DAP_AN where MADAPAN=#{answerId}
+	</select>
+	<update id="updateAnswer"
+		parameterType="com.spring.mapper.entities.Answer">
+		UPDATE DAP_AN
+		SET MACH =#{questionId}
+		, NOIDUNG=
+		#{content}
+		, DAPANDUNG =
+		#{correctAnswer}
+		WHERE MADAPAN=#{answerId}
+	</update>
+	<delete id="deleteAnswerById" parameterType="long">
+		delete from DAP_AN where MADAPAN=#{answerId}
+	</delete>
+
+
+</mapper>

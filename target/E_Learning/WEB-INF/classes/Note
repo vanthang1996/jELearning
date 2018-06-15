@@ -1,0 +1,9 @@
+<beans></beans>   với <beans:beans></beans:beans> : xác định thẻ thuộc namespace nào ở xmlns.
+xmlns là gì? Giải quyết vấn đề trùng tên trong tài liệu XML
+
+
+** Thêm cột trạng thái giáo viên
+
+Cors là cái gì? tại sao lại sử dụng, khi nào sử dụng/ Same-Origin Policy:  một biện pháp bảo mật an ninh hạn chế sự tương tác giua 2 document có nguồn gốc khác nhau
+Sử dụng Cross Origin Resource Sharing CORS cung cấp 1 giai pháp cho server để “nhắn” tới client rằng: “OK, thằng domain  A có thể đọc data từ thằng domain B” bằng cách thêmAccess-Control-Allow-Origin HTTP header  vào response
+Authorization không thể gửi từ clien đến server nếu không có cors?

@@ -19,7 +19,7 @@ import com.spring.service.NotifyMessageService;
 import com.spring.service.StrucTestDetailService;
 import com.spring.service.TeacherService;
 
-//@Ignore
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/root-context.xml")
 @WebAppConfiguration

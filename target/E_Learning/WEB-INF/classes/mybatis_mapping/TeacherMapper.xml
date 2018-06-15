@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.TeacherMapper">
+	<resultMap type="com.spring.mapper.entities.Teacher"
+		id="teacherResult">
+		<id column="MAGV" property="teacherId" />
+		<result column="HOGV" property="firstName" />
+		<result column="TENGV" property="lastName" />
+		<result column="NGAYSINH" property="birthDay" />
+		<result column="EMAIL" property="email" />
+		<result column="ANHGV" property="avatar" />
+		<result column="DIACHI" property="address" />
+		<result column="DIENTHOAI" property="phoneNumber" />
+		<result column="GIOITINH" property="sex" />
+		<result column="MABOMON" property="departmentId" />
+		<collection column="MAGV"
+			select="com.spring.mapper.JobMapper.getJobByTeacherId"
+			property="jobs" />
+		<collection column="MAGV"
+			select="com.spring.mapper.SubjectMapper.getSubjectByTeacherId"
+			property="subjects" />
+	</resultMap>
+	<resultMap type="com.spring.mapper.entities.Teacher"
+		id="teacherResult_no_collection">
+		<id column="MAGV" property="teacherId" />
+		<result column="HOGV" property="firstName" />
+		<result column="TENGV" property="lastName" />
+		<result column="NGAYSINH" property="birthDay" />
+		<result column="EMAIL" property="email" />
+		<result column="ANHGV" property="avatar" />
+		<result column="DIACHI" property="address" />
+		<result column="DIENTHOAI" property="phoneNumber" />
+		<result column="GIOITINH" property="sex" />
+		<result column="MABOMON" property="departmentId" />
+	</resultMap>
+	<resultMap type="com.spring.mapper.entities.Teacher"
+		id="teacherResult_add">
+		<id column="MAGV" property="teacherId" />
+		<result column="HOGV" property="firstName" />
+		<result column="TENGV" property="lastName" />
+		<result column="NGAYSINH" property="birthDay" />
+		<result column="EMAIL" property="email" />
+		<result column="ANHGV" property="avatar" />
+		<result column="DIACHI" property="address" />
+		<result column="DIENTHOAI" property="phoneNumber" />
+		<result column="GIOITINH" property="sex" />
+		<result column="MABOMON" property="departmentId" />
+		<result column="MATKHAU" property="password" />
+	</resultMap>
+
+	<select id="getTeacherBySubjectId" parameterType="long"
+		resultMap="teacherResult_no_collection">
+		select GIANG_VIEN.* from QUAN_LY_MH join GIANG_VIEN on
+		GIANG_VIEN.MAGV = QUAN_LY_MH.MAGV where QUAN_LY_MH.MAMON
+		=#{subjectId}
+		and GIANG_VIEN.TRANGTHAI=1
+	</select>
+
+	<select id="getAllRecord" resultMap="teacherResult"
+		resultType="java.util.List">
+		select m.* from GIANG_VIEN m where m.TRANGTHAI=1
+	</select>
+
+	<select id="getAllRecordNoStatus" resultMap="teacherResult"
+		resultType="java.util.List">
+		select m.* from GIANG_VIEN m
+	</select>
+
+	<select id="getTeacherByDepartmentId" resultMap="teacherResult"
+		resultType="java.util.List" parameterType="long">
+		select * from GIANG_VIEN
+		where MABOMON = #{departmentId} and TRANGTHAI=1
+	</select>
+
+	<select id="getTeacherByDepartmentIdNoStatus"
+		resultMap="teacherResult" resultType="java.util.List"
+		parameterType="long">
+		select * from GIANG_VIEN
+		where MABOMON = #{departmentId}
+	</select>
+
+	<select id="getRoleOfUserByEmail" resultType="java.lang.String"
+		statementType="CALLABLE" parameterType="java.lang.String">
+		select * from
+		RoleOfUser(#{email})
+	</select>
+	<select id="getTeacherByEmail" resultMap="teacherResult"
+		parameterType="java.lang.String">
+		select * from giang_vien where email=#{email}
+	</select>
+	<select id="getTeacherByTeacherManagementId"
+		resultMap="teacherResult_no_collection" parameterType="long">
+		select * from
+		giang_vien where magv=#{teacherId}
+	</select>
+	<select id="createTeacher"
+		resultMap="teacherResult_no_collection"
+		parameterType="com.spring.mapper.entities.Teacher">
+		{ call
+		p_themGiangVien(#{firstName}, #{lastName},
+		#{birthDay}, #{email}, #{password}, #{avatar},
+		#{address},
+		#{phoneNumber}, #{sex}, #{departmentId}, 1)
+		}
+	</select>
+	<update id="updateTeacher">
+		UPDATE GIANG_VIEN
+		SET HOGV = #{firstName}, TENGV =
+		#{lastName}, NGAYSINH = #{birthDay}, EMAIL = #{email}, ANHGV =
+		#{avatar}, DIACHI = #{address}, DIENTHOAI =
+		#{phoneNumber}, GIOITINH =
+		#{sex}
+		WHERE MAGV = #{teacherId} AND MABOMON
+		= #{departmentId} AND
+		TRANGTHAI = 1
+	</update>
+
+	<insert id="insertQLMH">
+		insert into
+		QUAN_LY_MH(MAGV, MAMON) values
+		(#{teacherId}, #{subjectId});
+	</insert>
+	<delete id="deleteQLMH">
+		delete from QUAN_LY_MH
+		where MAGV=#{teacherId} and
+		MAMON=#{subjectId}
+	</delete>
+	<select id="getTeacherInDepartmentNotInSubject"
+		resultMap="teacherResult_no_collection">
+		declare @departmentId int = #{departmentId}, @subjectId int
+		=#{subjectId};
+		<!-- select magv from QUAN_LY_MH where MAMON=@subjectId; -->
+		select * from GIANG_VIEN where MABOMON = @departmentId and magv not in
+		(select magv from QUAN_LY_MH where MAMON=@subjectId);
+	</select>
+
+	<select id="findById" parameterType="long"
+		resultMap="teacherResult">
+		select * from GIANG_VIEN where MAGV=#{teacherId}
+	</select>
+</mapper>
