@@ -1,7 +1,9 @@
 package com.spring.repositoryImp;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.apache.ibatis.session.SqlSession;
@@ -61,5 +63,25 @@ public class ExamTestDetailRepositoryImp implements ExamTestDetailRepositpory {
 			session.close();
 		}
 		return Optional.ofNullable(list);
+	}
+
+	@Override
+	public int insertQuestion(long examTestId, long questionId, double score, int position) {
+		SqlSession session = this.sessionFactory.openSession();
+		int row = 0;
+		Map<String, Object> param = new HashMap<>();
+		param.put("examTestId", examTestId);
+		param.put("questionId", questionId);
+		param.put("score", score);
+		param.put("position", position);
+		try {
+			row = session.insert("com.spring.mapper.ExamTestDetailMapper.insertQuestion", param);
+
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return row;
 	}
 }

@@ -10,4 +10,13 @@ public interface ExamTestDetailRepositpory {
 
 	public Optional<?> getExamTestBySubjectId(long subjectId);
 
+	/**
+	 * @param examTestId
+	 * @param questionId
+	 * @param score
+	 * @param i
+	 * @return  
+	 */
+	public int insertQuestion(long examTestId, long questionId, double score, int i);
+
 }
