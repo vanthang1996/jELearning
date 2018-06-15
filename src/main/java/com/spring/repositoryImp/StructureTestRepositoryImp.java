@@ -76,47 +76,7 @@ public class StructureTestRepositoryImp implements StructureTestRepository {
 		}
 		return rowNum > 0;
 	}
-	//
-	// public ExamTest createExamTest(long structureTestId) {
-	// SqlSession session = sessionFactory.openSession();
-	// List<StrucTestDetail> list = null;
-	// try {
-	// list =
-	// session.selectList("com.spring.mapper.StructureTestMapper.getListStrucDetalByStrucId",
-	// structureTestId);
-	// } catch (Exception e) {
-	// logger.error(e.getMessage());
-	// } finally {
-	// session.close();
-	// }
-	// for (StrucTestDetail strucTestDetail : list) {
-	// getListQuestionDetail(strucTestDetail.getChapterId(),
-	// strucTestDetail.getChapter().getSubjectId(), strucTestDetail.getLevelId(),
-	// strucTestDetail.getNumberOfQuestion());
-	// }
-	// return null;
-	// }
-	//
-	// public List<?> getListQuestionDetail(long chapterId, long subjectId, long
-	// levelId, int numberOfQuestion) {
-	// SqlSession session = sessionFactory.openSession();
-	// List<Object> list = null;
-	// Map<String, Object> param = new HashMap<>();
-	// param.put("chapterId", chapterId);
-	// param.put("subjectId", subjectId);
-	// param.put("levelId", levelId);
-	// param.put("numberOfQuestion", numberOfQuestion);
-	// try {
-	// list =
-	// session.selectList("com.spring.mapper.StructureTestMapper.createExamTest",
-	// param);
-	// } catch (Exception e) {
-	// logger.error(e.getMessage());
-	// } finally {
-	// session.close();
-	// }
-	// return list;
-	// }
+	
 
 	// function1 (mã cấu trúc đề thi) trả về de thi dao
 	// lấy đối tượng từ mã trên
@@ -164,6 +124,7 @@ public class StructureTestRepositoryImp implements StructureTestRepository {
 	}
 
 	// 2
+	@Override
 	public void addCauHoiIntoChuong(ChapterDao chapter) {
 		SqlSession session = sessionFactory.openSession();
 		Connection connection = session.getConnection();

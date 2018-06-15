@@ -3,6 +3,7 @@ package com.spring.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.spring.dao.ChapterDao;
 import com.spring.dao.ExamDao;
 import com.spring.mapper.entities.StructureTest;
 
@@ -15,5 +16,7 @@ public interface StructureTestService {
 	public boolean updateStatus(long subjectId);
 
 	public ExamDao getExamByStrucId(long strucTestDetailId) throws SQLException;
+
+	public void addCauHoiIntoChuong(ChapterDao chapterDao);
 
 }
