@@ -9,7 +9,7 @@
 		<result column="MAGV" property="teacherManagementId" />
 		<result column="TRANGTHAI" property="status" />
 		<result column="SLDETOIDA" property="maxStructure" />
-		<collection column="MACTDT" property="strucTestDetails"  select="com.spring.mapper.StrucTestDetailMapper.getListStrucDetalByStrucId"></collection>
+		<!-- <collection column="MACTDT" property="strucTestDetails"  select="com.spring.mapper.StrucTestDetailMapper.getListStrucDetalByStrucId"></collection> -->
 	</resultMap>
 
 	<select id="getAllRecord" resultMap="structureTestResult"
@@ -40,9 +40,4 @@
 	<update id="updateStatus" parameterType="java.util.Map">
 		update CAU_TRUC_DE_THI set TRANGTHAI=#{status} where MAMON=#{subjectId}
 	</update>
-	<select id="createExamTest">
-		{
-		 call addDeThi(#{chapterId}, #{subjectId}, #{levelId}, #{numberOfQuestion})
-		}
-	</select>
 </mapper>

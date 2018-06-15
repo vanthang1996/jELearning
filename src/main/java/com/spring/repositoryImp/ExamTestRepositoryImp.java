@@ -1,7 +1,9 @@
 package com.spring.repositoryImp;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -10,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.dao.ExamDao;
 import com.spring.mapper.entities.ExamTest;
 import com.spring.repository.ExamTestRepository;
 
@@ -46,5 +49,24 @@ public class ExamTestRepositoryImp implements ExamTestRepository {
 			session.close();
 		}
 		return exam;
+	}
+
+	/* return id insert */
+	@Override
+	public long insertExamDao(ExamDao examDao) {
+		SqlSession session = sessionFactory.openSession();
+		Map<String, Object> param = new HashMap<>();
+		param.put("examDao", examDao);
+		long id = 0;
+
+		try {
+			session.insert("com.spring.mapper.ExamTestMapper.insertExamDao", param);
+			id = examDao.getExamTestId();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		} finally {
+			session.close();
+		}
+		return id;
 	}
 }

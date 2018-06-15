@@ -7,19 +7,25 @@
 		<id column="MACH" property="questionId" />
 		<result column="VITRIDAPANDUNG" property="correctLocation" />
 		<result column="DIEM" property="score" />
-		<association column="MACH"  property="question"  select="com.spring.mapper.QuestionMapper.getQuestionByQuestionId"/>
+		<association column="MACH" property="question"
+			select="com.spring.mapper.QuestionMapper.getQuestionByQuestionId" />
 	</resultMap>
 
 	<select id="getAllRecord" resultMap="examTestDetailResult"
 		resultType="java.util.List">
 		select k.* from CHI_TIET_DE_THI k
 	</select>
-	
-	<select id="getExamTestDetailById" resultMap="examTestDetailResult"
-		resultType="java.util.List">
+
+	<select id="getExamTestDetailById"
+		resultMap="examTestDetailResult" resultType="java.util.List">
 		SELECT *
-		FROM CHI_TIET_DE_THI
+		FROM
+		CHI_TIET_DE_THI
 		WHERE MADETHI = #{examTestId}
 	</select>
+	<insert id="insertQuestion" parameterType="java.util.Map">
+		INSERT INTO CHI_TIET_DE_THI(MADETHI, MACH, VITRIDAPANDUNG, DIEM)
+		VALUES (#{examTestId}, #{questionId}, #{position}, #{score});
+	</insert>
 
 </mapper>
