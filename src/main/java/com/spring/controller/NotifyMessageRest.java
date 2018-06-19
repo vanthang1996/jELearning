@@ -40,7 +40,7 @@ public class NotifyMessageRest {
 		this.messagingTemplate.convertAndSendToUser(message.getUser(), "/person/message", message.getMessage());
 	}
 
-	@RequestMapping(value = "/notify", method = RequestMethod.GET)
+	@RequestMapping(value = "/notify-list", method = RequestMethod.GET)
 	public ResponseEntity<?> getNotify(HttpServletRequest request,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			@RequestParam(value = "size", required = false, defaultValue = "10") int size) {
